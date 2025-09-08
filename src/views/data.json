@@ -1,0 +1,305 @@
+{
+    "userList": [
+        {
+            "id": 1,
+            "name": "Rodrigo Constantino",
+            "email": "rodrigo.constantino@example.com",
+            "votes": 492533,
+            "yieldRate": 78,
+            "avatar": "/p1.png",
+            "rank": 11,
+            "isVoted": false
+        },
+        {
+            "id": 2,
+            "name": "Samy Dana",
+            "email": "samy.dana@example.com",
+            "votes": 571659,
+            "yieldRate": 45,
+            "avatar": "/p2.png",
+            "rank": 6,
+            "isVoted": false
+        },
+        {
+            "id": 3,
+            "name": "Thiago Nigro",
+            "email": "charlie@example.com",
+            "votes": 388744,
+            "yieldRate": 92,
+            "avatar": "/p3.png",
+            "rank": 29,
+            "isVoted": false
+        },
+        {
+            "id": 4,
+            "name": "Augusto Nunes",
+            "email": "david@example.com",
+            "votes": 645542,
+            "yieldRate": 23,
+            "avatar": "/p4.png",
+            "rank": 1,
+            "isVoted": false
+        },
+        {
+            "id": 5,
+            "name": "Josh Lerner",
+            "email": "eve@example.com",
+            "votes": 425647,
+            "yieldRate": 67,
+            "avatar": "/p5.png",
+            "rank": 24,
+            "isVoted": false
+        },
+        {
+            "id": 6,
+            "name": "Marcelo Claure",
+            "email": "frank@example.com",
+            "votes": 549895,
+            "yieldRate": 51,
+            "avatar": "/p6.png",
+            "rank": 9,
+            "isVoted": false
+        },
+        {
+            "id": 7,
+            "name": "David Feffer",
+            "email": "grace@example.com",
+            "votes": 466745,
+            "yieldRate": 89,
+            "avatar": "/p7.png",
+            "rank": 20,
+            "isVoted": false
+        },
+        {
+            "id": 8,
+            "name": "Elie Horn",
+            "email": "hank@example.com",
+            "votes": 366556,
+            "yieldRate": 34,
+            "avatar": "/p8.png",
+            "rank": 30,
+            "isVoted": false
+        },
+        {
+            "id": 9,
+            "name": "Eduardo Sirotsky Melzer",
+            "email": "ivy@example.com",
+            "votes": 601254,
+            "yieldRate": 76,
+            "avatar": "/p9.png",
+            "rank": 4,
+            "isVoted": false
+        },
+        {
+            "id": 10,
+            "name": "Caio Paes de Andrade",
+            "email": "jack@example.com",
+            "votes": 475688,
+            "yieldRate": 18,
+            "avatar": "/p10.png",
+            "rank": 15,
+            "isVoted": false
+        },
+        {
+            "id": 11,
+            "name": "Joice Toyota Mendes",
+            "email": "kathy@example.com",
+            "votes": 581452,
+            "yieldRate": 63,
+            "avatar": "/p11.png",
+            "rank": 5,
+            "isVoted": false
+        },
+        {
+            "id": 12,
+            "name": "Fabio Alperowitch",
+            "email": "liam@example.com",
+            "votes": 394845,
+            "yieldRate": 41,
+            "avatar": "/p12.png",
+            "rank": 28,
+            "isVoted": false
+        },
+        {
+            "id": 13,
+            "name": "Guilherme Leal",
+            "email": "mia@example.com",
+            "votes": 623455,
+            "yieldRate": 95,
+            "avatar": "/p13.png",
+            "rank": 2,
+            "isVoted": false
+        },
+        {
+            "id": 14,
+            "name": "Luiza Helena Trajano",
+            "email": "noah@example.com",
+            "votes": 418453,
+            "yieldRate": 27,
+            "avatar": "/p14.png",
+            "rank": 25,
+            "isVoted": false
+        },
+        {
+            "id": 15,
+            "name": "André Esteves",
+            "email": "olivia@example.com",
+            "votes": 531785,
+            "yieldRate": 82,
+            "avatar": "/p15.png",
+            "rank": 10,
+            "isVoted": false
+        },
+        {
+            "id": 16,
+            "name": "Colin  Sebastian",
+            "email": "peter@example.com",
+            "votes": 467254,
+            "yieldRate": 68,
+            "avatar": "/p16.png",
+            "rank": 18,
+            "isVoted": false
+        },
+        {
+            "id": 17,
+            "name": "Pedro Lyon",
+            "email": "quinn@example.com",
+            "votes": 466852,
+            "yieldRate": 65,
+            "avatar": "/p17.png",
+            "rank": 19,
+            "isVoted": false
+        },
+        {
+            "id": 18,
+            "name": "MARCELO MESQUITA",
+            "email": "rachel@example.com",
+            "votes": 469552,
+            "yieldRate": 73,
+            "avatar": "/p18.png",
+            "rank": 16,
+            "isVoted": false
+        },
+        {
+            "id": 19,
+            "name": "Duarte Enzo",
+            "email": "sam@example.com",
+            "votes": 468545,
+            "yieldRate": 61,
+            "avatar": "/p19.png",
+            "rank": 17,
+            "isVoted": false
+        },
+        {
+            "id": 20,
+            "name": "Luciano Hang",
+            "email": "tina@example.com",
+            "votes": 611235,
+            "yieldRate": 87,
+            "avatar": "/p20.png",
+            "rank": 3,
+            "isVoted": false
+        },
+        {
+            "id": 21,
+            "name": "Rubens Ometto",
+            "email": "uma@example.com",
+            "votes": 454658,
+            "yieldRate": 31,
+            "avatar": "/p21.png",
+            "rank": 21,
+            "isVoted": false
+        },
+        {
+            "id": 22,
+            "name": "Wilson Pinto Ferreira Júnior",
+            "email": "victor@example.com",
+            "votes": 478962,
+            "yieldRate": 69,
+            "avatar": "/p22.png",
+            "rank": 14,
+            "isVoted": false
+        },
+        {
+            "id": 23,
+            "name": "Brit Morin",
+            "email": "wendy@example.com",
+            "votes": 559847,
+            "yieldRate": 48,
+            "avatar": "/p23.png",
+            "rank": 8,
+            "isVoted": false
+        },
+        {
+            "id": 24,
+            "name": "Paulo Kakinoff",
+            "email": "xavier@example.com",
+            "votes": 401546,
+            "yieldRate": 85,
+            "avatar": "/p24.png",
+            "rank": 27,
+            "isVoted": false
+        },
+        {
+            "id": 25,
+            "name": "Daniel Dantas",
+            "email": "yara@example.com",
+            "votes": 569504,
+            "yieldRate": 62,
+            "avatar": "/p25.png",
+            "rank": 7,
+            "isVoted": false
+        },
+        {
+            "id": 26,
+            "name": "Luis Stuhlberger",
+            "email": "zoe@example.com",
+            "votes": 434578,
+            "yieldRate": 74,
+            "avatar": "/p26.png",
+            "rank": 23,
+            "isVoted": false
+        },
+        {
+            "id": 27,
+            "name": "Mansueto Almeida",
+            "email": "aaron@example.com",
+            "votes": 492365,
+            "yieldRate": 55,
+            "avatar": "/p27.png",
+            "rank": 12,
+            "isVoted": false
+        },
+        {
+            "id": 28,
+            "name": "André Gerdau Johannpeter",
+            "email": "bella@example.com",
+            "votes": 405885,
+            "yieldRate": 88,
+            "avatar": "/p28.png",
+            "rank": 26,
+            "isVoted": false
+        },
+        {
+            "id": 29,
+            "name": "Ricardo Lacerda",
+            "email": "carlos@example.com",
+            "votes": 483256,
+            "yieldRate": 36,
+            "avatar": "/p29.png",
+            "rank": 13,
+            "isVoted": false
+        },
+        {
+            "id": 30,
+            "name": "Paulo Skaf",
+            "email": "diana@example.com",
+            "votes": 443165,
+            "yieldRate": 91,
+            "avatar": "/p30.png",
+            "rank": 22,
+            "isVoted": false
+        }
+    ],
+    "endDate": "2025-09-01T23:59:59Z"
+}

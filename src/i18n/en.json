@@ -1,0 +1,24 @@
+{
+  "CampaignRules": "CampaignRules",
+  "Home": "Home",
+  "toast1": "You've already voted.",
+  "toast2": "Vote successful.",
+  "t1": "Participants",
+  "tab1": "All",
+  "tab2": "Popularity Ranking",
+  "tab3": "Revenue Ranking",
+  "detail": "Details",
+  "cardT1": "Current Votes:",
+  "cardT2": "Overall Rank:",
+  "cardT3": "Total Revenue:",
+  "time1": "Time Out",
+  "time2": "Countdown to the next event",
+  "day": "Day",
+  "hour": "Hour",
+  "minute": "Minute",
+  "second": "Second",
+  "cardT4": "Vote",
+  "CompanyProfile": {
+    "CompanyProfile": "CompanyProfile"
+  }
+}

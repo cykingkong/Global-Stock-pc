@@ -1,0 +1,28 @@
+{
+    "CampaignRules": "Reglas de la Campaña",
+    "Home": "Inicio",
+    "toast1": "Ya has votado.",
+    "toast2": "Voto exitoso.",
+    "t1": "Participantes",
+    "tab1": "Todos",
+    "tab2": "Clasificación por Popularidad",
+    "tab3": "Clasificación por Ingresos",
+    "detail": "Detalles",
+    "cardT1": "Votos Actuales:",
+    "cardT2": "Clasificación General:",
+    "cardT3": "Ingresos Totales:",
+    "time1": "Tiempo Agotado",
+    "time2": "Cuenta regresiva para el próximo evento",
+    "day": "Día",
+    "hour": "Hora",
+    "minute": "Minuto",
+    "Days": "Día",
+    "Hours": "Hora",
+    "Minutes": "Minuto",
+    "second": "Segundo",
+    "Seconds": "Segundo",
+    "cardT4": "Votar",
+    "CompanyProfile": {
+        "CompanyProfile": "Perfil de la Empresa"
+    }
+}

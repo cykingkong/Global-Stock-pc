@@ -1,0 +1,44 @@
+{
+  "name": "electioneer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "format": "prettier --write src/"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "dayjs": "^1.11.13",
+    "lucide-vue-next": "^0.344.0",
+    "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^4.3.0",
+    "swiper": "^11.0.7",
+    "vant": "^4.9.19",
+    "vue": "^3.4.21",
+    "vue-i18n": "^9.9.1",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@arco-design/web-vue": "^2.57.0",
+    "@rushstack/eslint-patch": "^1.7.2",
+    "@unocss/preset-rem-to-px": "^66.1.3",
+    "@unocss/vite": "^66.1.3",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "autoprefixer": "^10.4.18",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.22.0",
+    "postcss": "^8.4.35",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^3.4.1",
+    "unocss": "^66.1.3",
+    "unplugin-auto-import": "^19.3.0",
+    "unplugin-vue-components": "^28.7.0",
+    "vite": "^5.1.6"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+}
