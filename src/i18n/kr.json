@@ -1,0 +1,28 @@
+{
+    "CampaignRules": "캠페인 규칙",
+    "Home": "홈",
+    "toast1": "이미 투표하셨습니다",
+    "toast2": "투표가 완료되었습니다",
+    "t1": "참가자",
+    "tab1": "전체",
+    "tab2": "인기 순위",
+    "tab3": "수익 순위",
+    "detail": "상세 정보",
+    "cardT1": "현재 투표 수:",
+    "cardT2": "종합 순위:",
+    "cardT3": "총 수익:",
+    "time1": "시간 종료",
+    "time2": "다음 이벤트까지 카운트다운",
+    "day": "일",
+    "hour": "시간",
+    "minute": "분",
+    "Days": "일",
+    "Hours": "시간",
+    "Minutes": "분",
+    "second": "초",
+    "Seconds": "초",
+    "cardT4": "투표",
+    "CompanyProfile": {
+        "CompanyProfile": "회사 프로필"
+    }
+}

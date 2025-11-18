@@ -20,7 +20,7 @@
                     <a-col :span="8" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                         <div class="r px-24px">
                             <div v-if="html" v-html="html"></div>
-                            <a-button :type="userInfo.isVote ? 'primary' : 'dashed'" class="w-120px mt-20 "
+                            <a-button :type="!userInfo.isVote ? 'primary' : 'dashed'" class="w-120px mt-20 "
                                 @click="handleClickBtn()">{{
                                     t('cardT4') }}</a-button>
                         </div>
@@ -54,7 +54,7 @@ const getVotesDetail = async (id) => {
         if (res.data.code == 200) {
             userInfo.value = res.data.data
             console.log(res.data.data[locale.value])
-            html.value = textToJsonString(userInfo.value[locale.value])
+            html.value = textToJsonString(userInfo.value[locale.value == 'pt' ? 'es' : 'en'])
         }
     })
 }
@@ -65,7 +65,7 @@ watch(() => locale.value, (newVal, oldVal) => {
     }
 }, { deep: true })
 const handleClickBtn = () => {
-    if (!userInfo.value.isVote) {
+    if (userInfo.value.isVote) {
         return
     }
     let params = {

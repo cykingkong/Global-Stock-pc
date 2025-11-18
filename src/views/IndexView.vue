@@ -106,7 +106,6 @@
         <!-- 列表 -->
         <div class="list-content bg-#fff px-12px">
           <div class="list-main max-w-1300px py-80px mx-auto flex justify-between items-center color-#000">
-
             <div class="list-left flex flex-col col-8 w-full">
               <div class="font-size-24px font-weight-600 w-full">{{ t('t1') }}</div>
               <div class="tab-box flex gap-20px py-20px">
@@ -114,7 +113,6 @@
                   @click="handleClickSort(index)">{{ t(item.name) }}</a-button>
               </div>
               <a-spin :loading="loading" tip="loading..." class="w-full">
-
                 <a-row :gutter="[16, 16]" class="w-full">
                   <a-empty class="w-full" v-if="!voteData.length" :description="'noData'"></a-empty>
                   <a-col :span="8" :xs="12" :sm="12" :md="8" :lg="4" :xl="4" v-for="(user, index) in voteData"
@@ -134,13 +132,9 @@
                       <a-card-meta title="" description="This is the description">
                         <template #description>
                           <div class="flex-col flex justify-center items-center gap-12px">
-                            <div class="flex justify-between items-center w-full">
-                              <div class="l white-space-nowrap">
-                                {{ t('cardT1') }}：{{ user.votes || 0 }}
-                              </div>
-                              <div class="r white-space-nowrap">
-                                {{ t('cardT2') }}：{{ index + 1 }}
-                              </div>
+                            <div class="flex justify-between items-center w-full sm:flex-row flex-col gap-8px">
+                              <div class="l">{{ t('cardT1') }}：{{ user.votes || 0 }}</div>
+                              <div class="r">{{ t('cardT2') }}：{{ index + 1 }}</div>
                             </div>
                             <div class="name font-size-24px font-weight-600 h-80px">
                               {{ user.id }}.{{ user.name }}
@@ -148,9 +142,8 @@
                             <div class="name font-size-18px font-weight-600">
                               {{ t('cardT3') }}：{{ user.yieldRate || 0 }}%
                             </div>
-                            <a-button class="" :type="user.isVote ? 'primary' : 'dashed'"
-                              @click="handleClickBtn(user)">{{
-                                t('cardT4') }}</a-button>
+                            <a-button class="" :type="!user.isVote ? 'primary' : 'dashed'"
+                              @click="handleClickBtn(user)">{{ t('cardT4') }}</a-button>
                           </div>
                         </template>
                       </a-card-meta>
@@ -158,7 +151,6 @@
                   </a-col>
                 </a-row>
               </a-spin>
-
             </div>
             <div class="list-right flex items-center col-4"></div>
           </div>
@@ -214,7 +206,7 @@ const Urlopen = () => {
   window.location.href = isWeb
 }
 const tabs = ref([
-  { name: 'tab1', key: '' },
+  { name: 'tab1', key: 'votes' },
   { name: 'tab2', key: 'votes' },
   { name: 'tab3', key: 'yieldRate' },
 ])
@@ -390,11 +382,10 @@ const languages = [
   { code: 'en', name: 'English' },
   { code: 'pt', name: 'Português ' },
   { code: 'es', name: 'Español ' },
-
 ]
 
 const handleClickBtn = (item) => {
-  if (!item.isVote) {
+  if (item.isVote) {
     return
   }
   let params = {
@@ -409,7 +400,10 @@ const handleClickBtn = (item) => {
     if (res.data.code == 200) {
       console.log(res.data)
       showSuccessToast(t('toast2'))
-      getVoteUserList()
+      getVoteUserList({
+        orderKey: tabs.value[active.value].key,
+        orderSort: 'desc',
+      })
       return
     }
   })
@@ -1167,5 +1161,9 @@ onUnmounted(() => {
 .userImg:hover img {
   transform: scale(1.1);
   transition: all 0.3s ease-in-out;
+}
+
+.white-space-nowrap {
+  word-break: break-all;
 }
 </style>

@@ -32,10 +32,12 @@ const swiperData = ref(useStore.swiperList)
 const current = ref(0)
 const articleInfo = ref()
 const getArticleInfo = async () => {
-  api.get('/api/vote/voteArticleInfo', { params: { articleId: 31 } }).then((res) => {
-    console.log(res)
-    articleInfo.value = res.data.data
-  })
+  api
+    .get('/api/vote/voteArticleInfo', { params: { articleId: 31, busKey: 'company_profile' } })
+    .then((res) => {
+      console.log(res)
+      articleInfo.value = res.data.data
+    })
 }
 onMounted(() => {
   getArticleInfo()

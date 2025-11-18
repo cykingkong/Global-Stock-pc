@@ -1,21 +1,28 @@
 {
-  "CampaignRules": "Regras da campanha",
-  "Home": "Primeira página",
+  "CampaignRules": "Regras da Campanha",
+  "Home": "Início",
   "toast1": "Você já votou.",
-  "toast2": "Voto bem-sucedido.",
+  "toast2": "Voto realizado com sucesso.",
   "t1": "Participantes",
   "tab1": "Todos",
   "tab2": "Ranking de Popularidade",
   "tab3": "Ranking de Receita",
   "detail": "Detalhes",
-  "cardT1": "Votos atuais:",
-  "cardT2": "Ranking geral:",
-  "cardT3": "Receita total:",
-  "cardT4": "Votar",
+  "cardT1": "Votos Atuais:",
+  "cardT2": "Classificação Geral:",
+  "cardT3": "Receita Total:",
   "time1": "Tempo Esgotado",
-  "time2": "Contagem regressiva para o próximo evento",
+  "time2": "Contagem Regressiva para o Próximo Evento",
   "day": "Dia",
   "hour": "Hora",
   "minute": "Minuto",
-  "second": "Segundo"
+  "Days": "Dias",
+  "Hours": "Horas",
+  "Minutes": "Minutos",
+  "second": "Segundo",
+  "Seconds": "Segundos",
+  "cardT4": "Votar",
+  "CompanyProfile": {
+    "CompanyProfile": "Perfil da Empresa"
+  }
 }

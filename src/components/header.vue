@@ -1,8 +1,8 @@
 <template>
   <!-- 导航栏 -->
-  <header class="header  xs:w-full px-20px py-20px">
-    <div class="container  w-full xs:w-full ">
-      <div class="logo-container h-40px  xs:w-full">
+  <header class="header xs:w-full px-20px py-20px">
+    <div class="container w-full xs:w-full">
+      <div class="logo-container h-40px xs:w-full">
         <!-- <router-link to="/" class="logo">
           <img src="@/assets/logo.png" class="logo-icon" />
         </router-link> -->
@@ -20,17 +20,32 @@
       <div class="right-nav gap-30px">
         <div>
           <div class="flex gap-30px">
-            <div class="flex-1 nav-item p-12 rounded-8px cursor-pointer hover:text-blue-500 hover:bg-blue-100"
-              v-for="nav in navList" :class="{ 'text-blue-700 bg-blue-100': $route.path === nav.path }" :key="nav.name"
-              @click="() => { $router.push(nav.path) }">{{ t(nav.name) }}</div>
+            <div
+              class="flex-1 nav-item p-12 rounded-8px cursor-pointer hover:text-blue-500 hover:bg-blue-100"
+              v-for="nav in navList"
+              :class="{ 'text-blue-700 bg-blue-100': $route.path === nav.path }"
+              :key="nav.name"
+              @click="
+                () => {
+                  $router.push(nav.path)
+                }
+              "
+            >
+              {{ t(nav.name) }}
+            </div>
           </div>
         </div>
         <div class="language-selector" @click="toggleLanguageMenu">
           <Globe class="icon" />
-          <span>{{languages.find((lang) => lang.code === locale)?.name}}</span>
+          <span>{{ languages.find((lang) => lang.code === locale)?.name }}</span>
           <ChevronDown class="icon-small" />
           <div class="language-menu" v-if="showLanguageMenu">
-            <div v-for="lang in languages" :key="lang.code" class="language-option" @click="changeLanguage(lang.code)">
+            <div
+              v-for="lang in languages"
+              :key="lang.code"
+              class="language-option"
+              @click="changeLanguage(lang.code)"
+            >
               {{ lang.name }}
             </div>
           </div>
@@ -39,7 +54,6 @@
     </div>
   </header>
   <div class="container-desc h-80px"></div>
-
 </template>
 <script setup>
 import { ref } from 'vue'
@@ -48,15 +62,18 @@ import { Globe, ChevronDown, Shield, Zap, BarChart, Apple, Smartphone } from 'lu
 
 import { useRouter } from 'vue-router'
 
-
 const { t, locale } = useI18n()
 // 语言切换
 const languages = [
-  // { code: 'zh-CN', name: '简体中文' },
+  { code: 'zh-CN', name: '简体中文' },
   // { code: 'zh-TW', name: '繁體中文' },
   { code: 'en', name: 'English' },
   { code: 'es', name: 'Español ' },
-  // { code: 'pt', name: 'Português ' },
+  { code: 'pt', name: 'Português ' },
+  { code: 'fr', name: 'Français' },
+
+  { code: 'jp', name: '日本語' },
+  { code: 'kr', name: '한국어' },
 ]
 const navList = [
   { name: t('Home'), icon: Shield, path: '/' },
@@ -90,7 +107,6 @@ function changeLanguage(langCode) {
   z-index: 100;
   background: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
 }
 
 .header .container {
@@ -105,7 +121,6 @@ function changeLanguage(langCode) {
 }
 
 .container-desc {
-
   width: 100%;
 }
 

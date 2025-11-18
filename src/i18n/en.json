@@ -1,7 +1,7 @@
 {
-  "CampaignRules": "CampaignRules",
+  "CampaignRules": "Campaign Rules",
   "Home": "Home",
-  "toast1": "You've already voted.",
+  "toast1": "You have already voted.",
   "toast2": "Vote successful.",
   "t1": "Participants",
   "tab1": "All",
@@ -9,16 +9,20 @@
   "tab3": "Revenue Ranking",
   "detail": "Details",
   "cardT1": "Current Votes:",
-  "cardT2": "Overall Rank:",
+  "cardT2": "Overall Ranking:",
   "cardT3": "Total Revenue:",
   "time1": "Time Out",
-  "time2": "Countdown to the next event",
+  "time2": "Countdown to next event",
   "day": "Day",
   "hour": "Hour",
   "minute": "Minute",
+  "Days": "Days",
+  "Hours": "Hours",
+  "Minutes": "Minutes",
   "second": "Second",
+  "Seconds": "Seconds",
   "cardT4": "Vote",
   "CompanyProfile": {
-    "CompanyProfile": "CompanyProfile"
+    "CompanyProfile": "Company Profile"
   }
 }

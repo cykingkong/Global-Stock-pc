@@ -1,0 +1,28 @@
+{
+    "CampaignRules": "キャンペーンルール",
+    "Home": "ホーム",
+    "toast1": "すでに投票済みです",
+    "toast2": "投票が成功しました",
+    "t1": "参加者",
+    "tab1": "すべて",
+    "tab2": "人気ランキング",
+    "tab3": "収益ランキング",
+    "detail": "詳細",
+    "cardT1": "現在の投票数：",
+    "cardT2": "総合ランキング：",
+    "cardT3": "総収益：",
+    "time1": "時間切れ",
+    "time2": "次のイベントまでのカウントダウン",
+    "day": "日",
+    "hour": "時間",
+    "minute": "分",
+    "Days": "日",
+    "Hours": "時間",
+    "Minutes": "分",
+    "second": "秒",
+    "Seconds": "秒",
+    "cardT4": "投票",
+    "CompanyProfile": {
+        "CompanyProfile": "会社概要"
+    }
+}
