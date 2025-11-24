@@ -133,14 +133,14 @@
                         <template #description>
                           <div class="flex-col flex justify-center items-center gap-12px">
                             <div class="flex justify-between items-center w-full sm:flex-row flex-col gap-8px">
-                              <div class="l">{{ t('cardT1') }}：{{ user.votes || 0 }}</div>
-                              <div class="r">{{ t('cardT2') }}：{{ index + 1 }}</div>
+                              <div class="l">{{ t('cardT1') }}{{ user.votes || 0 }}</div>
+                              <div class="r">{{ t('cardT2') }}{{index + 1  }}</div>
                             </div>
                             <div class="name font-size-24px font-weight-600 h-80px">
                               {{ user.id }}.{{ user.name }}
                             </div>
                             <div class="name font-size-18px font-weight-600">
-                              {{ t('cardT3') }}：{{ user.yieldRate || 0 }}%
+                              {{ t('cardT3') }} {{ user.yieldRate || 0 }}%
                             </div>
                             <a-button class="" :type="!user.isVote ? 'primary' : 'dashed'"
                               @click="handleClickBtn(user)">{{ t('cardT4') }}</a-button>

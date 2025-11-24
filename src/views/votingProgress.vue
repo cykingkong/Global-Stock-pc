@@ -4,7 +4,7 @@
     <Breadcrumb />
 
     <div class="userDetail-content max-w-1300px mx-auto py-80px xs:w-full line-height-28px">
-      <div v-html="articleInfo[locale == 'pt' ? 'es' : 'en']" v-if="articleInfo"></div>
+      <div v-html="articleInfo?.content" ></div>
     </div>
     <userSwiper :testimonials="swiperData" />
   </div>
@@ -30,13 +30,16 @@ import { useCounterStore } from '@/stores/counter'
 const useStore = useCounterStore()
 const swiperData = ref(useStore.swiperList)
 const current = ref(0)
-const articleInfo = ref()
+const articleInfo = ref({
+  content:''
+})
 const getArticleInfo = async () => {
   api
     .get('/api/vote/voteArticleInfo', { params: { articleId: 31, busKey: 'company_profile' } })
     .then((res) => {
-      console.log(res)
-      articleInfo.value = res.data.data
+      articleInfo.value = JSON.parse(res.data.data.zhCN).find(item => item.language == locale.value)
+      console.log(articleInfo.value.content)
+
     })
 }
 onMounted(() => {

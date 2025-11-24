@@ -54,7 +54,7 @@ const getVotesDetail = async (id) => {
         if (res.data.code == 200) {
             userInfo.value = res.data.data
             console.log(res.data.data[locale.value])
-            html.value = textToJsonString(userInfo.value[locale.value == 'pt' ? 'es' : 'en'])
+            html.value = JSON.parse(userInfo.value.zhCN).find(item => item.language == locale.value).content
         }
     })
 }

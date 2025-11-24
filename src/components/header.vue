@@ -65,7 +65,7 @@ import { useRouter } from 'vue-router'
 const { t, locale } = useI18n()
 // 语言切换
 const languages = [
-  { code: 'zh-CN', name: '简体中文' },
+  // { code: 'zh-CN', name: '简体中文' },
   // { code: 'zh-TW', name: '繁體中文' },
   { code: 'en', name: 'English' },
   { code: 'es', name: 'Español ' },
