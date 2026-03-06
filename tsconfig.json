@@ -40,6 +40,7 @@
         ]
     },
     "include": [
+        "env.d.ts",
         "src/**/*.ts",
         "src/**/*.d.ts", // 确保包含类型声明文件
         "src/**/*.tsx",

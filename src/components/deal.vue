@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { IconClockCircle, IconCaretDown, IconStar } from '@arco-design/web-vue/es/icon'
-import container from './components/container.vue'
+import container from './container.vue'
 // 定义数据接口
 interface StatItem {
   label: string
@@ -42,6 +42,21 @@ const isExpanded = ref(false)
 
 // Tab 选择状态
 const activeTab = ref<any>('all')
+
+// Buy/Sell 切换状态
+const tradeType = ref<'buy' | 'sell'>('buy')
+
+// 交易表单数据
+const tradeForm = ref({
+  price: '36,641.20',
+  quantity: '',
+  balance: '10,098.36',
+  orderTotal: '0',
+  feeRate: '0.1',
+})
+
+// 滑块值
+const sliderValue = ref(0)
 
 // 模拟交易对数据
 const tradePairs = ref<TradePair[]>([
@@ -126,7 +141,7 @@ const toggleExpand = () => {
 </script>
 
 <template>
-  <div class="w-full bg-white">
+  <div class="w-full bg-[#F1F2F4]">
     <!-- 
       Header Container 
       lg:h-[96px] -> 桌面端固定高度
@@ -135,7 +150,7 @@ const toggleExpand = () => {
       lg:items-center -> 桌面端垂直居中
     -->
     <div
-      class="flex flex-col lg:flex-row items-start lg:items-center justify-between px-4 lg:px-[20px] py-4 lg:h-[96px] w-full border-b border-gray-100"
+      class="bg-[#fff] mb-[5px] flex flex-col lg:flex-row items-start lg:items-center justify-between px-4 lg:px-[20px] py-4 lg:h-[96px] w-full border-b border-gray-100"
     >
       <!-- Left Section: Stock Info -->
       <div class="flex flex-col lg:flex-row gap-4 lg:gap-[32px] w-full lg:w-auto mb-4 lg:mb-0">
@@ -353,7 +368,7 @@ const toggleExpand = () => {
     <div class="hidden lg:block relative">
       <div
         v-show="isExpanded"
-        class="absolute left-[20px] top-[6px] w-[256px] bg-white shadow-lg rounded-lg border border-gray-200 z-50 transition-all duration-300"
+        class="absolute left-[20px] top-[0px] w-[256px] bg-white shadow-lg rounded-lg border border-gray-200 z-50 transition-all duration-300"
         :class="{ 'opacity-100': isExpanded, 'opacity-0 pointer-events-none': !isExpanded }"
       >
         <!-- Tab Selection -->
@@ -460,6 +475,147 @@ const toggleExpand = () => {
         </div>
       </div>
     </div>
-    <div class="w-full"></div>
+    <div class="w-full flex flex-col lg:flex-row gap-[7px]">
+      <container :symbol="'AAPL'" :theme="'light'" :height="560" class="w-full lg:flex-1" />
+
+      <!-- Buy/Sell Content -->
+      <div
+        class="buy-content w-full lg:w-[360px] bg-white rounded-lg p-4 lg:p-6 border border-gray-100"
+      >
+        <!-- Buy/Sell Toggle -->
+        <div class="flex items-center gap-2 mb-6">
+          <button
+            @click="tradeType = 'buy'"
+            class="px-6 py-2 rounded-full text-[14px] font-medium transition-all"
+            :class="
+              tradeType === 'buy'
+                ? 'bg-gray-200 text-gray-900'
+                : 'bg-transparent text-[#777E90] hover:text-gray-600'
+            "
+          >
+            Buy
+          </button>
+          <button
+            @click="tradeType = 'sell'"
+            class="px-6 py-2 rounded-full text-[14px] font-medium transition-all"
+            :class="
+              tradeType === 'sell'
+                ? 'bg-gray-200 text-gray-900'
+                : 'bg-transparent text-[#777E90] hover:text-gray-600'
+            "
+          >
+            Sell
+          </button>
+        </div>
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-[20px] lg:text-[24px] font-bold text-gray-900">
+            {{ tradeType === 'buy' ? 'Buy' : 'Sell' }} {{ stockInfo.name }}
+          </h3>
+          <div class="flex items-center gap-1.5 text-[14px] text-gray-900">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+              />
+            </svg>
+            <span class="font-medium">$ {{ tradeForm.balance }}</span>
+          </div>
+        </div>
+
+        <!-- Price Input -->
+        <div class="mb-4">
+          <div
+            class="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-lg border border-gray-200"
+          >
+            <span class="text-[14px] text-[#777E90]">价格</span>
+            <span class="text-[14px] font-medium text-gray-900">$ {{ tradeForm.price }}</span>
+          </div>
+        </div>
+
+        <!-- Quantity Input -->
+        <div class="mb-4">
+          <div
+            class="flex items-center justify-between px-4 py-3 bg-white rounded-lg border border-gray-200 focus-within:border-[#58BD7D]"
+          >
+            <span class="text-[14px] text-[#777E90]">数量</span>
+            <div class="flex items-center gap-2">
+              <input
+                v-model="tradeForm.quantity"
+                type="text"
+                placeholder=""
+                class="text-right text-[14px] font-medium text-gray-900 outline-none border-none bg-transparent w-24"
+              />
+              <span class="text-[14px] text-[#58BD7D] font-medium">{{ stockInfo.name }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slider -->
+        <div class="mb-6">
+          <input
+            v-model="sliderValue"
+            type="range"
+            min="0"
+            max="100"
+            class="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+          />
+        </div>
+
+        <!-- Order Total -->
+        <div class="mb-6">
+          <div
+            class="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-lg border border-gray-200"
+          >
+            <span class="text-[14px] text-[#777E90]">订单价格</span>
+            <span class="text-[14px] font-medium text-gray-900">$ {{ tradeForm.orderTotal }}</span>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          class="w-full py-3.5 rounded-xl text-[16px] font-semibold text-white transition-all hover:opacity-90"
+          :class="tradeType === 'buy' ? 'bg-[#58BD7D]' : 'bg-[#FF6838]'"
+        >
+          {{ tradeType === 'buy' ? 'Buy' : 'Sell' }} {{ stockInfo.name }}
+        </button>
+
+        <!-- Fee Rate -->
+        <div class="flex items-center justify-between mt-4 text-[13px]">
+          <span class="text-[#777E90]">手续费率(%)</span>
+          <span class="text-gray-900 font-medium">{{ tradeForm.feeRate }}%</span>
+        </div>
+      </div>
+    </div>
+    <div class="w-full order-list mt-[5px]">
+      <slot></slot>
+    </div>
   </div>
 </template>
+
+<style scoped>
+/* Custom Slider Styles */
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #58bd7d;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #58bd7d;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+</style>
