@@ -172,7 +172,7 @@ const toggleExpand = () => {
     <div class="w-full flex flex-col lg:flex-row gap-[7px]">
       <container :symbol="'AAPL'" :theme="'light'" :height="560" class="w-full lg:flex-1" />
     </div>
-    <div class="flex w-full gap-[5px]">
+    <div class="flex w-full gap-[5px] mt-[5px]">
       <!-- 交易对列表 -->
       <div
         class="stock-list w-full lg:w-[50%] bg-white rounded-lg p-4 lg:p-6 border border-gray-100"
@@ -200,7 +200,7 @@ const toggleExpand = () => {
             <input
               type="text"
               placeholder="Search"
-              class="w-full h-[40px] pl-4 pr-10 rounded-lg border border-[#E6E8EC] text-[13px] text-[#23262F] placeholder:text-[#777E90] focus:outline-none focus:border-[#58BD7D] transition-colors"
+              class="w-full h-[40px] pl-4 pr-10 rounded-lg border border-[#E6E8EC] border-solid text-[13px] text-[#23262F] placeholder:text-[#777E90] focus:outline-none focus:border-[#58BD7D] transition-colors"
             />
             <div class="absolute right-3 top-1/2 -translate-y-1/2 text-[#777E90]">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -217,7 +217,9 @@ const toggleExpand = () => {
 
         <!-- Table Header -->
         <div class="grid grid-cols-3 gap-4 px-3 py-2 mb-2">
-          <div class="flex items-center gap-1 cursor-pointer text-[13px] font-normal text-[#777E90]">
+          <div
+            class="flex items-center gap-1 cursor-pointer text-[13px] font-normal text-[#777E90]"
+          >
             Pair
             <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
               <path
@@ -225,7 +227,9 @@ const toggleExpand = () => {
               />
             </svg>
           </div>
-          <div class="flex items-center gap-1 cursor-pointer text-[13px] font-normal text-[#777E90]">
+          <div
+            class="flex items-center gap-1 cursor-pointer text-[13px] font-normal text-[#777E90]"
+          >
             Price
             <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
               <path
