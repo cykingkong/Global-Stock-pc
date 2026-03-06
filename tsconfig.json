@@ -1,0 +1,53 @@
+{
+    "compilerOptions": {
+        /* 1. 基础编译环境配置 */
+        "target": "ESNext",
+        "useDefineForClassFields": true,
+        "module": "ESNext",
+        "lib": [
+            "ESNext",
+            "DOM",
+            "DOM.Iterable"
+        ],
+        "skipLibCheck": true,
+        /* 2. 模块解析策略 (Vite 推荐配置) */
+        "moduleResolution": "Bundler",
+        "allowImportingTsExtensions": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "preserve",
+        /* 3. 严格模式 (PC端项目建议开启，利于长期维护) */
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        /* 4. 路径别名 */
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        },
+        /* 5. 类型声明 (关键修复点) */
+        // 这里必须包含 vite/client 才能识别 import.meta.env
+        "types": [
+            "vite/client",
+            "node",
+            "unplugin-vue-router/client",
+            "vite-plugin-pwa/client",
+            "@intlify/unplugin-vue-i18n/messages"
+        ]
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.d.ts", // 确保包含类型声明文件
+        "src/**/*.tsx",
+        "src/**/*.vue",
+        "types/**/*.d.ts" // 如果你有单独的 types 目录
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}
