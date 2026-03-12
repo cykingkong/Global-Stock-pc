@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { IconClockCircle, IconCaretDown, IconStar } from '@arco-design/web-vue/es/icon'
 import container from './container.vue'
 // 定义数据接口
@@ -57,6 +57,9 @@ const tradeForm = ref({
 
 // 滑块值
 const sliderValue = ref(0)
+
+// 骨架屏加载状态
+const isLoading = ref(true)
 
 // 模拟交易对数据
 const tradePairs = ref<TradePair[]>([
@@ -138,12 +141,50 @@ const tradePairs = ref<TradePair[]>([
 const toggleExpand = () => {
   isExpanded.value = !isExpanded.value
 }
+
+// 页面加载完成后隐藏骨架屏
+onMounted(() => {
+  // 等待数据和组件渲染完成
+  setTimeout(() => {
+    isLoading.value = false
+  }, 800)
+})
 </script>
 
 <template>
-  <div class="w-full bg-[#F1F2F4]">
-    <!-- 
-      Header Container 
+  <div class="w-full bg-[#F1F2F4] relative">
+    <!-- 骨架屏 -->
+    <div v-if="isLoading" class="skeleton-container">
+      <!-- Header Skeleton -->
+      <div class="bg-white mb-[5px] px-4 lg:px-[20px] py-4 lg:h-[96px]">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <div class="skeleton-circle w-[40px] h-[24px]"></div>
+            <div>
+              <div class="skeleton-text w-[120px] h-[24px] mb-2"></div>
+              <div class="skeleton-text w-[80px] h-[12px]"></div>
+            </div>
+          </div>
+          <div class="hidden lg:flex gap-6">
+            <div class="skeleton-text w-[140px] h-[60px]"></div>
+            <div class="skeleton-text w-[140px] h-[60px]"></div>
+            <div class="skeleton-text w-[140px] h-[60px]"></div>
+            <div class="skeleton-text w-[140px] h-[60px]"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart and Trade Section Skeleton -->
+      <div class="flex flex-col lg:flex-row gap-[7px]">
+        <div class="skeleton-chart flex-1"></div>
+        <div class="skeleton-trade w-full lg:w-[360px]"></div>
+      </div>
+    </div>
+
+    <!-- 真实内容 -->
+    <div v-show="!isLoading" class="transition-opacity duration-300" :class="{ 'opacity-100': !isLoading, 'opacity-0': isLoading }">
+    <!--
+      Header Container
       lg:h-[96px] -> 桌面端固定高度
       lg:flex-row -> 桌面端横向排列
       flex-col -> 移动端纵向排列
@@ -593,6 +634,8 @@ const toggleExpand = () => {
     <div class="w-full order-list mt-[5px]">
       <slot></slot>
     </div>
+    </div>
+    <!-- 真实内容结束 -->
   </div>
 </template>
 
@@ -617,5 +660,77 @@ const toggleExpand = () => {
   cursor: pointer;
   border: 2px solid white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 骨架屏样式 */
+.skeleton-container {
+  width: 100%;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.skeleton-text,
+.skeleton-circle,
+.skeleton-chart,
+.skeleton-trade {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+.skeleton-circle {
+  border-radius: 40px;
+}
+
+.skeleton-chart {
+  height: 560px;
+  background: white;
+  position: relative;
+}
+
+.skeleton-chart::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #58BD7D;
+  border-radius: 50%;
+  animation: skeleton-spin 1s linear infinite;
+}
+
+.skeleton-trade {
+  height: 560px;
+  background: white;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes skeleton-spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>
