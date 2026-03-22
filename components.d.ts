@@ -12,7 +12,6 @@ declare module 'vue' {
     AppDownload: typeof import('./src/components/Index/appDownload.vue')['default']
     ContactUs: typeof import('./src/components/Index/contactUs.vue')['default']
     Container: typeof import('./src/components/container.vue')['default']
-    copy: typeof import('./src/components/deal copy.vue')['default']
     Deal: typeof import('./src/components/deal.vue')['default']
     Deal2: typeof import('./src/components/deal-2.vue')['default']
     Footer: typeof import('./src/components/Index/footer.vue')['default']

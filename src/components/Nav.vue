@@ -23,6 +23,7 @@ const navLinks = [
   { name: '基金', href: '/affund' },
   { name: 'IPO', href: '/ipo' },
   { name: '股权', href: '/equity' },
+  { name: '期货', href: '/futures' },
 ]
 
 const toggleMenu = () => {

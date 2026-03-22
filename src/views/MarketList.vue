@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import { ref, h, computed, onMounted } from 'vue'
+import { ref, h, computed, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { Table, Button } from '@arco-design/web-vue'
+import { Table, Button, Pagination } from '@arco-design/web-vue'
 import '@arco-design/web-vue/es/table/style/css.js'
 import '@arco-design/web-vue/es/button/style/css.js'
-import { useMarketStore } from '@/stores/market'
+import '@arco-design/web-vue/es/pagination/style/css.js'
+import Nav from '@/components/Nav.vue'
+import IndexFooter from '@/components/Index/footer.vue'
 import SparkLine from '@/components/SparkLine.vue'
+import { getMarketList } from '@/api/market'
 
 const router = useRouter()
 const { t } = useI18n()
-const marketStore = useMarketStore()
 
 interface StockItem {
   key: string
@@ -26,24 +28,57 @@ interface StockItem {
   tradingview_name?: string
 }
 
-const stocks = computed(() => marketStore.stockList)
-const loading = computed(() => marketStore.loading)
+const stocks = ref<StockItem[]>([])
+const loading = ref(false)
+const currentPage = ref(1)
+const pageSize = ref(20)
+const total = ref(0)
 
 async function fetchMarkets() {
-  await marketStore.fetchMarketList({ page: 1, size: 10, region: 'US' })
+  loading.value = true
+  try {
+    const { data, code } = await getMarketList({ page: currentPage.value, size: pageSize.value, region: 'US' })
+    if (code === 200) {
+      const list: any[] = []
+      if (data.groups && Array.isArray(data.groups)) {
+        data.groups.forEach((group: any) => {
+          group.categories?.forEach((category: any) => {
+            category.stocks?.forEach((stock: any) => list.push(stock))
+          })
+        })
+      }
+      stocks.value = list.map((item: any, index: number) => ({
+        key: String(item.id),
+        rank: (currentPage.value - 1) * pageSize.value + index + 1,
+        name: item.name,
+        fullName: item.full_name,
+        symbol: item.symbol,
+        logoUrl: item.logo_url || '',
+        close: item.close,
+        increase: item.increase,
+        changeValue: item.changeValue,
+        closePoints: item.close_points || [],
+        tradingview_name: item.tradingview_name || `NASDAQ:${item.symbol}`,
+      }))
+      total.value = data.total || list.length
+    }
+  } catch (e) {
+    console.error('获取股票列表失败', e)
+  } finally {
+    loading.value = false
+  }
 }
 
-onMounted(() => {
+function handlePageChange(page: number) {
+  currentPage.value = page
   fetchMarkets()
-})
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 
 const handleTrade = (record: StockItem) => {
   router.push({
     path: '/detail',
-    query: {
-      symbol: record.symbol,
-      tradingview_name: record.tradingview_name,
-    },
+    query: { symbol: record.symbol, tradingview_name: record.tradingview_name },
   })
 }
 
@@ -118,25 +153,42 @@ const columns = computed(() => [
       }, () => t('index.market.trade')),
   },
 ])
+
+onMounted(() => {
+  fetchMarkets()
+})
 </script>
 
 <template>
-  <div class="min-h-screen bg-white font-sans">
-    <div class="max-w-[1180px] mx-auto px-8 py-12">
-      <!-- Header -->
-      <div class="flex items-center justify-between mb-9">
-        <h1 class="text-[34px] font-semibold tracking-[-0.5px] text-zinc-950">{{ t('index.market.title') }}</h1>
-        <button
-          class="px-7 py-2.5 text-sm font-medium border border-zinc-200 hover:border-zinc-300 rounded-full transition-colors"
-          @click="router.push('/market')">
-          {{ t('index.market.viewMore') }}
-        </button>
-      </div>
+  <div class="market-list-page min-h-screen bg-[#FCFCFD] flex flex-col">
+    <Nav />
+    <div class="flex-1">
+      <div class="max-w-[1180px] mx-auto px-8 py-12">
+        <!-- Header -->
+        <div class="market-header mb-9">
+          <div>
+            <h1 class="text-[34px] font-semibold tracking-[-0.5px] text-zinc-950">{{ t('index.market.title') }}</h1>
+            <p class="text-sm text-zinc-500 mt-2">{{ t('index.market.viewMore') }}</p>
+          </div>
+        </div>
 
-      <!-- Arco Table -->
-      <Table :data="stocks" :columns="columns" :bordered="false" :pagination="false" :loading="loading"
-        :row-class="() => 'hover:bg-zinc-50/70 transition-colors'" class="market-table" />
+        <!-- Table -->
+        <Table :data="stocks" :columns="columns" :bordered="false" :pagination="false" :loading="loading"
+          :row-class="() => 'hover:bg-zinc-50/70 transition-colors'" class="market-table" />
+
+        <!-- Pagination -->
+        <div class="flex justify-center mt-8" v-if="total > pageSize">
+          <Pagination
+            :total="total"
+            :current="currentPage"
+            :page-size="pageSize"
+            show-total
+            @change="handlePageChange"
+          />
+        </div>
+      </div>
     </div>
+    <IndexFooter />
   </div>
 </template>
 
@@ -157,5 +209,15 @@ const columns = computed(() => [
 
 .market-table .arco-table-tr:last-child .arco-table-td {
   border-bottom: none;
+}
+
+.market-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 24px 28px;
+  border: 1px solid #e6e8ec;
+  border-radius: 16px;
+  background: linear-gradient(130deg, #ffffff, #f9fafb);
 }
 </style>
