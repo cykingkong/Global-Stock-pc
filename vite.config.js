@@ -21,10 +21,10 @@ export default defineConfig({
     // host: false,
     host: '0.0.0.0',
     proxy: {
-      '/api': {
-        target: `https://docapi.fxpro.life`, // 代理接口
+      '/capi': {
+        target: `http://192.168.31.153/`, // 代理接口
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        rewrite: (path) => path.replace(/^\/capi/, ''),
         ws: false,
       },
     },

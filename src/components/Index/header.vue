@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 interface CryptoCard {
   icon: string
   iconBg: string
@@ -67,17 +71,15 @@ const cryptoCards: CryptoCard[] = [
             class="text-[64px] font-bold leading-[1.15] tracking-[-0.02em] text-[#141416] mb-[24px]"
             style="font-family: 'DM Sans', sans-serif"
           >
-            Buy &amp; sell<br />
-            crypto in minutes
+            {{ t('index.header.title') }}
           </h1>
           <p class="text-[16px] leading-[1.65] text-[#777E90] max-w-[380px] mb-[32px]">
-            Trade Bitcoin, Ethereum, USDT, and the top altcoins on the legendary crypto asset
-            exchange.
+            {{ t('index.header.subtitle') }}
           </p>
           <button
             class="inline-flex items-center justify-center bg-[#3772FF] hover:bg-[#2B5FD9] text-white text-[16px] font-bold rounded-full px-[28px] py-[16px] transition-colors duration-200 cursor-pointer border-none"
           >
-            Get started now
+            {{ t('index.header.getStarted') }}
           </button>
 
           <!-- Scroll Down Arrow -->

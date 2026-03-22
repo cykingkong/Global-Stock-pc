@@ -24,5 +24,69 @@
   "cardT4": "投票",
   "CompanyProfile": {
     "CompanyProfile": "公司简介"
+  },
+  "index": {
+    "header": {
+      "title": "几分钟内买卖加密货币",
+      "subtitle": "在传奇的加密资产交易所交易比特币、以太坊、USDT 和顶级山寨币。",
+      "getStarted": "立即开始"
+    },
+    "market": {
+      "title": "市场趋势",
+      "viewMore": "查看更多",
+      "name": "名称",
+      "price": "价格",
+      "change24h": "24小时涨跌",
+      "chart": "图表",
+      "trade": "交易"
+    },
+    "slideShow": {
+      "title": "通过 BitCloud 了解加密货币",
+      "subtitle": "一个引领和启发的创意机构",
+      "cryptoNews": "加密新闻",
+      "communityTitle": "成为我们全球社区的一员",
+      "communityDesc": "让我们保持联系。加入我们的社区，与 BitCloud 团队和来自世界各地的交易者保持联系。",
+      "joinNow": "立即加入"
+    }
+  },
+  "affund": {
+    "title": "反诈基金",
+    "introduction": "简介",
+    "fundPool": "资金池",
+    "orders": "订单",
+    "expectedReturn": "预计收益率",
+    "completedReturns": "已完成收益",
+    "profitStartTime": "收益开始时间",
+    "profitEndTime": "收益结束时间",
+    "profitDetails": "收益明细",
+    "orderId": "订单号",
+    "investmentAmount": "投入金额",
+    "expectedReturnRate": "预计收益率",
+    "expectedProfit": "预计收益",
+    "status": "状态",
+    "inProgress": "进行中",
+    "redeeming": "赎回中",
+    "completed": "已完成",
+    "redeemed": "已赎回",
+    "redeemPrincipal": "赎回本金",
+    "addInvestment": "追加投资",
+    "joinFund": "参与基金",
+    "joinDesc": "参与反诈基金，在获得收益的同时为全球安全做出贡献。",
+    "joinNow": "立即参与",
+    "joinThisRound": "参与本轮基金",
+    "pleaseEnterAmount": "请输入金额",
+    "myBalance": "我的余额",
+    "close": "关闭",
+    "confirmRedemption": "确定要赎回本金吗？",
+    "investmentPeriod": "投资期限",
+    "noData": "暂无数据",
+    "noOrders": "暂无订单",
+    "loading": "加载中...",
+    "loadMore": "加载更多"
+  },
+  "loginPage": {
+    "loginForm": {
+      "countryPlaceholder": "国家"
+    }
   }
 }

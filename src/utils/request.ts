@@ -71,10 +71,17 @@ declare module 'axios' {
     loadingToast?: ReturnType<typeof showLoadingToast>
     showLoading?: boolean
   }
+  // 响应拦截器已解包 response.data，覆盖返回类型
+  interface AxiosInstance {
+    get<T = any>(url: string, config?: any): Promise<T>
+    post<T = any>(url: string, data?: any, config?: any): Promise<T>
+    put<T = any>(url: string, data?: any, config?: any): Promise<T>
+    delete<T = any>(url: string, config?: any): Promise<T>
+  }
 }
 
 // 请求拦截器
-function requestHandler(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig | Promise<InternalAxiosRequestConfig> {
+function requestHandler(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig | Promise<any> {
   // 只有当 showLoading 不为 false 时才显示 loading
   if (config.showLoading !== false) {
     showLoadingToast({
@@ -126,9 +133,9 @@ function responseHandler(response: any) {
   else {
     closeToast(true)
     console.log(code, 'code', message, 'message')
-    showFailToast({
-      message: message
-    })
+    // showFailToast({
+    //   message: message
+    // })
     // showNotify({
     //   type: 'danger',
     //   message: message

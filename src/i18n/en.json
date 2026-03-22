@@ -24,5 +24,92 @@
   "cardT4": "Vote",
   "CompanyProfile": {
     "CompanyProfile": "Company Profile"
+  },
+  "index": {
+    "header": {
+      "title": "Buy & sell crypto in minutes",
+      "subtitle": "Trade Bitcoin, Ethereum, USDT, and the top altcoins on the legendary crypto asset exchange.",
+      "getStarted": "Get started now"
+    },
+    "market": {
+      "title": "Market trend",
+      "viewMore": "View more",
+      "name": "Name",
+      "price": "Price",
+      "change24h": "24h Change",
+      "chart": "Chart",
+      "trade": "Trade"
+    },
+    "slideShow": {
+      "title": "Stay in the know on crypto with BitCloud",
+      "subtitle": "A creative agency that lead and inspire",
+      "cryptoNews": "Crypto News",
+      "communityTitle": "Be Part of our Global Community",
+      "communityDesc": "Let's stay in touch. Join our communities to keep up with the BitCloud team and our traders from across the world.",
+      "joinNow": "Join now"
+    }
+  },
+  "affund": {
+    "title": "Anti-fraud Fund",
+    "introduction": "Introduction",
+    "fundPool": "Fund Pool",
+    "orders": "Orders",
+    "expectedReturn": "Expected return rate",
+    "completedReturns": "Completed returns",
+    "profitStartTime": "Profit start time",
+    "profitEndTime": "Profit end time",
+    "profitDetails": "Profit details",
+    "orderId": "Order ID",
+    "investmentAmount": "Investment Amount",
+    "expectedReturnRate": "Expected Return Rate",
+    "expectedProfit": "Expected Profit",
+    "status": "Status",
+    "inProgress": "In Progress",
+    "redeeming": "Redeeming",
+    "completed": "Completed",
+    "redeemed": "Redeemed",
+    "redeemPrincipal": "Redeem Principal",
+    "addInvestment": "Add Investment",
+    "joinFund": "Join Fund",
+    "joinDesc": "Participate in the anti-fraud fund to earn returns while contributing to global security.",
+    "joinNow": "Join Now",
+    "joinThisRound": "Join This Round Fund",
+    "pleaseEnterAmount": "Please enter amount",
+    "myBalance": "My balance",
+    "close": "Close",
+    "confirmRedemption": "Are you sure to redeem principal?",
+    "investmentPeriod": "Investment Period",
+    "noData": "No data",
+    "noOrders": "No orders yet",
+    "loading": "Loading...",
+    "loadMore": "Load more"
+  },
+  "loginPage": {
+    "leftSection": {
+      "title": "Join the Global Anti-Fraud Alliance",
+      "intro": "With the development of global digital finance, anti-fraud work requires the participation of more organizations and individuals. Anti-Fraud Alliance welcomes institutions, enterprises, researchers, and volunteers from around the world to join our mission.",
+      "youCan": "You can:",
+      "benefits": [
+        "Participate in global anti-fraud information exchange",
+        "Access the latest security research and risk alerts",
+        "Engage in anti-fraud advocacy and education projects",
+        "Build collaborative networks with international security experts and organizations"
+      ],
+      "footer": "Whether you are a financial institution, technology company, research organization, or individual volunteer, you can become an important force in advancing the global anti-fraud cause."
+    },
+    "loginForm": {
+      "header": "/LOGIN",
+      "title": "Access Your Account",
+      "subtitle": "Access your account to manage inquiries, projects, or saved explorations.",
+      "countryPlaceholder": "Country",
+      "usernameLabel": "Username / Email",
+      "usernamePlaceholder": "Enter your username or email",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "rememberMe": "Remember Me",
+      "loginButton": "Log In",
+      "loggingIn": "Logging in...",
+      "forgotPassword": "Forgot your password?"
+    }
   }
 }

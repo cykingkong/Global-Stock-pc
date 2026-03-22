@@ -8,18 +8,23 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AFFundOrderItem: typeof import('./src/components/AFFund/AFFundOrderItem.vue')['default']
     AppDownload: typeof import('./src/components/Index/appDownload.vue')['default']
     ContactUs: typeof import('./src/components/Index/contactUs.vue')['default']
     Container: typeof import('./src/components/container.vue')['default']
     copy: typeof import('./src/components/deal copy.vue')['default']
     Deal: typeof import('./src/components/deal.vue')['default']
     Deal2: typeof import('./src/components/deal-2.vue')['default']
+    Footer: typeof import('./src/components/Index/footer.vue')['default']
+    FundPoolCard: typeof import('./src/components/AFFund/FundPoolCard.vue')['default']
     Header: typeof import('./src/components/Index/header.vue')['default']
     Howitwork: typeof import('./src/components/Index/howitwork.vue')['default']
+    JoinFundModal: typeof import('./src/components/AFFund/JoinFundModal.vue')['default']
     Market: typeof import('./src/components/Index/market.vue')['default']
     Nav: typeof import('./src/components/Nav.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SlideShow: typeof import('./src/components/Index/slideShow.vue')['default']
+    SparkLine: typeof import('./src/components/SparkLine.vue')['default']
   }
 }
