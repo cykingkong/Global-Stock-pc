@@ -12,9 +12,8 @@ const { t } = useI18n()
 const userStore = useUserStore()
 
 // Tab
-const activeTab = ref(1)
+const activeTab = ref(0)
 const tabs = computed(() => [
-  { label: t('affund.introduction') },
   { label: t('affund.fundPool') },
   { label: t('affund.orders') },
 ])
@@ -148,7 +147,7 @@ function loadMoreOrders() {
 
 function handleTabChange(index: number) {
   activeTab.value = index
-  if (index === 2) fetchOrders(true)
+  if (index === 1) fetchOrders(true)
 }
 
 // 参与基金
@@ -176,7 +175,7 @@ async function handleConfirmJoin(amount: number) {
     fetchFundIndex()
     fetchOrders(true)
     userStore.info()
-    activeTab.value = 2
+    activeTab.value = 1
   } catch (e) {
     console.error(e)
   } finally {
@@ -298,25 +297,49 @@ onUnmounted(() => {
 
       <div
         class="grid grid-cols-12 items-start"
-        :class="activeTab === 1 ? 'gap-10 xl:gap-12' : 'gap-8'">
+        :class="activeTab === 0 ? 'gap-10 xl:gap-12' : 'gap-8'">
         <div class="col-span-12 xl:col-span-8 min-w-0">
           <div v-if="activeTab === 0">
-            <div class="af-card p-8">
-              <div
-                v-if="fundInfo?.description"
-                class="prose max-w-none text-[15px] leading-7 text-[#64748B]"
-              v-html="fundInfo.description" />
-              <div v-else class="text-center text-[#94A3B8] py-20">{{ t('affund.noData') }}</div>
-
-              <div class="mt-8 af-info-bar">
-                <div class="af-info-period">
-                  <div class="af-period-cell">
-                    <div class="af-period-key">{{ t('affund.profitStartTime') }}</div>
-                    <div class="af-period-val">{{ periodData.startAt }}</div>
+            <div class="af-section-stack">
+              <div class="af-card p-[20px]">
+                <div class="af-section-head">
+                  <div>
+                    <div class="af-section-eyebrow">FUND OVERVIEW</div>
+                    <div class="af-section-title">{{ t('affund.fundPool') }}</div>
                   </div>
-                  <div class="af-period-cell">
-                    <div class="af-period-key">{{ t('affund.profitEndTime') }}</div>
-                    <div class="af-period-val">{{ periodData.endAt }}</div>
+                </div>
+                <FundPoolCard
+                  :total-amount="fundData.totalAmount"
+                  :expected-return="fundData.expectedReturn"
+                  :progress="fundData.progress"
+                  :start-date="fundData.startDate"
+                  :end-date="fundData.endDate"
+                  :profit-details="fundData.profitDetails" />
+              </div>
+
+              <div class="af-card af-intro-card p-8">
+                <div class="af-section-head">
+                  <div>
+                    <div class="af-section-eyebrow">DETAILS</div>
+                    <div class="af-section-title">{{ t('affund.introduction') }}</div>
+                  </div>
+                </div>
+                <div
+                  v-if="fundInfo?.description"
+                  class="prose max-w-none text-[15px] leading-7 text-[#64748B]"
+                v-html="fundInfo.description" />
+                <div v-else class="text-center text-[#94A3B8] py-20">{{ t('affund.noData') }}</div>
+
+                <div class="mt-8 af-info-bar">
+                  <div class="af-info-period">
+                    <div class="af-period-cell">
+                      <div class="af-period-key">{{ t('affund.profitStartTime') }}</div>
+                      <div class="af-period-val">{{ periodData.startAt }}</div>
+                    </div>
+                    <div class="af-period-cell">
+                      <div class="af-period-key">{{ t('affund.profitEndTime') }}</div>
+                      <div class="af-period-val">{{ periodData.endAt }}</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -324,18 +347,6 @@ onUnmounted(() => {
           </div>
 
           <div v-if="activeTab === 1">
-            <div class="af-card p-2">
-              <FundPoolCard
-                :total-amount="fundData.totalAmount"
-                :expected-return="fundData.expectedReturn"
-                :progress="fundData.progress"
-                :start-date="fundData.startDate"
-                :end-date="fundData.endDate"
-                :profit-details="fundData.profitDetails" />
-            </div>
-          </div>
-
-          <div v-if="activeTab === 2">
             <div v-if="orderList.length > 0" class="af-order-panel">
               <div class="af-order-toolbar">
                 <div class="af-order-title">{{ t('affund.orders') }}</div>
@@ -457,7 +468,7 @@ onUnmounted(() => {
           </div>
         </div>
 
-        <div v-if="activeTab !== 2" class="col-span-12 xl:col-span-4">
+        <div v-if="activeTab !== 1" class="col-span-12 xl:col-span-4">
           <div class="af-side sticky top-[90px]">
             <div class="text-xs font-semibold tracking-[0.14em] text-[#16A34A] mb-3">
               ANTI-FRAUD FUND
@@ -633,6 +644,38 @@ onUnmounted(() => {
   border-radius: 10px;
   border: 1px solid #e5e7eb;
   box-shadow: none;
+}
+
+.af-section-stack {
+  display: grid;
+  gap: 24px;
+}
+
+.af-section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.af-section-eyebrow {
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: #12d18e;
+  margin-bottom: 8px;
+}
+
+.af-section-title {
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.af-intro-card {
+  background: linear-gradient(180deg, #ffffff 0%, #fcfdfd 100%);
 }
 
 .af-info-bar {
