@@ -109,7 +109,47 @@
       "rememberMe": "Remember Me",
       "loginButton": "Log In",
       "loggingIn": "Logging in...",
-      "forgotPassword": "Forgot your password?"
+      "forgotPassword": "Forgot your password?",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Register"
+    },
+    "registerForm": {
+      "header": "/REGISTER",
+      "title": "Create Your Account",
+      "countryLabel": "Country",
+      "countryPlaceholder": "Select your country",
+      "fullNameLabel": "Full Name",
+      "fullNamePlaceholder": "Enter your full name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email",
+      "codeLabel": "Email Verification Code",
+      "codePlaceholder": "Enter the verification code",
+      "sendCodeButton": "Send",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "Enter your phone number",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "inviteCodeLabel": "Invitation Code",
+      "inviteCodePlaceholder": "Enter invitation code",
+      "registerButton": "Register",
+      "registering": "Registering...",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Log In"
+    },
+    "validation": {
+      "usernameRequired": "Please enter your username or email",
+      "passwordRequired": "Please enter your password",
+      "loginFailed": "Login failed. Please try again.",
+      "countryRequired": "Please select your country",
+      "fullNameRequired": "Please enter your full name",
+      "emailRequired": "Please enter your email",
+      "codeRequired": "Please enter the verification code",
+      "phoneRequired": "Please enter your phone number",
+      "inviteCodeRequired": "Please enter the invitation code",
+      "passwordMinLength": "Password must be at least 8 characters",
+      "codeSent": "Verification code sent",
+      "codeSendFailed": "Failed to send verification code",
+      "registerFailed": "Registration failed. Please try again."
     }
   }
 }

@@ -4,6 +4,7 @@ import StockDetailView from '../views/stockDetail.vue' //2
 import AFFund from '../views/AFFund.vue'
 import FuturesInvestment from '../views/FuturesInvestment.vue'
 import EquityInvestment from '../views/EquityInvestment.vue'
+import ProfileView from '../views/ProfileView.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -57,6 +58,11 @@ const router = createRouter({
       path: '/equity/detail',
       name: 'equityDetail',
       component: () => import('../views/EquityDetail.vue'),
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileView,
     },
   ],
 })

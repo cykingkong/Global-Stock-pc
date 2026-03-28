@@ -86,7 +86,58 @@
   },
   "loginPage": {
     "loginForm": {
-      "countryPlaceholder": "国家"
+      "header": "/登录",
+      "title": "登录账户",
+      "subtitle": "登录后可管理查询、项目或已保存内容。",
+      "countryPlaceholder": "国家",
+      "usernameLabel": "用户名 / 邮箱",
+      "usernamePlaceholder": "请输入用户名或邮箱",
+      "passwordLabel": "密码",
+      "passwordPlaceholder": "请输入密码",
+      "rememberMe": "记住我",
+      "loginButton": "登录",
+      "loggingIn": "登录中...",
+      "forgotPassword": "忘记密码？",
+      "noAccount": "还没有账号？",
+      "registerLink": "注册"
+    },
+    "registerForm": {
+      "header": "/注册",
+      "title": "创建账户",
+      "countryLabel": "国家",
+      "countryPlaceholder": "请选择国家",
+      "fullNameLabel": "全名",
+      "fullNamePlaceholder": "请输入您的全名",
+      "emailLabel": "邮箱",
+      "emailPlaceholder": "请输入您的邮箱",
+      "codeLabel": "邮箱验证码",
+      "codePlaceholder": "请输入验证码",
+      "sendCodeButton": "发送",
+      "phoneLabel": "手机号",
+      "phonePlaceholder": "请输入您的手机号",
+      "passwordLabel": "密码",
+      "passwordPlaceholder": "请输入密码",
+      "inviteCodeLabel": "邀请码",
+      "inviteCodePlaceholder": "请输入邀请码",
+      "registerButton": "注册",
+      "registering": "注册中...",
+      "hasAccount": "已有账号？",
+      "loginLink": "登录"
+    },
+    "validation": {
+      "usernameRequired": "请输入用户名或邮箱",
+      "passwordRequired": "请输入密码",
+      "loginFailed": "登录失败，请重试",
+      "countryRequired": "请选择国家",
+      "fullNameRequired": "请输入全名",
+      "emailRequired": "请输入邮箱",
+      "codeRequired": "请输入验证码",
+      "phoneRequired": "请输入手机号",
+      "inviteCodeRequired": "请输入邀请码",
+      "passwordMinLength": "密码至少为 8 位",
+      "codeSent": "验证码已发送",
+      "codeSendFailed": "验证码发送失败",
+      "registerFailed": "注册失败，请重试"
     }
   }
 }

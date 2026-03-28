@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, onUnmounted } from 'vue'
 import { isLogin } from '@/utils/auth'
 import { useRouter } from 'vue-router'
 import useUserStore from '@/stores/user'
@@ -8,6 +8,7 @@ const userStore = useUserStore()
 const userInfo = computed(() => userStore.userInfo)
 const isMenuOpen = ref(false)
 const isDropdownOpen = ref(false)
+const dropdownRef = ref<HTMLElement | null>(null)
 
 // 判断是否已登录
 const isLoggedIn = computed(() => isLogin() && userInfo.value && Object.keys(userInfo.value).length > 1)
@@ -30,8 +31,29 @@ const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
 
-const handleLogout = () => {
+// 切换下拉菜单
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value
+}
+
+// 点击外部关闭下拉菜单
+const handleClickOutside = (event: MouseEvent) => {
+  if (dropdownRef.value && !dropdownRef.value.contains(event.target as Node)) {
+    isDropdownOpen.value = false
+  }
+}
+
+// 退出登录
+const handleLogout = async () => {
+  await userStore.logout()
+  isDropdownOpen.value = false
   router.push('/login')
+}
+
+// 个人中心
+const handleProfile = () => {
+  isDropdownOpen.value = false
+  router.push('/profile')
 }
 
 const handleLogin = () => {
@@ -46,6 +68,13 @@ onMounted(() => {
   if (isLogin()) {
     userStore.info()
   }
+  // 添加点击外部事件监听
+  document.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+  // 移除点击外部事件监听
+  document.removeEventListener('click', handleClickOutside)
 })
 </script>
 
@@ -118,14 +147,57 @@ onMounted(() => {
 
       <!-- 已登录状态 -->
       <template v-if="isLoggedIn">
-        <!-- User Avatar and Name -->
-        <div class="flex items-center gap-2">
-          <!-- Avatar -->
-          <div class="w-8 h-8 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
-            <img v-if="userAvatar" :src="userAvatar" alt="User Avatar" class="w-full h-full object-cover" />
+        <!-- User Avatar and Name with Dropdown -->
+        <div class="relative" ref="dropdownRef">
+          <div @click="toggleDropdown" class="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+            <!-- Avatar -->
+            <div class="w-8 h-8 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+              <img v-if="userAvatar" :src="userAvatar" alt="User Avatar" class="w-full h-full object-cover" />
+            </div>
+            <!-- Username -->
+            <span class="text-sm text-gray-700 font-medium">{{ userName }}</span>
+            <!-- 下拉箭头 -->
+            <svg class="w-4 h-4 text-gray-500 transition-transform" :class="{ 'rotate-180': isDropdownOpen }"
+              fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
           </div>
-          <!-- Username -->
-          <span class="text-sm text-gray-700 font-medium">{{ userName }}</span>
+
+          <!-- 下拉菜单 -->
+          <transition
+            enter-active-class="transition ease-out duration-100"
+            enter-from-class="transform opacity-0 scale-95"
+            enter-to-class="transform opacity-100 scale-100"
+            leave-active-class="transition ease-in duration-75"
+            leave-from-class="transform opacity-100 scale-100"
+            leave-to-class="transform opacity-0 scale-95"
+          >
+            <div v-if="isDropdownOpen"
+              class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
+              <!-- 个人中心 -->
+              <button @click="handleProfile"
+                class="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                个人中心
+              </button>
+
+              <!-- 分隔线 -->
+              <div class="border-t border-gray-100 my-1"></div>
+
+              <!-- 退出登录 -->
+              <button @click="handleLogout"
+                class="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                退出登录
+              </button>
+            </div>
+          </transition>
         </div>
       </template>
 
@@ -166,7 +238,7 @@ onMounted(() => {
 
     <!-- Mobile User Info (if logged in) -->
     <div v-if="isLoggedIn" class="px-6 py-4 border-t border-gray-200">
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 mb-4">
         <!-- Avatar -->
         <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
           <img v-if="userAvatar" :src="userAvatar" alt="User Avatar" class="w-full h-full object-cover" />
@@ -176,6 +248,27 @@ onMounted(() => {
           <div class="text-base font-medium text-gray-900">{{ userName }}</div>
           <div class="text-sm text-gray-500">已登录</div>
         </div>
+      </div>
+
+      <!-- Mobile Menu Options -->
+      <div class="space-y-2">
+        <button @click="handleProfile"
+          class="w-full py-2.5 px-4 text-left text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          个人中心
+        </button>
+
+        <button @click="handleLogout"
+          class="w-full py-2.5 px-4 text-left text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+          退出登录
+        </button>
       </div>
     </div>
 

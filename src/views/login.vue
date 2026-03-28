@@ -74,11 +74,16 @@
                 required />
             </div>
 
-            <div class="mb-6 flex items-center">
-              <input type="checkbox" id="remember" class="mr-2 w-4 h-4" />
-              <label for="remember" class="text-gray-700 text-xs sm:text-sm">{{
-                t('loginPage.loginForm.rememberMe')
-                }}</label>
+            <div class="mb-6 flex items-center justify-between gap-4">
+              <div class="flex items-center">
+                <input type="checkbox" id="remember" class="mr-2 w-4 h-4" />
+                <label for="remember" class="text-gray-700 text-xs sm:text-sm">{{
+                  t('loginPage.loginForm.rememberMe')
+                  }}</label>
+              </div>
+              <button type="button" class="text-gray-600 text-xs sm:text-sm hover:text-gray-800">
+                {{ t('loginPage.loginForm.forgotPassword') }}
+              </button>
             </div>
 
             <button type="submit"
@@ -102,10 +107,12 @@
               </svg>
             </button>
 
-            <div class="mt-4 text-center">
-              <a href="#" class="text-gray-600 text-xs sm:text-sm hover:text-gray-800">{{
-                t('loginPage.loginForm.forgotPassword')
-                }}</a>
+            <div class="mt-4 text-center text-xs sm:text-sm text-gray-600">
+              {{ t('loginPage.loginForm.noAccount') }}
+              <button type="button" class="ml-1 underline underline-offset-2 hover:text-gray-800"
+                @click="switchForm('register')">
+                {{ t('loginPage.loginForm.registerLink') }}
+              </button>
             </div>
           </form>
 
@@ -113,94 +120,26 @@
           <form v-else @submit.prevent="handleRegister">
             <div class="mb-3 sm:mb-4">
               <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
-                t('loginPage.registerForm.usernameLabel')
+                t('loginPage.registerForm.countryLabel')
                 }}</label>
-              <input v-model="registerForm.username" type="text"
-                :placeholder="t('loginPage.registerForm.usernamePlaceholder')"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
-                required />
+              <a-select v-model="registerForm.countryCode" :placeholder="t('loginPage.registerForm.countryPlaceholder')"
+                :filter-option="filterCountry" allow-search class="country-select w-full">
+                <a-option v-for="country in countryList" :key="country.code" :value="country.code"
+                  :label="`${country.name} (+${country.dialCode})`">
+                  <div class="flex items-center justify-between">
+                    <span>{{ country.name }}</span>
+                    <span class="text-gray-500 ml-2">+{{ country.dialCode }}</span>
+                  </div>
+                </a-option>
+              </a-select>
             </div>
 
             <div class="mb-3 sm:mb-4">
               <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
-                t('loginPage.registerForm.passwordLabel')
+                t('loginPage.registerForm.fullNameLabel')
                 }}</label>
-              <input v-model="registerForm.password" type="password"
-                :placeholder="t('loginPage.registerForm.passwordPlaceholder')"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
-                required minlength="6" />
-            </div>
-
-            <div class="mb-3 sm:mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
-                t('loginPage.registerForm.confirmPasswordLabel')
-                }}</label>
-              <input v-model="registerForm.confirmPassword" type="password"
-                :placeholder="t('loginPage.registerForm.confirmPasswordPlaceholder')"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
-                required />
-            </div>
-
-            <div class="mb-3 sm:mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
-                t('loginPage.registerForm.nameLabel')
-                }}</label>
-              <input v-model="registerForm.name" type="text" :placeholder="t('loginPage.registerForm.namePlaceholder')"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
-                required />
-            </div>
-
-            <div class="mb-3 sm:mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
-                t('loginPage.registerForm.genderLabel')
-                }}</label>
-              <select v-model="registerForm.gender"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500">
-                <option value="">{{ t('loginPage.registerForm.genderPlaceholder') }}</option>
-                <option value="male">{{ t('loginPage.registerForm.genderOptions.male') }}</option>
-                <option value="female">{{
-                  t('loginPage.registerForm.genderOptions.female')
-                  }}</option>
-                <option value="other">{{
-                  t('loginPage.registerForm.genderOptions.other')
-                  }}</option>
-              </select>
-            </div>
-
-            <div class="mb-3 sm:mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
-                t('loginPage.registerForm.birthDateLabel')
-                }}</label>
-              <input v-model="registerForm.birthDate" type="date"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
-                required />
-            </div>
-
-            <div class="mb-3 sm:mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
-                t('loginPage.registerForm.nationalityLabel')
-                }}</label>
-              <input v-model="registerForm.nationality" type="text"
-                :placeholder="t('loginPage.registerForm.nationalityPlaceholder')"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
-                required />
-            </div>
-
-            <div class="mb-3 sm:mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
-                t('loginPage.registerForm.residenceLabel')
-                }}</label>
-              <input v-model="registerForm.residence" type="text"
-                :placeholder="t('loginPage.registerForm.residencePlaceholder')"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
-                required />
-            </div>
-
-            <div class="mb-3 sm:mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
-                t('loginPage.registerForm.phoneLabel')
-                }}</label>
-              <input v-model="registerForm.phone" type="tel" :placeholder="t('loginPage.registerForm.phonePlaceholder')"
+              <input v-model="registerForm.fullName" type="text"
+                :placeholder="t('loginPage.registerForm.fullNamePlaceholder')"
                 class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
                 required />
             </div>
@@ -217,83 +156,76 @@
 
             <div class="mb-3 sm:mb-4">
               <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
-                t('loginPage.registerForm.professionLabel')
+                t('loginPage.registerForm.codeLabel')
                 }}</label>
-              <input v-model="registerForm.profession" type="text"
-                :placeholder="t('loginPage.registerForm.professionPlaceholder')"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
-                required />
+              <div class="flex gap-2">
+                <input v-model="registerForm.code" type="text"
+                  :placeholder="t('loginPage.registerForm.codePlaceholder')"
+                  class="flex-1 px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                  required />
+                <button type="button"
+                  class="px-4 py-2 sm:py-2.5 text-xs sm:text-sm whitespace-nowrap border border-gray-300 rounded text-gray-700 hover:border-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  @click="handleSendCode" :disabled="sendCodeLoading || countdown > 0">
+                  {{ countdown > 0 ? `${countdown}s` : t('loginPage.registerForm.sendCodeButton') }}
+                </button>
+              </div>
             </div>
 
             <div class="mb-3 sm:mb-4">
               <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
-                t('loginPage.registerForm.industryLabel')
+                t('loginPage.registerForm.phoneLabel')
                 }}</label>
-              <input v-model="registerForm.industry" type="text"
-                :placeholder="t('loginPage.registerForm.industryPlaceholder')"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
-                required />
+              <div class="flex gap-2">
+                <div
+                  class="px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded bg-gray-50 text-gray-600 min-w-[100px] text-center">
+                  +{{ selectedRegisterCountry?.dialCode || '--' }}
+                </div>
+                <input v-model="registerForm.phone" type="tel"
+                  :placeholder="t('loginPage.registerForm.phonePlaceholder')"
+                  class="flex-1 px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                  required />
+              </div>
             </div>
 
             <div class="mb-3 sm:mb-4">
               <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
-                t('loginPage.registerForm.specialProfessionLabel')
+                t('loginPage.registerForm.passwordLabel')
                 }}</label>
-              <select v-model="registerForm.specialProfession"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500">
-                <option value="">{{
-                  t('loginPage.registerForm.specialProfessionPlaceholder')
-                  }}</option>
-                <option value="finance">{{
-                  t('loginPage.registerForm.specialProfessionOptions.finance')
-                  }}</option>
-                <option value="law">{{
-                  t('loginPage.registerForm.specialProfessionOptions.law')
-                  }}</option>
-                <option value="cybersecurity">{{
-                  t('loginPage.registerForm.specialProfessionOptions.cybersecurity')
-                  }}</option>
-                <option value="no">{{
-                  t('loginPage.registerForm.specialProfessionOptions.no')
-                  }}</option>
-              </select>
+              <input v-model="registerForm.password" type="password"
+                :placeholder="t('loginPage.registerForm.passwordPlaceholder')"
+                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                required minlength="8" />
             </div>
 
             <div class="mb-4 sm:mb-6">
               <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
-                t('loginPage.registerForm.purposesLabel')
+                t('loginPage.registerForm.inviteCodeLabel')
                 }}</label>
-              <div class="space-y-2 sm:space-y-3">
-                <label class="flex items-center py-1">
-                  <input type="checkbox" v-model="registerForm.purposes" value="volunteer"
-                    class="mr-2 sm:mr-3 w-4 h-4" />
-                  <span class="text-xs sm:text-sm">{{
-                    t('loginPage.registerForm.purposesOptions.volunteer')
-                    }}</span>
-                </label>
-                <label class="flex items-center py-1">
-                  <input type="checkbox" v-model="registerForm.purposes" value="learn" class="mr-2 sm:mr-3 w-4 h-4" />
-                  <span class="text-xs sm:text-sm">{{
-                    t('loginPage.registerForm.purposesOptions.learn')
-                    }}</span>
-                </label>
-                <label class="flex items-center py-1">
-                  <input type="checkbox" v-model="registerForm.purposes" value="report" class="mr-2 sm:mr-3 w-4 h-4" />
-                  <span class="text-xs sm:text-sm">{{
-                    t('loginPage.registerForm.purposesOptions.report')
-                    }}</span>
-                </label>
-              </div>
+              <input v-model="registerForm.inviteCode" type="text"
+                :placeholder="t('loginPage.registerForm.inviteCodePlaceholder')"
+                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                required />
             </div>
 
             <button type="submit"
-              class="w-full bg-black text-white text-sm sm:text-base py-3 sm:py-4 lg:py-6 font-medium flex items-center justify-center hover:bg-gray-800 transition-colors">
-              {{ t('loginPage.registerForm.registerButton') }}
-              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              class="w-full bg-black text-white text-sm sm:text-base py-3 sm:py-4 lg:py-6 font-medium flex items-center justify-center hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              :disabled="loading">
+              <span v-if="!loading">{{ t('loginPage.registerForm.registerButton') }}</span>
+              <span v-else>{{ t('loginPage.registerForm.registering') }}</span>
+              <svg v-if="!loading" class="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-2" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
                 </path>
               </svg>
             </button>
+
+            <div class="mt-4 text-center text-xs sm:text-sm text-gray-600">
+              {{ t('loginPage.registerForm.hasAccount') }}
+              <button type="button" class="ml-1 underline underline-offset-2 hover:text-gray-800"
+                @click="switchForm('login')">
+                {{ t('loginPage.registerForm.loginLink') }}
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -302,11 +234,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { register, sendCode } from '@/api/user'
 import { useUserStore } from '@/stores/user'
 import countryData from '@/assets/json/area.json'
+import { setToken } from '@/utils/auth'
 
 import Nav from '@/components/Nav.vue'
 
@@ -321,7 +255,9 @@ const countryList = ref(countryData)
 
 // 国家搜索过滤函数
 const filterCountry = (inputValue: string, option: any) => {
-  const country = countryList.value.find((c) => c.dialCode === option.value)
+  const country = countryList.value.find(
+    (c) => c.dialCode === option.value || c.code === option.value,
+  )
   if (!country) return false
 
   const searchText = inputValue.toLowerCase()
@@ -338,6 +274,9 @@ const isLogin = ref(type.value === 'login')
 
 // 加载状态
 const loading = ref(false)
+const sendCodeLoading = ref(false)
+const countdown = ref(0)
+let countdownTimer: ReturnType<typeof setInterval> | null = null
 
 // let loginVideoUrl = `https://image.oam007.icu/antifraudalliance/video/collection.mp4`
 
@@ -358,25 +297,22 @@ const loginForm = ref({
 
 // Register form data
 const registerForm = ref({
-  username: '',
-  password: '',
-  confirmPassword: '',
-  name: '',
-  gender: '',
-  birthDate: '',
-  nationality: '',
-  residence: '',
-  phone: '',
+  countryCode: 'US',
+  fullName: '',
   email: '',
-  profession: '',
-  industry: '',
-  specialProfession: '',
-  purposes: [] as string[],
+  code: '',
+  phone: '',
+  password: '',
+  inviteCode: '',
 })
 
 const switchForm = (type: 'login' | 'register') => {
   isLogin.value = type === 'login'
 }
+
+const selectedRegisterCountry = computed(() =>
+  countryList.value.find((country) => country.code === registerForm.value.countryCode),
+)
 
 // 计算属性：当前直播列表
 const liveList = computed(() => userStore.userInfo?.liveList || [])
@@ -426,34 +362,121 @@ const handleLogin = async () => {
   }
 }
 
-const handleRegister = () => {
-  // 验证账号
-  if (!registerForm.value.username) {
-    alert(t('loginPage.validation.accountRequired'))
+const handleRegister = async () => {
+  if (!registerForm.value.countryCode) {
+    alert(t('loginPage.validation.countryRequired'))
     return
   }
 
-  // 验证密码
+  if (!registerForm.value.fullName) {
+    alert(t('loginPage.validation.fullNameRequired'))
+    return
+  }
+
+  if (!registerForm.value.email) {
+    alert(t('loginPage.validation.emailRequired'))
+    return
+  }
+
+  if (!registerForm.value.code) {
+    alert(t('loginPage.validation.codeRequired'))
+    return
+  }
+
+  if (!registerForm.value.phone) {
+    alert(t('loginPage.validation.phoneRequired'))
+    return
+  }
+
   if (!registerForm.value.password) {
     alert(t('loginPage.validation.passwordRequired'))
     return
   }
 
-  if (registerForm.value.password.length < 6) {
+  if (registerForm.value.password.length < 8) {
     alert(t('loginPage.validation.passwordMinLength'))
     return
   }
 
-  // 验证确认密码
-  if (registerForm.value.password !== registerForm.value.confirmPassword) {
-    alert(t('loginPage.validation.passwordMismatch'))
+  if (!registerForm.value.inviteCode) {
+    alert(t('loginPage.validation.inviteCodeRequired'))
     return
   }
 
-  // Register logic
-  console.log('Registering:', JSON.stringify(registerForm.value))
-  alert(t('loginPage.validation.registerInProgress'))
+  if (!selectedRegisterCountry.value) {
+    alert(t('loginPage.validation.countryRequired'))
+    return
+  }
+
+  try {
+    loading.value = true
+    const { data } = await register({
+      country: selectedRegisterCountry.value.code,
+      full_name: registerForm.value.fullName,
+      email: registerForm.value.email,
+      code: registerForm.value.code,
+      phone: `${selectedRegisterCountry.value.dialCode}${registerForm.value.phone}`,
+      password: registerForm.value.password,
+      invite_code: registerForm.value.inviteCode,
+    })
+
+    if (data?.token?.access_token) {
+      setToken(data.token.access_token)
+      await userStore.info()
+    }
+
+    router.push({ name: 'home' })
+  } catch (error) {
+    console.error('注册失败:', error)
+    alert(t('loginPage.validation.registerFailed'))
+  } finally {
+    loading.value = false
+  }
 }
+
+const startCountdown = () => {
+  countdown.value = 60
+
+  if (countdownTimer) {
+    clearInterval(countdownTimer)
+  }
+
+  countdownTimer = setInterval(() => {
+    countdown.value -= 1
+    if (countdown.value <= 0 && countdownTimer) {
+      clearInterval(countdownTimer)
+      countdownTimer = null
+    }
+  }, 1000)
+}
+
+const handleSendCode = async () => {
+  if (!registerForm.value.email) {
+    alert(t('loginPage.validation.emailRequired'))
+    return
+  }
+
+  try {
+    sendCodeLoading.value = true
+    await sendCode({
+      account: registerForm.value.email,
+      type: 'email',
+    })
+    startCountdown()
+    alert(t('loginPage.validation.codeSent'))
+  } catch (error) {
+    console.error('发送验证码失败:', error)
+    alert(t('loginPage.validation.codeSendFailed'))
+  } finally {
+    sendCodeLoading.value = false
+  }
+}
+
+onUnmounted(() => {
+  if (countdownTimer) {
+    clearInterval(countdownTimer)
+  }
+})
 </script>
 
 <style scoped>

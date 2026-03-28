@@ -35,18 +35,22 @@ export function getEmailCode(): Promise<any> {
 export function totalAsset(): Promise<any> {
   return request.get('/api/user/totalAsset')
 }
-export function walletLogs(params: any): Promise<any> {
+export function walletLogs(params?: any): Promise<any> {
   return request.get('/api/user/wallet/ledgers', { params })
 }
 export function forgetPassword(data: any): Promise<any> {
   return request.post('/api/auth/resetPassword', data)
 }
 export function updatePassword(data: any): Promise<any> {
-  return request.post('/app-api/user/updatePassword', data)
+  return request.post('/api/auth/resetPassword', data)
 }
 export function register(data: any): Promise<any> {
-  return request.post('api/auth/register', data)
+  return request.post('/api/auth/register', data)
 }
+export function updateProfile(data: any): Promise<any> {
+  return request.post('/api/user/updateProfile', data)
+}
+
 export function getCaptchaSlide(): Promise<any> {
   return request.post('/app-api/user/getCaptchaSlide')
 }
@@ -68,6 +72,9 @@ export function UserCardUpdate(data: any): Promise<any> {
 }
 export function kyc(data: any): Promise<any> {
   return request.post('api/user/kyc/registrationInfo', data)
+}
+export function kycSubmit(data: any): Promise<any> {
+  return request.post('api/user/kyc/submit', data)
 }
 export function getKfUrl(params: any): Promise<any> {
   return request.get('/app-api/user/getKfUrl', { params })
