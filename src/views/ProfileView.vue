@@ -3,10 +3,11 @@ import { computed, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { Message } from '@arco-design/web-vue'
 import { uploadFile } from '@/api/tool'
-import { updateProfile } from '@/api/user'
+import { updateProfile, userStatistic } from '@/api/user'
 import useUserStore from '@/stores/user'
 import Nav from '@/components/Nav.vue'
 import { useI18n } from 'vue-i18n'
+import { addCommasToNumber } from '@/utils/tool'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -17,6 +18,30 @@ const showEditProfileModal = ref(false)
 const savingProfile = ref(false)
 const avatarUploading = ref(false)
 const activeSection = ref('overview')
+const walletList = ref<any[]>([])
+
+const languageOptions = [
+  { label: 'English', value: 'en' },
+  { label: '中文', value: 'zh' },
+  { label: '日本語', value: 'ja' },
+  { label: '한국어', value: 'ko' },
+]
+
+const walletLabelMap: Record<string, string> = {
+  stock: 'Stock',
+  fund: 'Fund',
+  future: 'Futures',
+  equity: 'Equity',
+  ipo: 'IPO',
+}
+
+const walletRouteMap: Record<string, { path: string, query?: Record<string, string> }> = {
+  stock: { path: '/stockOrder' },
+  fund: { path: '/AFFund', query: { type: 'orders' } },
+  future: { path: '/FuturesInvestment', query: { type: 'orders' } },
+  equity: { path: '/Equity', query: { type: 'orders' } },
+  ipo: { path: '/IPO', query: { type: 'orders' } },
+}
 
 const createProfileForm = () => ({
   avatar: '',
@@ -115,6 +140,47 @@ const quickActions = [
     action: () => router.push('/profile/language')
   }
 ]
+
+// 钱包相关函数
+async function getWalletStatistic() {
+  const { data, code } = await userStatistic()
+  if (code === 200 && data) {
+    walletList.value = Object.entries(data)
+      .filter(([_, v]) => v !== null)
+      .map(([key, value]: [string, any]) => ({
+        key,
+        label: walletLabelMap[key] || key,
+        ...value,
+      }))
+  }
+}
+
+function handleClickWalletItem(item: any) {
+  const route = walletRouteMap[item.key]
+  if (route) {
+    router.push(route)
+  }
+}
+
+function handleWalletAction(type: number) {
+  if (type === 1) {
+    router.push('/wallet/exchange/cashierCenter-withdraw')
+  } else if (type === 2) {
+    router.push('/wallet/exchange/cashierCenter')
+  } else {
+    router.push('/moneyDetail')
+  }
+}
+
+function handleLanguageChange(value: string) {
+  locale.value = value
+  Message.success(`Language changed to ${languageOptions.find(opt => opt.value === value)?.label}`)
+}
+
+// 计算总持仓数
+const totalHoldings = computed(() => {
+  return walletList.value.reduce((sum, item) => sum + (item.holding_count || 0), 0)
+})
 
 // 切换菜单项
 function handleMenuClick(item: any) {
@@ -273,6 +339,7 @@ function closeLogoutModal() {
 onMounted(async () => {
   await userStore.info()
   syncProfileForm()
+  getWalletStatistic()
 })
 </script>
 
@@ -389,22 +456,50 @@ onMounted(async () => {
         <main class="flex-1">
           <!-- Overview Section -->
           <div v-if="activeSection === 'overview'">
-            <!-- 统计卡片 -->
-            <div class="grid grid-cols-3 gap-6 mb-8">
-              <!-- 总资产 -->
-              <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-                <div class="flex items-center justify-between mb-4">
-                  <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
+            <!-- 钱包余额卡片 -->
+            <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-lg p-8 mb-8 text-white">
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <p class="text-blue-100 text-sm mb-2">{{ t("Balance Available") }}</p>
+                  <p class="text-4xl font-bold">${{ addCommasToNumber(userInfo.balance) }}</p>
                 </div>
-                <p class="text-sm text-gray-500 mb-1">Total Assets</p>
-                <p class="text-2xl font-bold text-gray-900">$0.00</p>
+                <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
               </div>
+              <div class="flex gap-3">
+                <button @click="handleWalletAction(1)"
+                  class="flex-1 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-xl py-3 px-4 font-medium transition-all flex items-center justify-center gap-2">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 6V7.5M18.364 5.63604C21.8787 9.15076 21.8787 14.8492 18.364 18.3639C14.8493 21.8787 9.1508 21.8787 5.6361 18.3639C2.12138 14.8492 2.12138 9.15074 5.6361 5.63604C9.15082 2.12132 14.8493 2.12132 18.364 5.63604" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M12 18V16.5M9 14.255V14.255C9 15.498 10.007 16.505 11.25 16.505H12.893C14.056 16.505 15 15.562 15 14.398V14.398C15 13.432 14.343 12.59 13.406 12.355L10.594 11.65C9.657 11.415 9 10.573 9 9.607V9.607C9 8.443 9.943 7.5 11.107 7.5H12.75C13.993 7.5 15 8.507 15 9.75V9.75" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  {{ t("Withdraw") }}
+                </button>
+                <button @click="handleWalletAction(2)"
+                  class="flex-1 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-xl py-3 px-4 font-medium transition-all flex items-center justify-center gap-2">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.55799 9.76296L5.27099 8.69595C4.98199 7.62695 5.61699 6.52795 6.68699 6.24295L16.73 3.56695C17.79 3.28495 18.89 3.91996 19.176 4.97896L20.93 11.488C21.218 12.557 20.582 13.656 19.514 13.941L17.4 14.504" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5 20.4999H15.4C16.505 20.4999 17.4 19.6049 17.4 18.4999V11.7629C17.4 10.6579 16.505 9.76294 15.4 9.76294H5C3.895 9.76294 3 10.6579 3 11.7629V18.4999C3 19.6049 3.896 20.4999 5 20.4999Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M3 13.8401H17.4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  {{ t("Deposit") }}
+                </button>
+                <button @click="handleWalletAction(3)"
+                  class="flex-1 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-xl py-3 px-4 font-medium transition-all flex items-center justify-center gap-2">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.3445 5.29329C6.43748 5.38616 6.51124 5.49645 6.56156 5.61785C6.61188 5.73924 6.63779 5.86937 6.63779 6.00079C6.63779 6.1322 6.61188 6.26233 6.56156 6.38373C6.51124 6.50513 6.43748 6.61541 6.3445 6.70829C4.84394 8.2091 4.00095 10.2445 4.00095 12.3668C4.00095 14.4891 4.84394 16.5245 6.3445 18.0253C6.43734 18.1182 6.51098 18.2285 6.5612 18.3499C6.61142 18.4712 6.63725 18.6013 6.6372 18.7326C6.63716 18.864 6.61124 18.994 6.56093 19.1154C6.51062 19.2367 6.43691 19.3469 6.344 19.4398C6.25109 19.5326 6.1408 19.6063 6.01943 19.6565C5.89807 19.7067 5.76799 19.7325 5.63665 19.7325C5.5053 19.7324 5.37524 19.7065 5.25391 19.6562C5.13258 19.6059 5.02234 19.5322 4.9295 19.4393C1.0235 15.5333 1.0235 9.19929 4.9295 5.29329C5.02237 5.20031 5.13266 5.12655 5.25406 5.07623C5.37546 5.0259 5.50558 5 5.637 5C5.76842 5 5.89854 5.0259 6.01994 5.07623C6.14134 5.12655 6.25163 5.20031 6.3445 5.29329ZM19.0755 5.29329C22.9815 9.20029 22.9815 15.5333 19.0755 19.4393C18.8869 19.6214 18.6343 19.7222 18.3721 19.72C18.1099 19.7177 17.8591 19.6125 17.6737 19.4271C17.4883 19.2417 17.3831 18.9909 17.3808 18.7287C17.3785 18.4665 17.4793 18.2139 17.6615 18.0253C19.1621 16.5245 20.005 14.4891 20.005 12.3668C20.005 10.2445 19.1621 8.2091 17.6615 6.70829C17.4739 6.52078 17.3684 6.26641 17.3683 6.00114C17.3682 5.73587 17.4735 5.48143 17.661 5.29379C17.8485 5.10615 18.1029 5.00068 18.3681 5.00058C18.6334 5.00049 18.8879 5.10578 19.0755 5.29329ZM9.3115 8.16729C9.49897 8.35481 9.60429 8.60912 9.60429 8.87429C9.60429 9.13945 9.49897 9.39376 9.3115 9.58129C8.94745 9.9453 8.65867 10.3775 8.46165 10.8531C8.26462 11.3287 8.16322 11.8385 8.16322 12.3533C8.16322 12.8681 8.26462 13.3779 8.46165 13.8535C8.65867 14.3291 8.94745 14.7613 9.3115 15.1253C9.40701 15.2175 9.48319 15.3279 9.5356 15.4499C9.58801 15.5719 9.6156 15.7031 9.61675 15.8359C9.6179 15.9687 9.5926 16.1003 9.54232 16.2232C9.49204 16.3461 9.41779 16.4578 9.3239 16.5517C9.23 16.6456 9.11835 16.7198 8.99545 16.7701C8.87256 16.8204 8.74088 16.8457 8.6081 16.8445C8.47532 16.8434 8.3441 16.8158 8.2221 16.7634C8.10009 16.711 7.98975 16.6348 7.8975 16.5393C6.78733 15.4291 6.16364 13.9233 6.16364 12.3533C6.16364 10.7832 6.78733 9.2775 7.8975 8.16729C8.08503 7.97982 8.33934 7.8745 8.6045 7.8745C8.86966 7.8745 9.12397 7.97982 9.3115 8.16729ZM16.2705 8.16729C17.3807 9.2775 18.0044 10.7832 18.0044 12.3533C18.0044 13.9233 17.3807 15.4291 16.2705 16.5393C16.1777 16.6322 16.0674 16.7059 15.9461 16.7562C15.8248 16.8065 15.6947 16.8324 15.5634 16.8325C15.432 16.8325 15.3019 16.8067 15.1806 16.7565C15.0592 16.7063 14.9489 16.6326 14.856 16.5398C14.7631 16.4469 14.6894 16.3367 14.6391 16.2154C14.5888 16.094 14.5628 15.964 14.5628 15.8326C14.5628 15.7013 14.5886 15.5712 14.6388 15.4499C14.689 15.3285 14.7627 15.2182 14.8555 15.1253C15.2195 14.7613 15.5083 14.3291 15.7054 13.8535C15.9024 13.3779 16.0038 12.8681 16.0038 12.3533C16.0038 11.8385 15.9024 11.3287 15.7054 10.8531C15.5083 10.3775 15.2195 9.9453 14.8555 9.58129C14.668 9.39365 14.5627 9.1392 14.5628 8.87393C14.5629 8.60866 14.6684 8.35429 14.856 8.16679C15.0436 7.97928 15.2981 7.87399 15.5634 7.87408C15.8286 7.87418 16.083 7.97965 16.2705 8.16729ZM12.0835 10.9373C12.2805 10.9373 12.4755 10.9761 12.6575 11.0515C12.8395 11.1268 13.0049 11.2373 13.1442 11.3766C13.2834 11.5159 13.3939 11.6813 13.4693 11.8633C13.5447 12.0452 13.5835 12.2403 13.5835 12.4373C13.5835 12.6343 13.5447 12.8293 13.4693 13.0113C13.3939 13.1933 13.2834 13.3587 13.1442 13.4979C13.0049 13.6372 12.8395 13.7477 12.6575 13.8231C12.4755 13.8985 12.2805 13.9373 12.0835 13.9373C11.6857 13.9373 11.3041 13.7793 11.0228 13.4979C10.7415 13.2166 10.5835 12.8351 10.5835 12.4373C10.5835 12.0395 10.7415 11.6579 11.0228 11.3766C11.3041 11.0953 11.6857 10.9373 12.0835 10.9373Z" fill="white" />
+                  </svg>
+                  {{ t("Detail") }}
+                </button>
+              </div>
+            </div>
 
+            <!-- 统计卡片 -->
+            <div class="grid grid-cols-2 gap-6 mb-8">
               <!-- 持仓 -->
               <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                 <div class="flex items-center justify-between mb-4">
@@ -415,11 +510,11 @@ onMounted(async () => {
                     </svg>
                   </div>
                 </div>
-                <p class="text-sm text-gray-500 mb-1">Holdings</p>
-                <p class="text-2xl font-bold text-gray-900">0</p>
+                <p class="text-sm text-gray-500 mb-1">Total Holdings</p>
+                <p class="text-2xl font-bold text-gray-900">{{ totalHoldings }}</p>
               </div>
 
-              <!-- 交易 -->
+              <!-- 投资类型 -->
               <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                 <div class="flex items-center justify-between mb-4">
                   <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
@@ -429,8 +524,8 @@ onMounted(async () => {
                     </svg>
                   </div>
                 </div>
-                <p class="text-sm text-gray-500 mb-1">Transactions</p>
-                <p class="text-2xl font-bold text-gray-900">0</p>
+                <p class="text-sm text-gray-500 mb-1">Investment Types</p>
+                <p class="text-2xl font-bold text-gray-900">{{ walletList.length }}</p>
               </div>
             </div>
 
@@ -483,6 +578,41 @@ onMounted(async () => {
                     </svg>
                   </div>
                 </button>
+              </div>
+            </div>
+
+            <!-- 钱包投资列表 -->
+            <div v-if="walletList.length > 0" class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-8">
+              <h2 class="text-xl font-bold text-gray-900 mb-6">My Investments</h2>
+              <div class="space-y-4">
+                <div
+                  v-for="item in walletList"
+                  :key="item.key"
+                  @click="handleClickWalletItem(item)"
+                  class="group flex items-center justify-between p-4 border border-gray-200 rounded-xl hover:border-blue-300 hover:bg-blue-50 transition-all cursor-pointer">
+                  <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-2">
+                      <h3 class="text-lg font-semibold text-gray-900">{{ t(item.label) }}</h3>
+                      <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full font-medium">
+                        {{ item.holding_count }} {{ t('Holdings') }}
+                      </span>
+                    </div>
+                    <div class="flex items-center gap-4 text-sm">
+                      <span class="text-gray-500">{{ t('Net value') }}:</span>
+                      <span class="font-semibold text-gray-900">${{ addCommasToNumber(item.total_market_value) }}</span>
+                      <span
+                        :class="[
+                          'px-2 py-1 rounded-md text-xs font-semibold',
+                          item.total_profit >= 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                        ]">
+                        {{ t('Income') }}: {{ item.total_profit >= 0 ? '+' : '' }}${{ addCommasToNumber(Math.abs(item.total_profit)) }}
+                      </span>
+                    </div>
+                  </div>
+                  <svg class="w-6 h-6 text-gray-400 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
               </div>
             </div>
 
@@ -540,13 +670,17 @@ onMounted(async () => {
             <h2 class="text-2xl font-bold text-gray-900 mb-6">Preferences</h2>
             <div class="space-y-6">
               <div class="flex items-center justify-between py-4 border-b">
-                <div>
-                  <h3 class="font-semibold text-gray-900">Language</h3>
-                  <p class="text-sm text-gray-500">Current language: {{ locale }}</p>
+                <div class="flex-1">
+                  <h3 class="font-semibold text-gray-900 mb-1">Language</h3>
+                  <p class="text-sm text-gray-500 mb-3">Choose your preferred language</p>
+                  <a-select
+                    v-model="locale"
+                    :options="languageOptions"
+                    @change="handleLanguageChange"
+                    class="w-64"
+                    :trigger-props="{ contentClass: 'language-select-dropdown' }"
+                  />
                 </div>
-                <button @click="router.push('/profile/language')" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
-                  Change
-                </button>
               </div>
               <div class="flex items-center justify-between py-4 border-b">
                 <div>
@@ -759,5 +893,46 @@ onMounted(async () => {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+/* 语言选择器样式 */
+:deep(.arco-select-view-single) {
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+:deep(.arco-select-view-single:hover) {
+  border-color: #3b82f6;
+}
+
+:deep(.arco-select-view-single.arco-select-view-focus) {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+:deep(.language-select-dropdown) {
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+:deep(.arco-select-option) {
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
+  margin: 0.25rem 0.5rem;
+  transition: all 0.2s;
+}
+
+:deep(.arco-select-option:hover) {
+  background-color: #eff6ff;
+}
+
+:deep(.arco-select-option.arco-select-option-selected) {
+  background-color: #dbeafe;
+  color: #2563eb;
+  font-weight: 500;
 }
 </style>

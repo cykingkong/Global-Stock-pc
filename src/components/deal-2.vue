@@ -246,7 +246,7 @@ onMounted(async () => {
 
   // 获取股票列表（如果 store 中还没有数据）
   if (marketStore.stockList.length === 0) {
-    await marketStore.fetchMarketList({ page: 1, size: 10, region: 'US' })
+    await marketStore.fetchMarketList({ page: 1, size: 10, region: '200' })
   }
 
   if (urlSymbol) {

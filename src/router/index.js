@@ -64,6 +64,31 @@ const router = createRouter({
       name: 'profile',
       component: ProfileView,
     },
+    {
+      path: '/aboutUs',
+      name: 'aboutUs',
+      component: () => import('../views/AboutUs.vue'),
+    },
+    {
+      path: '/moneyDetail',
+      name: 'moneyDetail',
+      component: () => import('../views/MoneyDetail.vue'),
+    },
+    {
+      path: '/ipo',
+      name: 'ipo',
+      component: () => import('../views/IpoList.vue'),
+    },
+    {
+      path: '/ipo/detail',
+      name: 'ipoDetail',
+      component: () => import('../views/IpoDetail.vue'),
+    },
+    {
+      path: '/stockOrder',
+      name: 'stockOrder',
+      component: () => import('../views/StockOrders.vue'),
+    },
   ],
 })
 

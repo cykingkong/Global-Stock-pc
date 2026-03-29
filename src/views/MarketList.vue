@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, h, computed, onMounted, watch } from 'vue'
+import { ref, h, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { Table, Button, Pagination } from '@arco-design/web-vue'
@@ -10,6 +10,7 @@ import Nav from '@/components/Nav.vue'
 import IndexFooter from '@/components/Index/footer.vue'
 import SparkLine from '@/components/SparkLine.vue'
 import { getMarketList } from '@/api/market'
+import { subscribeQuotes, unsubscribeAllQuotes } from '@/utils/quoteSubscription'
 
 const router = useRouter()
 const { t } = useI18n()
@@ -31,13 +32,13 @@ interface StockItem {
 const stocks = ref<StockItem[]>([])
 const loading = ref(false)
 const currentPage = ref(1)
-const pageSize = ref(20)
+const pageSize = ref(5)
 const total = ref(0)
 
 async function fetchMarkets() {
   loading.value = true
   try {
-    const { data, code } = await getMarketList({ page: currentPage.value, size: pageSize.value, region: 'US' })
+    const { data, code } = await getMarketList({ page: currentPage.value, size: pageSize.value, region: '200' })
     if (code === 200) {
       const list: any[] = []
       if (data.groups && Array.isArray(data.groups)) {
@@ -61,6 +62,14 @@ async function fetchMarkets() {
         tradingview_name: item.tradingview_name || `NASDAQ:${item.symbol}`,
       }))
       total.value = data.total || list.length
+      subscribeQuotes(stocks.value, (symbol, data) => {
+        const target = stocks.value.find((s) => s.symbol === symbol)
+        if (target) {
+          if (data.close !== undefined) target.close = data.close
+          if (data.increase !== undefined) target.increase = data.increase
+          if (data.changeValue !== undefined) target.changeValue = data.changeValue
+        }
+      })
     }
   } catch (e) {
     console.error('获取股票列表失败', e)
@@ -70,6 +79,7 @@ async function fetchMarkets() {
 }
 
 function handlePageChange(page: number) {
+  unsubscribeAllQuotes()
   currentPage.value = page
   fetchMarkets()
   window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -157,6 +167,10 @@ const columns = computed(() => [
 onMounted(() => {
   fetchMarkets()
 })
+
+onUnmounted(() => {
+  unsubscribeAllQuotes()
+})
 </script>
 
 <template>
@@ -174,17 +188,12 @@ onMounted(() => {
 
         <!-- Table -->
         <Table :data="stocks" :columns="columns" :bordered="false" :pagination="false" :loading="loading"
-          :row-class="() => 'hover:bg-zinc-50/70 transition-colors'" class="market-table" />
+          :row-class="() => 'hover:bg-zinc-50/70 transition-colors'" class="market-table" style="min-height: 520px;" />
 
         <!-- Pagination -->
         <div class="flex justify-center mt-8" v-if="total > pageSize">
-          <Pagination
-            :total="total"
-            :current="currentPage"
-            :page-size="pageSize"
-            show-total
-            @change="handlePageChange"
-          />
+          <Pagination :total="total" :current="currentPage" :page-size="pageSize" show-total
+            @change="handlePageChange" />
         </div>
       </div>
     </div>

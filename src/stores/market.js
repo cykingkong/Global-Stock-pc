@@ -9,7 +9,8 @@ export const useMarketStore = defineStore('market', () => {
   const loading = ref(false)
   // 错误信息
   const error = ref(null)
-
+  // 指数列表
+  const indexList = ref([])
   /**
    * 获取股票市场列表
    * @param {Object} params - 请求参数
@@ -17,10 +18,9 @@ export const useMarketStore = defineStore('market', () => {
    * @param {number} params.size - 每页数量
    * @param {string} params.region - 地区
    */
-  const fetchMarketList = async (params = { page: 1, size: 10, region: 'US' }) => {
+  const fetchMarketList = async (params = { page: 1, size: 10, region: '200' }) => {
     loading.value = true
     error.value = null
-
     try {
       const { data, code } = await getMarketList(params)
 
@@ -63,7 +63,50 @@ export const useMarketStore = defineStore('market', () => {
       loading.value = false
     }
   }
+  const fetchIndexList = async (params = { page: 1, size: 10, region: '500' }) => {
+    loading.value = true
+    error.value = null
+    try {
+      const { data, code } = await getMarketList(params)
+      if (code === 200) {
+        const list = []
 
+        // 解析嵌套的股票数据结构
+        if (data.groups && Array.isArray(data.groups)) {
+          data.groups.forEach((group) => {
+            group.categories?.forEach((category) => {
+              category.stocks?.forEach((stock) => list.push(stock))
+            })
+          })
+        }
+
+        // 格式化股票数据
+        indexList.value = list.map((item, index) => ({
+          key: String(item.id),
+          rank: index + 1,
+          name: item.name,
+          fullName: item.full_name,
+          symbol: item.symbol,
+          logoUrl: item.logo_url || '',
+          close: item.close,
+          increase: item.increase,
+          changeValue: item.changeValue,
+          closePoints: item.close_points || [],
+          tradingview_name: item.tradingview_name || `NASDAQ:${item.symbol}`,
+        }))
+
+        return indexList.value
+      } else {
+        throw new Error('获取指数列表失败')
+      }
+    } catch (e) {
+      error.value = e.message || '获取指数列表失败'
+      console.error('获取指数列表失败', e)
+      return []
+    } finally {
+      loading.value = false
+    }
+  }
   /**
    * 清空股票列表
    */
@@ -75,7 +118,10 @@ export const useMarketStore = defineStore('market', () => {
     stockList,
     loading,
     error,
+    indexList,
     fetchMarketList,
     clearStockList,
+    fetchIndexList,
   }
 })
+

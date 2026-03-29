@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, h, computed, onMounted } from 'vue'
+import { ref, h, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { Table, Button } from '@arco-design/web-vue'
@@ -7,6 +7,7 @@ import '@arco-design/web-vue/es/table/style/css.js'
 import '@arco-design/web-vue/es/button/style/css.js'
 import { useMarketStore } from '@/stores/market'
 import SparkLine from '@/components/SparkLine.vue'
+import { subscribeQuotes, unsubscribeAllQuotes } from '@/utils/quoteSubscription'
 
 const router = useRouter()
 const { t } = useI18n()
@@ -30,11 +31,23 @@ const stocks = computed(() => marketStore.stockList)
 const loading = computed(() => marketStore.loading)
 
 async function fetchMarkets() {
-  await marketStore.fetchMarketList({ page: 1, size: 10, region: 'US' })
+  await marketStore.fetchMarketList({ page: 1, size: 10, region: '200' })
+  subscribeQuotes(stocks.value, (symbol, data) => {
+    const target = stocks.value.find((s) => s.symbol === symbol)
+    if (target) {
+      if (data.close !== undefined) target.close = data.close
+      if (data.increase !== undefined) target.increase = data.increase
+      if (data.changeValue !== undefined) target.changeValue = data.changeValue
+    }
+  })
 }
 
 onMounted(() => {
   fetchMarkets()
+})
+
+onUnmounted(() => {
+  unsubscribeAllQuotes()
 })
 
 const handleTrade = (record: StockItem) => {

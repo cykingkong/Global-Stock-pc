@@ -1,0 +1,240 @@
+<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { Message } from '@arco-design/web-vue'
+import '@arco-design/web-vue/es/message/style/css.js'
+import Nav from '@/components/Nav.vue'
+import IndexFooter from '@/components/Index/footer.vue'
+import useUserStore from '@/stores/user'
+import { addCommasToNumber } from '@/utils/tool'
+import { ipoProductList, ipoOrderList } from '@/api/ipo'
+
+const router = useRouter()
+const route = useRoute()
+const userStore = useUserStore()
+const { t } = useI18n()
+
+const activeTab = ref(0)
+const tabs = computed(() => [
+  { label: t('ipo.products') },
+  { label: t('ipo.orders') },
+])
+
+const productList = ref<any[]>([])
+const productLoading = ref(false)
+
+const orderList = ref<any[]>([])
+const orderLoaded = ref(false)
+const orderLoading = ref(false)
+
+async function fetchProducts() {
+  productLoading.value = true
+  try {
+    const res = await ipoProductList()
+    productList.value = res.data?.data || []
+  } catch (e: any) {
+    Message.error(e.message || 'Failed to load products')
+  } finally {
+    productLoading.value = false
+  }
+}
+
+async function fetchOrders() {
+  orderLoading.value = true
+  try {
+    const res = await ipoOrderList()
+    orderList.value = res.data?.data || []
+    orderLoaded.value = true
+  } catch (e: any) {
+    Message.error(e.message || 'Failed to load orders')
+  } finally {
+    orderLoading.value = false
+  }
+}
+
+function handleTabChange(index: number) {
+  activeTab.value = index
+  if (index === 1 && !orderLoaded.value) fetchOrders()
+}
+
+function handleProductClick(product: any) {
+  router.push({ path: '/ipo/detail', query: { id: product.id } })
+}
+
+function handleOrderAction(order: any) {
+  Message.info(`操作: ${order.project_name}`)
+}
+
+function getStatusConfig(status: number) {
+  const map: any = {
+    1: { text: t('ipo.pending'), color: '#F59E0B', bg: '#FEF3E8' },
+    2: { text: t('ipo.inProgress'), color: '#12D18E', bg: '#E8FAF3' },
+    3: { text: t('ipo.ended'), color: '#64748B', bg: '#F1F5F9' },
+  }
+  return map[status] || map[1]
+}
+
+function getOrderStatusConfig(status: number) {
+  const map: any = {
+    1: { text: t('ipo.waitingForDraw'), color: '#12D18E', bg: '#E8FAF3' },
+    2: { text: t('ipo.won'), color: '#12D18E', bg: '#E8FAF3' },
+    3: { text: t('ipo.listed'), color: '#12D18E', bg: '#E8FAF3' },
+    4: { text: t('ipo.refunded'), color: '#12D18E', bg: '#E8FAF3' },
+    5: { text: t('ipo.sold'), color: '#64748B', bg: '#F1F5F9' },
+  }
+  return map[status] || map[1]
+}
+
+onMounted(() => {
+  userStore.info()
+  fetchProducts()
+  const routeType = String(route.query.tab || route.query.type || '').toLowerCase()
+  if (['1', 'order', 'orders'].includes(routeType)) {
+    activeTab.value = 1
+    fetchOrders()
+  }
+})
+</script>
+
+<template>
+  <div class="ipo-page min-h-screen">
+    <Nav />
+    <div class="ipo-shell max-w-[1320px] mx-auto px-6 py-8">
+      <div class="ipo-header mb-6">
+        <div>
+          <h1 class="text-[30px] leading-tight font-bold text-[#1f2937]">{{ t('ipo.title') }}</h1>
+          <div class="ipo-subtitle mt-2">{{ t('ipo.products') }} / {{ t('ipo.orders') }}</div>
+        </div>
+        <div class="ipo-head-metrics">
+          <div class="ipo-metric-box">
+            <span class="ipo-metric-label">{{ t('ipo.myBalance') }}</span>
+            <strong class="ipo-metric-value">${{ addCommasToNumber(userStore.userInfo?.balance || 0) }}</strong>
+          </div>
+          <div class="ipo-metric-box">
+            <span class="ipo-metric-label">{{ t('ipo.orders') }}</span>
+            <strong class="ipo-metric-value">{{ orderList.length }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="ipo-tabs mb-6">
+        <button v-for="(tab, index) in tabs" :key="index" class="ipo-tab-btn" :class="{ 'is-active': activeTab === index }" @click="handleTabChange(index)">
+          {{ tab.label }}
+        </button>
+      </div>
+
+      <div v-if="activeTab === 0">
+        <div v-if="productLoading" class="text-center text-[#94A3B8] py-20">{{ t('affund.loading') }}</div>
+        <div v-else-if="productList.length === 0" class="text-center text-[#94A3B8] py-20">{{ t('ipo.noProducts') }}</div>
+        <div v-else class="ipo-product-grid">
+          <div v-for="product in productList" :key="product.id" class="ipo-product-card" @click="handleProductClick(product)">
+            <div class="ipo-product-header">
+              <h3 class="text-[16px] text-[#111827] font-bold">{{ product.name }}</h3>
+              <span class="ipo-status-tag" :style="{ color: getStatusConfig(product.status).color, backgroundColor: getStatusConfig(product.status).bg }">
+                {{ getStatusConfig(product.status).text }}
+              </span>
+            </div>
+            <div class="h-[1px] bg-[#E2E8F0] mt-[18px] mb-[16px]" />
+            <div class="ipo-price-info">
+              <div class="ipo-price-item">
+                <div class="text-[16px] text-[#111827] font-bold mb-1">${{ addCommasToNumber(product.issue_price) }}</div>
+                <div class="text-[12px] text-[#64748B]">{{ t('ipo.issuePrice') }}</div>
+              </div>
+              <div class="ipo-price-item text-right">
+                <div class="text-[16px] text-[#111827] font-bold mb-1">
+                  ${{ product.listing_price_min }} ~ ${{ product.listing_price_max }}
+                </div>
+                <div class="text-[12px] text-[#64748B]">{{ t('ipo.listingPrice') }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="activeTab === 1">
+        <div v-if="orderLoading" class="text-center text-[#94A3B8] py-20">{{ t('affund.loading') }}</div>
+        <div v-else-if="orderList.length === 0" class="text-center text-[#94A3B8] py-20">{{ t('ipo.noOrders') }}</div>
+        <div v-else class="ipo-order-panel">
+          <div class="ipo-order-toolbar">
+            <div class="ipo-order-title">{{ t('ipo.orders') }}</div>
+            <div class="ipo-order-count">{{ orderList.length }}</div>
+          </div>
+          <div class="ipo-order-table-wrap">
+            <table class="ipo-order-table">
+              <thead>
+                <tr>
+                  <th>{{ t('ipo.companyName') }}</th>
+                  <th class="ta-right">{{ t('ipo.issuePrice') }}</th>
+                  <th class="ta-right">{{ t('ipo.allottedQty') }}</th>
+                  <th class="ta-right">{{ t('ipo.listingPrice') }}</th>
+                  <th class="ta-right">{{ t('ipo.expectedProfit') }}</th>
+                  <th>{{ t('ipo.status') }}</th>
+                  <th class="ta-right"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="order in orderList" :key="order.id">
+                  <td>
+                    <div class="text-[14px] text-[#0F172A] font-semibold">{{ order.project_name }}</div>
+                  </td>
+                  <td class="ta-right tabular">${{ addCommasToNumber(order.issue_price) }}</td>
+                  <td class="ta-right tabular">{{ order.allotted_qty || 0 }}</td>
+                  <td class="ta-right tabular">
+                    ${{ order.listing_price_min }} ~ ${{ order.listing_price_max }}
+                  </td>
+                  <td class="ta-right tabular font-semibold">${{ addCommasToNumber(order.projected_earnings || 0) }}</td>
+                  <td>
+                    <span class="ipo-status-tag" :style="{ color: getOrderStatusConfig(order.status).color, backgroundColor: getOrderStatusConfig(order.status).bg }">
+                      {{ getOrderStatusConfig(order.status).text }}
+                    </span>
+                  </td>
+                  <td class="ta-right">
+                    <button v-if="order.status === 3" class="ipo-order-btn primary" @click="handleOrderAction(order)">{{ t('ipo.sell') }}</button>
+                    <button v-else-if="order.status === 4" class="ipo-order-btn primary" @click="handleOrderAction(order)">{{ t('ipo.applyRefund') }}</button>
+                    <span v-else class="text-[#9CA3AF]">--</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <IndexFooter />
+  </div>
+</template>
+
+<style scoped>
+.ipo-page { background: linear-gradient(180deg, #f4f7fb 0%, #eef3f9 100%); display: flex; flex-direction: column; min-height: 100vh; }
+.ipo-shell { flex: 1 0 auto; width: 100%; }
+.ipo-header { display: flex; align-items: flex-end; justify-content: space-between; padding: 20px 24px; border: 1px solid #dde5f2; border-radius: 16px; background: linear-gradient(130deg, #ffffff, #f7faff); }
+.ipo-subtitle { font-size: 12px; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase; }
+.ipo-head-metrics { display: flex; gap: 14px; }
+.ipo-metric-box { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; padding: 12px 18px; border-radius: 12px; background: rgba(255, 255, 255, 0.7); border: 1px solid #e8eef7; }
+.ipo-metric-label { font-size: 11px; color: #64748b; letter-spacing: 0.05em; text-transform: uppercase; }
+.ipo-metric-value { font-size: 20px; color: #0f172a; font-weight: 700; }
+.ipo-tabs { display: flex; gap: 8px; padding: 6px; background: #ffffff; border-radius: 12px; border: 1px solid #e2e8f0; }
+.ipo-tab-btn { flex: 1; padding: 10px 20px; font-size: 14px; font-weight: 600; color: #64748b; background: transparent; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+.ipo-tab-btn:hover { color: #0f172a; background: #f8fafc; }
+.ipo-tab-btn.is-active { color: #12d18e; background: #e8faf3; }
+.ipo-product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+.ipo-product-card { padding: 20px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: all 0.2s; }
+.ipo-product-card:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); transform: translateY(-2px); }
+.ipo-product-header { display: flex; align-items: center; justify-content: space-between; }
+.ipo-status-tag { padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 500; }
+.ipo-price-info { display: flex; justify-content: space-between; }
+.ipo-order-panel { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
+.ipo-order-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #e2e8f0; }
+.ipo-order-title { font-size: 16px; font-weight: 700; color: #0f172a; }
+.ipo-order-count { font-size: 14px; color: #64748b; }
+.ipo-order-table-wrap { overflow-x: auto; }
+.ipo-order-table { width: 100%; border-collapse: collapse; }
+.ipo-order-table th { padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; color: #64748b; background: #f8fafc; border-bottom: 1px solid #e2e8f0; }
+.ipo-order-table td { padding: 16px; font-size: 13px; color: #0f172a; border-bottom: 1px solid #f1f5f9; }
+.ipo-order-table .ta-right { text-align: right; }
+.ipo-order-table .tabular { font-variant-numeric: tabular-nums; }
+.ipo-order-btn { padding: 6px 16px; font-size: 13px; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+.ipo-order-btn.primary { background: #12d18e; color: #ffffff; }
+.ipo-order-btn.primary:hover { background: #10b97d; }
+</style>

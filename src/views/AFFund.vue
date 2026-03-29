@@ -298,7 +298,7 @@ onUnmounted(() => {
       <div
         class="grid grid-cols-12 items-start"
         :class="activeTab === 0 ? 'gap-10 xl:gap-12' : 'gap-8'">
-        <div class="col-span-12 xl:col-span-8 min-w-0">
+        <div class="col-span-12 min-w-0" :class="activeTab === 0 ? 'xl:col-span-8' : ''">
           <div v-if="activeTab === 0">
             <div class="af-section-stack">
               <div class="af-card p-[20px]">

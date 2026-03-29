@@ -89,21 +89,44 @@ onUnmounted(() => {
     <div class="flex items-center gap-8 z-50">
       <!-- Bitcloud Logo -->
       <div class="flex items-center gap-2">
-        <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div class="w-8 h-8  rounded-lg flex items-center justify-center">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M13.2972 0.687536C14.9825 -0.229179 17.0176 -0.229179 18.7029 0.687536L28.4731 6.00205C30.2935 6.99226 31.4267 8.89867 31.4267 10.971V21.029C31.4267 23.1013 30.2935 25.0077 28.4731 25.998L18.7029 31.3125C17.0176 32.2292 14.9825 32.2292 13.2972 31.3125L3.52693 25.998C1.70651 25.0077 0.573303 23.1013 0.573303 21.029L0.573303 10.971C0.573303 8.89867 1.70651 6.99226 3.52692 6.00205L13.2972 0.687536Z"
+              fill="#3772FF" />
+            <g filter="url(#filter0_d_3570_5431)">
+              <path
+                d="M18.8608 8.3335C22.5427 8.3335 25.5278 11.3186 25.5278 15.0005C25.5277 18.6822 22.5426 21.6665 18.8608 21.6665C18.6673 21.6665 18.4759 21.6563 18.2866 21.6401C18.189 21.6558 18.0901 21.6665 17.9897 21.6665H11.1548L10.9136 21.6606C8.43969 21.5353 6.47237 19.4898 6.47217 16.9849C6.47217 14.3989 8.56886 12.3022 11.1548 12.3022C11.6814 12.3023 12.1872 12.3909 12.6597 12.5513C13.6358 10.0813 16.0438 8.33363 18.8608 8.3335ZM14.5815 20.1724L14.6294 20.1509C14.6242 20.1466 14.6189 20.1425 14.6138 20.1382C14.6032 20.1498 14.5922 20.1609 14.5815 20.1724Z"
+                fill="url(#paint0_linear_3570_5431)" />
+            </g>
             <path
-              d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20Z"
-              fill="white" />
-            <path d="M8 12C8 9.79 9.79 8 12 8C14.21 8 16 9.79 16 12C16 14.21 14.21 16 12 16C9.79 16 8 14.21 8 12Z"
-              fill="white" />
-            <path d="M12 6C13.66 6 15 4.66 15 3C15 1.34 13.66 0 12 0C10.34 0 9 1.34 9 3C9 4.66 10.34 6 12 6Z"
-              fill="white" />
-            <path
-              d="M20 12C20 10.34 21.34 9 23 9C24.66 9 26 10.34 26 12C26 13.66 24.66 15 23 15C21.34 15 20 13.66 20 12Z"
-              fill="white" />
-            <path d="M4 12C4 10.34 5.34 9 7 9C8.66 9 10 10.34 10 12C10 13.66 8.66 15 7 15C5.34 15 4 13.66 4 12Z"
-              fill="white" />
+              d="M13.5362 1.12695C15.0725 0.291271 16.9276 0.291271 18.4639 1.12695L28.2344 6.44141C29.8937 7.34409 30.9267 9.08178 30.9268 10.9707V21.0293C30.9267 22.9182 29.8937 24.6559 28.2344 25.5586L18.4639 30.873C16.9276 31.7087 15.0725 31.7087 13.5362 30.873L3.76569 25.5586C2.10636 24.6559 1.0734 22.9182 1.0733 21.0293V10.9707C1.0734 9.08175 2.10636 7.34407 3.76569 6.44141L13.5362 1.12695Z"
+              stroke="url(#paint1_linear_3570_5431)" />
+            <defs>
+              <filter id="filter0_d_3570_5431" x="2.47217" y="6.3335" width="27.0557" height="21.333"
+                filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                  result="hardAlpha" />
+                <feOffset dy="2" />
+                <feGaussianBlur stdDeviation="2" />
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" />
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3570_5431" />
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3570_5431" result="shape" />
+              </filter>
+              <linearGradient id="paint0_linear_3570_5431" x1="21.6875" y1="9.12498" x2="13.6253" y2="21.6667"
+                gradientUnits="userSpaceOnUse">
+                <stop stop-color="white" />
+                <stop offset="1" stop-color="#FCFCFD" stop-opacity="0.75" />
+              </linearGradient>
+              <linearGradient id="paint1_linear_3570_5431" x1="16" y1="0" x2="16" y2="32"
+                gradientUnits="userSpaceOnUse">
+                <stop stop-color="#7EA4FF" stop-opacity="0.27" />
+                <stop offset="1" stop-color="#1448C4" stop-opacity="0.42" />
+              </linearGradient>
+            </defs>
           </svg>
+
         </div>
         <span class="text-xl font-bold text-gray-900">Bitcloud</span>
       </div>
@@ -149,7 +172,8 @@ onUnmounted(() => {
       <template v-if="isLoggedIn">
         <!-- User Avatar and Name with Dropdown -->
         <div class="relative" ref="dropdownRef">
-          <div @click="toggleDropdown" class="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+          <div @click="toggleDropdown"
+            class="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
             <!-- Avatar -->
             <div class="w-8 h-8 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
               <img v-if="userAvatar" :src="userAvatar" alt="User Avatar" class="w-full h-full object-cover" />
@@ -164,14 +188,10 @@ onUnmounted(() => {
           </div>
 
           <!-- 下拉菜单 -->
-          <transition
-            enter-active-class="transition ease-out duration-100"
-            enter-from-class="transform opacity-0 scale-95"
-            enter-to-class="transform opacity-100 scale-100"
-            leave-active-class="transition ease-in duration-75"
-            leave-from-class="transform opacity-100 scale-100"
-            leave-to-class="transform opacity-0 scale-95"
-          >
+          <transition enter-active-class="transition ease-out duration-100"
+            enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100"
+            leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100"
+            leave-to-class="transform opacity-0 scale-95">
             <div v-if="isDropdownOpen"
               class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
               <!-- 个人中心 -->

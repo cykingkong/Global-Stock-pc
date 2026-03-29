@@ -35,7 +35,7 @@ export function getEmailCode(): Promise<any> {
 export function totalAsset(): Promise<any> {
   return request.get('/api/user/totalAsset')
 }
-export function walletLogs(params?: any): Promise<any> {
+export function walletLogs(params: any): Promise<any> {
   return request.get('/api/user/wallet/ledgers', { params })
 }
 export function forgetPassword(data: any): Promise<any> {
@@ -113,4 +113,8 @@ export function getArticleList(params: any): Promise<any> {
 }
 export function notify_list(params: any): Promise<any> {
   return request.get('/api/user/notify_list', { params })
+}
+// 钱包列表（用户资产统计）
+export function userStatistic(): Promise<any> {
+  return request.get('/api/user/userStatistic')
 }

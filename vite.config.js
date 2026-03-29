@@ -27,6 +27,12 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/capi/, ''),
         ws: false,
       },
+      '/wss': {
+        target: `ws://192.168.31.153:8080/app/uvjkwblrhcjeawsu3jz1`, // 代理接口
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/wss/, ''),
+        ws: true,
+      },
     },
   },
   resolve: {
