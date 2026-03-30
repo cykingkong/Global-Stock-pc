@@ -22,13 +22,14 @@ export default defineConfig({
     host: '0.0.0.0',
     proxy: {
       '/capi': {
-        target: `http://192.168.31.153/`, // 代理接口
+        // target: `http://192.168.31.153/`, // 代理接口
+        target: `https://api.afaity.com/`, // 代理接口
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/capi/, ''),
         ws: false,
       },
       '/wss': {
-        target: `ws://192.168.31.153:8080/app/uvjkwblrhcjeawsu3jz1`, // 代理接口
+        target: `wss://wss.afaity.com/app/uvjkwblrhcjeawsu3jz1`, // 代理接口
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/wss/, ''),
         ws: true,

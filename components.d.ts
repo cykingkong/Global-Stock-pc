@@ -24,6 +24,7 @@ declare module 'vue' {
     JoinFundModal: typeof import('./src/components/AFFund/JoinFundModal.vue')['default']
     Market: typeof import('./src/components/Index/market.vue')['default']
     Nav: typeof import('./src/components/Nav.vue')['default']
+    PasswordModal: typeof import('./src/components/PasswordModal.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SlideShow: typeof import('./src/components/Index/slideShow.vue')['default']

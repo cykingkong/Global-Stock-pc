@@ -81,7 +81,7 @@
                   t('loginPage.loginForm.rememberMe')
                   }}</label>
               </div>
-              <button type="button" class="text-gray-600 text-xs sm:text-sm hover:text-gray-800">
+              <button type="button" class="text-gray-600 text-xs sm:text-sm hover:text-gray-800" @click="showForgotModal = true">
                 {{ t('loginPage.loginForm.forgotPassword') }}
               </button>
             </div>
@@ -231,6 +231,7 @@
       </div>
     </div>
   </div>
+  <PasswordModal v-model:visible="showForgotModal" mode="forgot" />
 </template>
 
 <script setup lang="ts">
@@ -243,6 +244,7 @@ import countryData from '@/assets/json/area.json'
 import { setToken } from '@/utils/auth'
 
 import Nav from '@/components/Nav.vue'
+import PasswordModal from '@/components/PasswordModal.vue'
 
 // 实例化
 const route = useRoute()
@@ -252,6 +254,7 @@ const { t } = useI18n()
 
 // 国家列表数据
 const countryList = ref(countryData)
+const showForgotModal = ref(false)
 
 // 国家搜索过滤函数
 const filterCountry = (inputValue: string, option: any) => {

@@ -6,6 +6,7 @@ import { uploadFile } from '@/api/tool'
 import { updateProfile, userStatistic } from '@/api/user'
 import useUserStore from '@/stores/user'
 import Nav from '@/components/Nav.vue'
+import PasswordModal from '@/components/PasswordModal.vue'
 import { useI18n } from 'vue-i18n'
 import { addCommasToNumber } from '@/utils/tool'
 
@@ -13,6 +14,10 @@ const router = useRouter()
 const userStore = useUserStore()
 const userInfo = computed(() => userStore.userInfo)
 const { t, locale } = useI18n()
+const showLanguageModal = ref(false)
+const selectedLanguage = ref(locale.value)
+const savingLanguage = ref(false)
+const showChangePasswordModal = ref(false)
 const showLogoutModal = ref(false)
 const showEditProfileModal = ref(false)
 const savingProfile = ref(false)
@@ -129,7 +134,7 @@ const quickActions = [
     description: 'Update your security credentials',
     icon: 'lock',
     color: 'orange',
-    action: () => router.push('/profile/changePassword')
+    action: () => showChangePasswordModal.value = true
   },
   {
     id: 'language',
@@ -137,7 +142,7 @@ const quickActions = [
     description: `Current: ${locale.value}`,
     icon: 'globe',
     color: 'purple',
-    action: () => router.push('/profile/language')
+    action: () => openLanguageModal()
   }
 ]
 
@@ -175,6 +180,18 @@ function handleWalletAction(type: number) {
 function handleLanguageChange(value: string) {
   locale.value = value
   Message.success(`Language changed to ${languageOptions.find(opt => opt.value === value)?.label}`)
+}
+
+function openLanguageModal() {
+  selectedLanguage.value = locale.value
+  showLanguageModal.value = true
+}
+
+function confirmLanguageChange() {
+  savingLanguage.value = true
+  handleLanguageChange(selectedLanguage.value)
+  showLanguageModal.value = false
+  savingLanguage.value = false
 }
 
 // 计算总持仓数
@@ -649,7 +666,7 @@ onMounted(async () => {
                   <h3 class="font-semibold text-gray-900">Password</h3>
                   <p class="text-sm text-gray-500">Change your password regularly to keep your account secure</p>
                 </div>
-                <button @click="router.push('/profile/changePassword')" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+                <button @click="showChangePasswordModal = true" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
                   Change
                 </button>
               </div>
@@ -672,15 +689,11 @@ onMounted(async () => {
               <div class="flex items-center justify-between py-4 border-b">
                 <div class="flex-1">
                   <h3 class="font-semibold text-gray-900 mb-1">Language</h3>
-                  <p class="text-sm text-gray-500 mb-3">Choose your preferred language</p>
-                  <a-select
-                    v-model="locale"
-                    :options="languageOptions"
-                    @change="handleLanguageChange"
-                    class="w-64"
-                    :trigger-props="{ contentClass: 'language-select-dropdown' }"
-                  />
+                  <p class="text-sm text-gray-500">Choose your preferred language</p>
                 </div>
+                <button @click="openLanguageModal" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+                  {{ languageOptions.find(opt => opt.value === locale)?.label || 'Change' }}
+                </button>
               </div>
               <div class="flex items-center justify-between py-4 border-b">
                 <div>
@@ -872,6 +885,32 @@ onMounted(async () => {
         </Transition>
       </div>
     </Transition>
+
+    <!-- Language Modal -->
+    <a-modal v-model:visible="showLanguageModal" :footer="false" title="Language" width="420px" :mask-closable="false">
+      <div class="py-2">
+        <p class="text-sm text-gray-500 mb-4">Choose your preferred language</p>
+        <a-select
+          v-model="selectedLanguage"
+          :options="languageOptions"
+          class="w-full"
+          size="large"
+        />
+        <div class="flex gap-3 mt-6">
+          <button @click="showLanguageModal = false"
+            class="flex-1 h-11 rounded-xl border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 transition-colors">
+            Cancel
+          </button>
+          <button @click="confirmLanguageChange"
+            class="flex-1 h-11 rounded-xl bg-blue-500 text-white font-semibold hover:bg-blue-600 transition-colors">
+            Confirm
+          </button>
+        </div>
+      </div>
+    </a-modal>
+
+    <!-- Change Password Modal -->
+    <PasswordModal v-model:visible="showChangePasswordModal" mode="change" />
   </div>
 </template>
 

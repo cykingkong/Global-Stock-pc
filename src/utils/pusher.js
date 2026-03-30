@@ -1,11 +1,14 @@
 import Pusher from 'pusher-js'
 
+const wsUrl = import.meta.env.VITE_WS_API_BASE_URL || '192.168.31.153'
+const isProduction = import.meta.env.VITE_NODE_ENV === 'production'
+
 const pusher = new Pusher('uvjkwblrhcjeawsu3jz1', {
   cluster: 'mt1',
-  wsHost: '192.168.31.153',
+  wsHost: wsUrl,
   wsPort: 8080,
   wssPort: 443,
-  forceTLS: false,
+  forceTLS: isProduction,
   enabledTransports: ['ws', 'wss'],
   activityTimeout: 30000,
   pongTimeout: 5000,

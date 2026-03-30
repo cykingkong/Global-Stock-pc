@@ -89,6 +89,26 @@ const router = createRouter({
       name: 'stockOrder',
       component: () => import('../views/StockOrders.vue'),
     },
+    {
+      path: '/kyc',
+      name: 'kyc',
+      component: () => import('../views/KycView.vue'),
+    },
+    {
+      path: '/wallet/exchange/cashierCenter',
+      name: 'deposit',
+      component: () => import('../views/DepositView.vue'),
+    },
+    {
+      path: '/wallet/exchange/cashierCenter-withdraw',
+      name: 'withdraw',
+      component: () => import('../views/WithdrawView.vue'),
+    },
+    {
+      path: '/profile/bankAccount',
+      name: 'bankAccount',
+      component: () => import('../views/BankAccountView.vue'),
+    },
   ],
 })
 
