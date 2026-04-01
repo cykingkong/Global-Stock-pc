@@ -43,7 +43,7 @@ const stats = ref<StatItem[]>([
   { label: 'Market Cap', value: '$ 1.2B', isUp: true },
   { label: 'Volume', value: '$ 520.80', isUp: true },
 ])
-
+const userHasStockQuantity = ref(0)
 // 当前股票 symbol
 const currentSymbol = ref('AAPL')
 const currentTradingViewName = ref('NASDAQ:AAPL')
@@ -436,7 +436,7 @@ onMounted(async () => {
                     <rect x="3" y="6.5" width="18" height="11" rx="2" stroke-width="1.8" />
                     <path d="M3 10.5h18" stroke-width="1.8" />
                   </svg>
-                  <span>1.0356875565 {{ currentSymbol || 'BTC' }}</span>
+                  <span>{{ userHasStockQuantity || 0 }} {{ currentSymbol || 'BTC' }}</span>
                 </div>
               </div>
 

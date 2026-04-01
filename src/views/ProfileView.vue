@@ -633,7 +633,7 @@ onMounted(async () => {
               </div>
             </div>
 
-            <!-- 账户信息 -->
+            <!-- 账户信息
             <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
               <h2 class="text-xl font-bold text-gray-900 mb-6">Account Information</h2>
               <div class="grid grid-cols-2 gap-6">
@@ -655,6 +655,7 @@ onMounted(async () => {
                 </div>
               </div>
             </div>
+            -->
           </div>
 
           <!-- Security Section -->

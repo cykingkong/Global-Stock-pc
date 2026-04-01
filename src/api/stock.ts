@@ -12,6 +12,11 @@ export function assetsDetail(params, config?): Promise<any> {
 export function orderList(params, config?): Promise<any> {
   return request.get<any>('/api/stocks/positions', { params, ...config })
 }
+
+export function currentOrders(params, config?): Promise<any> {
+  return request.get<any>('/api/stocks/orders', { params, ...config })
+}
+
 export function orderLists(params): Promise<any> {
   return request.get<any>('/api/stock/orderLists', { params })
 }

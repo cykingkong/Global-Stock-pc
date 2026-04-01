@@ -14,8 +14,8 @@ const props = withDefaults(defineProps<{
 
 const uniqueId = `sg_${Math.random().toString(36).slice(2, 10)}`
 
-const greenColor = '#12D18E'
-const redColor = '#FF5A5F'
+const greenColor = '#34C759'
+const redColor = '#FF3B30'
 const chartColor = computed(() => props.increase >= 0 ? greenColor : redColor)
 
 const W = computed(() => props.width)

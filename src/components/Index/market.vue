@@ -33,7 +33,7 @@ const loading = computed(() => marketStore.loading)
 async function fetchMarkets() {
   await marketStore.fetchMarketList({ page: 1, size: 10, region: '200' })
   subscribeQuotes(stocks.value, (symbol, data) => {
-    const target = stocks.value.find((s) => s.symbol === symbol)
+    const target = stocks.value.find((s: any) => s.symbol === symbol)
     if (target) {
       if (data.close !== undefined) target.close = data.close
       if (data.increase !== undefined) target.increase = data.increase

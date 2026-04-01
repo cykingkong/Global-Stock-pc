@@ -94,7 +94,7 @@ onMounted(() => {
                 <td class="ta-right tabular">{{ addCommasToNumber(item.quantity) }}</td>
                 <td class="ta-right tabular">${{ item.close?.toFixed(2) || '0.00' }}</td>
                 <td class="ta-right tabular">
-                  <span :class="Number(item.increase) >= 0 ? 'text-[#12D18E]' : 'text-[#FF5A5F]'">
+                  <span :class="Number(item.increase) >= 0 ? 'text-[#34C759]' : 'text-[#FF3B30]'">
                     {{ Number(item.increase) >= 0 ? '+' : '' }}{{ item.increase }}
                   </span>
                 </td>
