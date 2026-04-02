@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { isLogin } from '@/utils/auth'
 import { useRouter } from 'vue-router'
 import useUserStore from '@/stores/user'
 const router = useRouter()
+const { t } = useI18n()
 const userStore = useUserStore()
 const userInfo = computed(() => userStore.userInfo)
 const isMenuOpen = ref(false)
@@ -20,11 +22,11 @@ const userAvatar = computed(() => userInfo.value?.avatar || '')
 const userName = computed(() => userInfo.value?.phone || userInfo.value?.username || userInfo.value?.email || '')
 
 const navLinks = [
-  { name: '股票', href: '/' },
-  { name: '基金', href: '/affund' },
+  { name: t('nav.stock'), href: '/' },
+  { name: t('nav.fund'), href: '/affund' },
   { name: 'IPO', href: '/ipo' },
-  { name: '股权', href: '/equity' },
-  { name: '期货', href: '/futures' },
+  { name: t('nav.equity'), href: '/equity' },
+  { name: t('nav.futures'), href: '/futures' },
 ]
 
 const toggleMenu = () => {
@@ -165,7 +167,7 @@ onUnmounted(() => {
 
       <!-- Assets Button -->
       <button class="px-4 py-2 text-base text-gray-700 hover:text-blue-500 transition-colors">
-        资产
+        {{ t('nav.assets') }}
       </button>
 
       <!-- 已登录状态 -->
@@ -201,7 +203,7 @@ onUnmounted(() => {
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
-                个人中心
+                {{ t('nav.profileCenter') }}
               </button>
 
               <!-- 分隔线 -->
@@ -214,7 +216,7 @@ onUnmounted(() => {
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
-                退出登录
+                {{ t('nav.logout') }}
               </button>
             </div>
           </transition>
@@ -266,7 +268,7 @@ onUnmounted(() => {
         <!-- Username -->
         <div>
           <div class="text-base font-medium text-gray-900">{{ userName }}</div>
-          <div class="text-sm text-gray-500">已登录</div>
+          <div class="text-sm text-gray-500">{{ t('nav.loggedIn') }}</div>
         </div>
       </div>
 

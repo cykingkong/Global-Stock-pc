@@ -1,0 +1,376 @@
+{
+  "totalCount": 53,
+  "results": [
+    {
+      "file": "src/components/IpoOrderCard.vue",
+      "line": 108,
+      "location": "template",
+      "chinese": "发行价",
+      "raw": "<div class=\"price-label\">发行价</div>"
+    },
+    {
+      "file": "src/components/IpoOrderCard.vue",
+      "line": 113,
+      "location": "template",
+      "chinese": "中签数",
+      "raw": "<div class=\"price-label\">中签数</div>"
+    },
+    {
+      "file": "src/components/IpoOrderCard.vue",
+      "line": 118,
+      "location": "template",
+      "chinese": "上市价格",
+      "raw": "<div class=\"price-label\">上市价格</div>"
+    },
+    {
+      "file": "src/components/IpoOrderCard.vue",
+      "line": 125,
+      "location": "template",
+      "chinese": "预计盈利",
+      "raw": "<div class=\"detail-label\">预计盈利</div>"
+    },
+    {
+      "file": "src/components/IpoOrderCard.vue",
+      "line": 130,
+      "location": "template",
+      "chinese": "解冻时间",
+      "raw": "<div class=\"detail-label\">解冻时间</div>"
+    },
+    {
+      "file": "src/components/IpoProductCard.vue",
+      "line": 65,
+      "location": "script",
+      "chinese": "已结束'",
+      "raw": "countdown.value = '已结束'"
+    },
+    {
+      "file": "src/components/IpoProductCard.vue",
+      "line": 78,
+      "location": "script",
+      "chinese": "天 | 时 | 分 | 秒",
+      "raw": "countdown.value = `${days}天${hours}时${String(minutes).padStart(2, '0')}分${String(seconds).padStart(2, '0')}秒`"
+    },
+    {
+      "file": "src/components/IpoProductCard.vue",
+      "line": 112,
+      "location": "template",
+      "chinese": "发行价",
+      "raw": "<div class=\"price-label\">发行价</div>"
+    },
+    {
+      "file": "src/components/IpoProductCard.vue",
+      "line": 117,
+      "location": "template",
+      "chinese": "预计上市价格",
+      "raw": "<div class=\"price-label\">预计上市价格</div>"
+    },
+    {
+      "file": "src/components/IpoProductCard.vue",
+      "line": 124,
+      "location": "template",
+      "chinese": "申购截止：",
+      "raw": "<span class=\"countdown-label\">申购截止：</span>"
+    },
+    {
+      "file": "src/components/IpoProductCard.vue",
+      "line": 128,
+      "location": "template",
+      "chinese": "查看详情",
+      "raw": "<button class=\"action-button\">查看详情</button>"
+    },
+    {
+      "file": "src/components/Nav.vue",
+      "line": 168,
+      "location": "template",
+      "chinese": "资产",
+      "raw": "资产"
+    },
+    {
+      "file": "src/components/Nav.vue",
+      "line": 204,
+      "location": "template",
+      "chinese": "个人中心",
+      "raw": "个人中心"
+    },
+    {
+      "file": "src/components/Nav.vue",
+      "line": 217,
+      "location": "template",
+      "chinese": "退出登录",
+      "raw": "退出登录"
+    },
+    {
+      "file": "src/components/Nav.vue",
+      "line": 269,
+      "location": "unknown",
+      "chinese": "已登录",
+      "raw": "<div class=\"text-sm text-gray-500\">已登录</div>"
+    },
+    {
+      "file": "src/components/Nav.vue",
+      "line": 281,
+      "location": "unknown",
+      "chinese": "个人中心",
+      "raw": "个人中心"
+    },
+    {
+      "file": "src/components/Nav.vue",
+      "line": 290,
+      "location": "unknown",
+      "chinese": "退出登录",
+      "raw": "退出登录"
+    },
+    {
+      "file": "src/components/deal-2.vue",
+      "line": 172,
+      "location": "script",
+      "chinese": "请输入有效的买入数量'",
+      "raw": "Message.warning('请输入有效的买入数量')"
+    },
+    {
+      "file": "src/components/deal-2.vue",
+      "line": 177,
+      "location": "script",
+      "chinese": "请选择股票'",
+      "raw": "Message.warning('请选择股票')"
+    },
+    {
+      "file": "src/components/deal-2.vue",
+      "line": 190,
+      "location": "script",
+      "chinese": "买入成功'",
+      "raw": "Message.success('买入成功')"
+    },
+    {
+      "file": "src/components/deal-2.vue",
+      "line": 195,
+      "location": "script",
+      "chinese": "买入失败'",
+      "raw": "Message.error(message || '买入失败')"
+    },
+    {
+      "file": "src/components/deal-2.vue",
+      "line": 199,
+      "location": "script",
+      "chinese": "买入失败，请稍后重试'",
+      "raw": "Message.error(error.message || '买入失败，请稍后重试')"
+    },
+    {
+      "file": "src/components/deal-2.vue",
+      "line": 208,
+      "location": "script",
+      "chinese": "请输入有效的卖出数量'",
+      "raw": "Message.warning('请输入有效的卖出数量')"
+    },
+    {
+      "file": "src/components/deal-2.vue",
+      "line": 213,
+      "location": "script",
+      "chinese": "请选择股票'",
+      "raw": "Message.warning('请选择股票')"
+    },
+    {
+      "file": "src/components/deal-2.vue",
+      "line": 226,
+      "location": "script",
+      "chinese": "卖出成功'",
+      "raw": "Message.success('卖出成功')"
+    },
+    {
+      "file": "src/components/deal-2.vue",
+      "line": 231,
+      "location": "script",
+      "chinese": "卖出失败'",
+      "raw": "Message.error(message || '卖出失败')"
+    },
+    {
+      "file": "src/components/deal-2.vue",
+      "line": 235,
+      "location": "script",
+      "chinese": "卖出失败，请稍后重试'",
+      "raw": "Message.error(error.message || '卖出失败，请稍后重试')"
+    },
+    {
+      "file": "src/components/deal.vue",
+      "line": 188,
+      "location": "template",
+      "chinese": "桌面端固定高度",
+      "raw": "lg:h-[96px] -> 桌面端固定高度"
+    },
+    {
+      "file": "src/components/deal.vue",
+      "line": 189,
+      "location": "template",
+      "chinese": "桌面端横向排列",
+      "raw": "lg:flex-row -> 桌面端横向排列"
+    },
+    {
+      "file": "src/components/deal.vue",
+      "line": 190,
+      "location": "template",
+      "chinese": "移动端纵向排列",
+      "raw": "flex-col -> 移动端纵向排列"
+    },
+    {
+      "file": "src/components/deal.vue",
+      "line": 191,
+      "location": "template",
+      "chinese": "桌面端垂直居中",
+      "raw": "lg:items-center -> 桌面端垂直居中"
+    },
+    {
+      "file": "src/components/deal.vue",
+      "line": 269,
+      "location": "template",
+      "chinese": "列",
+      "raw": "Mobile: grid-cols-2 (2列)"
+    },
+    {
+      "file": "src/components/deal.vue",
+      "line": 270,
+      "location": "template",
+      "chinese": "横向排列",
+      "raw": "Desktop: flex-row (横向排列)"
+    },
+    {
+      "file": "src/components/deal.vue",
+      "line": 575,
+      "location": "template",
+      "chinese": "价格",
+      "raw": "<span class=\"text-[14px] text-[#777E90]\">价格</span>"
+    },
+    {
+      "file": "src/components/deal.vue",
+      "line": 585,
+      "location": "template",
+      "chinese": "数量",
+      "raw": "<span class=\"text-[14px] text-[#777E90]\">数量</span>"
+    },
+    {
+      "file": "src/components/deal.vue",
+      "line": 614,
+      "location": "template",
+      "chinese": "订单价格",
+      "raw": "<span class=\"text-[14px] text-[#777E90]\">订单价格</span>"
+    },
+    {
+      "file": "src/components/deal.vue",
+      "line": 629,
+      "location": "template",
+      "chinese": "手续费率",
+      "raw": "<span class=\"text-[#777E90]\">手续费率(%)</span>"
+    },
+    {
+      "file": "src/views/IpoDetail.vue",
+      "line": 227,
+      "location": "attribute",
+      "chinese": "申购IPO\" ",
+      "raw": "<Modal v-model:visible=\"showModal\" title=\"申购IPO\" @ok=\"handleConfirm\">"
+    },
+    {
+      "file": "src/views/IpoList.vue",
+      "line": 66,
+      "location": "script",
+      "chinese": "操作",
+      "raw": "Message.info(`操作: ${order.project_name}`)"
+    },
+    {
+      "file": "src/views/ProfileView.vue",
+      "line": 75,
+      "location": "script",
+      "chinese": "用户'",
+      "raw": "|| '用户',"
+    },
+    {
+      "file": "src/views/stockDetail.vue",
+      "line": 11,
+      "location": "template",
+      "chinese": "我的持仓",
+      "raw": "我的持仓"
+    },
+    {
+      "file": "src/views/stockDetail.vue",
+      "line": 25,
+      "location": "template",
+      "chinese": "加载中",
+      "raw": "<div v-if=\"loading\" class=\"py-12 text-center text-[#777E90]\">加载中...</div>"
+    },
+    {
+      "file": "src/views/stockDetail.vue",
+      "line": 86,
+      "location": "template",
+      "chinese": "买入' ",
+      "raw": ":class=\"row.direction === '买入' ? 'bg-[#FF3B30]' : 'bg-[#34C759]'\">"
+    },
+    {
+      "file": "src/views/stockDetail.vue",
+      "line": 129,
+      "location": "template",
+      "chinese": "买入",
+      "raw": "买入"
+    },
+    {
+      "file": "src/views/stockDetail.vue",
+      "line": 133,
+      "location": "template",
+      "chinese": "卖出",
+      "raw": "卖出"
+    },
+    {
+      "file": "src/views/stockDetail.vue",
+      "line": 170,
+      "location": "template",
+      "chinese": "已成交' ",
+      "raw": ":class=\"row.status === '已成交' ? 'bg-[#58BD7D]' : 'bg-[#F59E0B]'\">"
+    },
+    {
+      "file": "src/views/stockDetail.vue",
+      "line": 189,
+      "location": "template",
+      "chinese": "暂无数据",
+      "raw": "<span class=\"text-[14px]\">暂无数据</span>"
+    },
+    {
+      "file": "src/views/stockDetail.vue",
+      "line": 268,
+      "location": "script",
+      "chinese": "卖出'  | 买入'",
+      "raw": "return type === 'sell' ? '卖出' : '买入'"
+    },
+    {
+      "file": "src/views/stockDetail.vue",
+      "line": 331,
+      "location": "script",
+      "chinese": "加载订单数据失败'",
+      "raw": "Message.error(error?.message || '加载订单数据失败')"
+    },
+    {
+      "file": "src/views/stockDetail2.vue",
+      "line": 86,
+      "location": "template",
+      "chinese": "买入' ",
+      "raw": ":class=\"row.direction === '买入' ? 'bg-[#FF6838]' : 'bg-[#58BD7D]'\""
+    },
+    {
+      "file": "src/views/stockDetail2.vue",
+      "line": 152,
+      "location": "template",
+      "chinese": "买入",
+      "raw": "买入"
+    },
+    {
+      "file": "src/views/stockDetail2.vue",
+      "line": 157,
+      "location": "template",
+      "chinese": "卖出",
+      "raw": "卖出"
+    },
+    {
+      "file": "src/views/stockDetail2.vue",
+      "line": 237,
+      "location": "template",
+      "chinese": "暂无数据",
+      "raw": "<span class=\"text-[14px]\">暂无数据</span>"
+    }
+  ]
+}

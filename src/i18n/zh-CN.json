@@ -177,6 +177,20 @@
     "subscribeQty": "申购数量",
     "confirmSubscribe": "确认申购"
   },
+  "stockDetail": {
+    "holdingsTitle": "我的持仓",
+    "loading": "加载中...",
+    "buy": "买入",
+    "sell": "卖出",
+    "noData": "暂无数据",
+    "loadFailed": "加载订单数据失败",
+    "status": {
+      "pending": "待成交",
+      "completed": "已成交",
+      "cancelled": "已撤销",
+      "rejected": "已拒绝"
+    }
+  },
   "kyc": {
     "title": "KYC认证",
     "subtitle": "上传身份证正面照片并提交身份信息，完成认证流程。",

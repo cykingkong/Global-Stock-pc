@@ -8,7 +8,7 @@
           <button
             class="text-[13px] font-medium transition-all text-[#23262F] font-semibold"
           >
-            我的持仓
+            {{ t('stockDetail.holdingsTitle') }}
           </button>
           <!--
           <button v-for="tab in tabs" :key="tab.key" @click="activeOrderTab = tab.key"
@@ -22,7 +22,7 @@
         </div>
 
         <!-- Table -->
-        <div v-if="loading" class="py-12 text-center text-[#777E90]">加载中...</div>
+        <div v-if="loading" class="py-12 text-center text-[#777E90]">{{ t('stockDetail.loading') }}</div>
 
         <div v-else class="overflow-x-auto">
           <table class="w-full min-w-[1000px]">
@@ -126,11 +126,11 @@
                   <div v-else-if="column.key === 'actions'" class="flex items-center gap-2">
                     <button
                       class="px-4 py-1 bg-[#58BD7D] text-white text-[12px] font-normal rounded hover:opacity-90 transition-opacity">
-                      买入
+                      {{ t('stockDetail.buy') }}
                     </button>
                     <button
                       class="px-4 py-1 bg-[#58BD7D] text-white text-[12px] font-normal rounded hover:opacity-90 transition-opacity">
-                      卖出
+                      {{ t('stockDetail.sell') }}
                     </button>
                   </div>
 
@@ -186,7 +186,7 @@
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                     </svg>
-                    <span class="text-[14px]">暂无数据</span>
+                    <span class="text-[14px]">{{ t('stockDetail.noData') }}</span>
                   </div>
                 </td>
               </tr>
@@ -200,6 +200,7 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { Message } from '@arco-design/web-vue'
 import '@arco-design/web-vue/es/message/style/css.js'
 import deal2 from '@/components/deal-2.vue'
@@ -208,6 +209,7 @@ import { orderList } from '@/api/stock'
 
 const activeOrderTab = ref('holdings')
 const loading = ref(false)
+const { t } = useI18n()
 // const currentOrdersData = ref([])
 const holdingsData = ref([])
 
@@ -265,17 +267,17 @@ function formatPercent(value, digits = 2) {
 }
 
 function mapDirection(type) {
-  return type === 'sell' ? '卖出' : '买入'
+  return type === 'sell' ? t('stockDetail.sell') : t('stockDetail.buy')
 }
 
 function mapStatus(status) {
   const statusMap = {
-    pending: '待成交',
-    completed: '已成交',
-    filled: '已成交',
-    cancelled: '已撤销',
-    canceled: '已撤销',
-    rejected: '已拒绝',
+    pending: t('stockDetail.status.pending'),
+    completed: t('stockDetail.status.completed'),
+    filled: t('stockDetail.status.completed'),
+    cancelled: t('stockDetail.status.cancelled'),
+    canceled: t('stockDetail.status.cancelled'),
+    rejected: t('stockDetail.status.rejected'),
   }
 
   return statusMap[status] || status || '--'
@@ -328,7 +330,7 @@ async function fetchTableData() {
   }
   catch (error) {
     console.error('获取股票详情表格数据失败:', error)
-    Message.error(error?.message || '加载订单数据失败')
+    Message.error(error?.message || t('stockDetail.loadFailed'))
     holdingsData.value = []
   }
   finally {

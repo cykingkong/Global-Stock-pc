@@ -169,12 +169,12 @@ const fetchStockDetail = async (symbol: string) => {
 // 处理买入
 const handleBuy = async () => {
   if (!buyForm.value.quantity || Number(buyForm.value.quantity) <= 0) {
-    Message.warning('请输入有效的买入数量')
+    Message.warning(t('deal2.invalidBuyQuantity'))
     return
   }
 
   if (!currentSymbol.value) {
-    Message.warning('请选择股票')
+    Message.warning(t('deal2.selectStock'))
     return
   }
 
@@ -187,12 +187,12 @@ const handleBuy = async () => {
     })
 
     if (code === 200) {
-      Message.success('买入成功')
+      Message.success(t('deal2.buySuccess'))
       // 清空表单
       buyForm.value.quantity = ''
       buySliderValue.value = 0
     } else {
-      Message.error(message || '买入失败')
+      Message.error(message || t('deal2.buyFailed'))
     }
   } catch (error: any) {
     console.error('买入失败:', error)
@@ -210,7 +210,7 @@ const handleSell = async () => {
   }
 
   if (!currentSymbol.value) {
-    Message.warning('请选择股票')
+    Message.warning(t('deal2.selectStock'))
     return
   }
 

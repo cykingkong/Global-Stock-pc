@@ -189,6 +189,20 @@
     "subscribeQty": "Subscribe Quantity",
     "confirmSubscribe": "Confirm Subscribe"
   },
+  "stockDetail": {
+    "holdingsTitle": "My Holdings",
+    "loading": "Loading...",
+    "buy": "Buy",
+    "sell": "Sell",
+    "noData": "No data",
+    "loadFailed": "Failed to load order data",
+    "status": {
+      "pending": "Pending",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "rejected": "Rejected"
+    }
+  },
   "kyc": {
     "title": "KYC Verification",
     "subtitle": "Upload the front of your ID card and submit your identity details to complete verification.",
