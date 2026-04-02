@@ -189,6 +189,16 @@
     "subscribeQty": "Subscribe Quantity",
     "confirmSubscribe": "Confirm Subscribe"
   },
+  "nav": {
+    "stock": "Stocks",
+    "fund": "Fund",
+    "equity": "Equity",
+    "futures": "Futures",
+    "assets": "Assets",
+    "profileCenter": "Profile Center",
+    "logout": "Log Out",
+    "loggedIn": "Logged in"
+  },
   "stockDetail": {
     "holdingsTitle": "My Holdings",
     "loading": "Loading...",
@@ -202,6 +212,16 @@
       "cancelled": "Cancelled",
       "rejected": "Rejected"
     }
+  },
+  "deal2": {
+    "invalidBuyQuantity": "Please enter a valid buy quantity",
+    "selectStock": "Please select a stock",
+    "buySuccess": "Buy order placed successfully",
+    "buyFailed": "Buy failed",
+    "buyRetry": "Buy failed, please try again later",
+    "sellSuccess": "Sell order placed successfully",
+    "sellFailed": "Sell failed",
+    "sellRetry": "Sell failed, please try again later"
   },
   "kyc": {
     "title": "KYC Verification",

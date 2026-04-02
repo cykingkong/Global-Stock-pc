@@ -177,6 +177,16 @@
     "subscribeQty": "申购数量",
     "confirmSubscribe": "确认申购"
   },
+  "nav": {
+    "stock": "股票",
+    "fund": "基金",
+    "equity": "股权",
+    "futures": "期货",
+    "assets": "资产",
+    "profileCenter": "个人中心",
+    "logout": "退出登录",
+    "loggedIn": "已登录"
+  },
   "stockDetail": {
     "holdingsTitle": "我的持仓",
     "loading": "加载中...",
@@ -190,6 +200,16 @@
       "cancelled": "已撤销",
       "rejected": "已拒绝"
     }
+  },
+  "deal2": {
+    "invalidBuyQuantity": "请输入有效的买入数量",
+    "selectStock": "请选择股票",
+    "buySuccess": "买入成功",
+    "buyFailed": "买入失败",
+    "buyRetry": "买入失败，请稍后重试",
+    "sellSuccess": "卖出成功",
+    "sellFailed": "卖出失败",
+    "sellRetry": "卖出失败，请稍后重试"
   },
   "kyc": {
     "title": "KYC认证",

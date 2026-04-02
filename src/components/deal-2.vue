@@ -196,7 +196,7 @@ const handleBuy = async () => {
     }
   } catch (error: any) {
     console.error('买入失败:', error)
-    Message.error(error.message || '买入失败，请稍后重试')
+    Message.error(error.message || t('deal2.buyRetry'))
   } finally {
     submitting.value = false
   }
@@ -223,16 +223,16 @@ const handleSell = async () => {
     })
 
     if (code === 200) {
-      Message.success('卖出成功')
+      Message.success(t('deal2.sellSuccess'))
       // 清空表单
       sellForm.value.quantity = ''
       sellSliderValue.value = 0
     } else {
-      Message.error(message || '卖出失败')
+      Message.error(message || t('deal2.sellFailed'))
     }
   } catch (error: any) {
     console.error('卖出失败:', error)
-    Message.error(error.message || '卖出失败，请稍后重试')
+    Message.error(error.message || t('deal2.sellRetry'))
   } finally {
     submitting.value = false
   }
