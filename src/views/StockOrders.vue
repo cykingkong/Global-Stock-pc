@@ -60,8 +60,8 @@ onMounted(() => {
         </div>
       </div>
 
-      <div v-if="loading" class="text-center text-[#94A3B8] py-20">{{ t('affund.loading') }}</div>
-      <div v-else-if="orderListData.length === 0" class="text-center text-[#94A3B8] py-20">{{ t('affund.noOrders') }}</div>
+      <div v-if="loading" class="text-center text-wise-muted py-20">{{ t('affund.loading') }}</div>
+      <div v-else-if="orderListData.length === 0" class="text-center text-wise-muted py-20">{{ t('affund.noOrders') }}</div>
       <div v-else class="orders-panel">
         <div class="orders-toolbar">
           <div class="orders-title">{{ t('Transactions History') }}</div>
@@ -112,29 +112,40 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.stock-orders-page { background: linear-gradient(180deg, #f4f7fb 0%, #eef3f9 100%); min-height: 100vh; }
+.stock-orders-page { background: var(--wise-page); min-height: 100vh; color: var(--wise-text); }
 .container { max-width: 1320px; margin: 0 auto; padding: 40px 20px; }
-.header-section { display: flex; align-items: flex-end; justify-content: space-between; padding: 20px 24px; margin-bottom: 24px; border: 1px solid #dde5f2; border-radius: 16px; background: linear-gradient(130deg, #ffffff, #f7faff); }
-.page-title { font-size: 30px; font-weight: bold; color: #1f2937; margin-bottom: 8px; }
-.breadcrumb { font-size: 12px; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; }
+.header-section { display: flex; align-items: flex-end; justify-content: space-between; padding: 24px 28px; margin-bottom: 24px; border: 1px solid var(--wise-border); border-radius: 40px; background: var(--wise-surface); box-shadow: 0 0 0 1px var(--wise-border); }
+.page-title { font-size: 56px; line-height: 0.9; font-weight: 900; letter-spacing: -0.05em; color: var(--wise-text); margin-bottom: 8px; }
+.breadcrumb { font-size: 12px; color: var(--wise-muted); text-transform: uppercase; letter-spacing: 0.08em; }
 .header-metrics { display: flex; gap: 14px; }
-.metric-box { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; padding: 12px 18px; border-radius: 12px; background: rgba(255, 255, 255, 0.7); border: 1px solid #e8eef7; }
-.metric-label { font-size: 11px; color: #64748b; letter-spacing: 0.05em; text-transform: uppercase; }
-.metric-value { font-size: 20px; color: #0f172a; font-weight: 700; }
-.orders-panel { background: white; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
-.orders-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #e2e8f0; }
-.orders-title { font-size: 16px; font-weight: 700; color: #0f172a; }
-.orders-count { font-size: 14px; color: #64748b; }
+.metric-box { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; padding: 14px 18px; border-radius: 30px; background: var(--wise-page); border: 1px solid var(--wise-border); }
+.metric-label { font-size: 11px; color: var(--wise-muted); letter-spacing: 0.05em; text-transform: uppercase; }
+.metric-value { font-size: 24px; color: var(--wise-text); font-weight: 900; letter-spacing: -0.03em; }
+.orders-panel { background: var(--wise-surface); border: 1px solid var(--wise-border); border-radius: 40px; overflow: hidden; box-shadow: 0 0 0 1px var(--wise-border); }
+.orders-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid var(--wise-border); }
+.orders-title { font-size: 22px; font-weight: 900; letter-spacing: -0.03em; color: var(--wise-text); }
+.orders-count { font-size: 14px; color: var(--wise-muted); }
 .orders-table-wrap { overflow-x: auto; }
 .orders-table { width: 100%; border-collapse: collapse; }
-.orders-table th { padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; color: #64748b; background: #f8fafc; border-bottom: 1px solid #e2e8f0; }
-.orders-table td { padding: 16px; font-size: 13px; color: #0f172a; border-bottom: 1px solid #f1f5f9; }
+.orders-table th { padding: 14px 16px; text-align: left; font-size: 12px; font-weight: 700; color: var(--wise-muted); background: var(--wise-page); border-bottom: 1px solid var(--wise-border); }
+.orders-table td { padding: 16px; font-size: 13px; color: var(--wise-text); border-bottom: 1px solid var(--wise-border-soft); }
 .orders-table tbody tr { cursor: pointer; transition: background 0.2s; }
-.orders-table tbody tr:hover { background: #fafcff; }
+.orders-table tbody tr:hover { background: var(--wise-hover); }
 .orders-table .ta-right { text-align: right; }
 .orders-table .tabular { font-variant-numeric: tabular-nums; }
-.stock-logo { width: 32px; height: 32px; border-radius: 50%; overflow: hidden; background: #e5e7eb; }
+.stock-logo { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; background: var(--wise-soft); box-shadow: 0 0 0 1px var(--wise-border); }
 .stock-logo img { width: 100%; height: 100%; object-fit: cover; }
-.stock-name { font-size: 14px; font-weight: 600; color: #0f172a; }
-.stock-full-name { font-size: 12px; color: #64748b; }
+.stock-name { font-size: 14px; font-weight: 700; color: var(--wise-text); }
+.stock-full-name { font-size: 12px; color: var(--wise-muted); }
+
+@media (max-width: 1024px) {
+  .header-section { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .page-title { font-size: 42px; }
+}
+
+@media (max-width: 640px) {
+  .page-title { font-size: 36px; }
+  .header-metrics { width: 100%; flex-direction: column; }
+  .metric-box { align-items: flex-start; }
+}
 </style>

@@ -60,7 +60,7 @@ watch(displayValue, (newVal) => {
     <Transition name="modal">
       <div v-if="show" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
         @click="handleOverlayClick">
-        <div class="bg-white rounded-2xl w-[420px] px-8 pt-6 pb-8">
+        <div class="bg-wise-surface rounded-[30px] border border-wise-border w-[420px] px-8 pt-6 pb-8 shadow-[0_0_0_1px_var(--wise-border)]">
           <!-- 标题 -->
           <div class="text-center text-xl font-bold mb-6" :style="{ color: titleColor }">
             {{ t(titleKey) }}
@@ -70,23 +70,23 @@ watch(displayValue, (newVal) => {
           <div class="mb-4">
             <input v-model="displayValue" type="text" inputmode="decimal"
               :placeholder="t('affund.pleaseEnterAmount')"
-              class="w-full h-11 rounded-xl bg-[#F8FAFC] px-4 text-base text-[#0F172A] placeholder:text-[#94A3B8] outline-none focus:bg-[#F1F5F9]" />
+              class="w-full h-11 rounded-[16px] border border-wise-border bg-wise-page px-4 text-base text-wise-text placeholder:text-wise-muted outline-none focus:border-wise-accent" />
           </div>
 
           <!-- 余额 -->
-          <div class="mb-6 text-center text-sm text-[#64748B]">
+          <div class="mb-6 text-center text-sm text-wise-muted">
             {{ t('affund.myBalance') }}: ${{ addCommas(balance) }}
           </div>
 
           <!-- 按钮 -->
           <div class="flex items-center gap-3">
             <button
-              class="flex-1 h-12 rounded-full bg-[#E8FAF3] text-[#12D18E] text-base font-semibold hover:bg-[#D1F4E8] transition-colors"
+              class="flex-1 h-12 rounded-[9999px] border border-wise-border bg-wise-soft text-wise-accentForeground text-base font-semibold transition-all duration-200 ease-out hover:bg-wise-hover"
               @click="handleClose">
               {{ t('affund.close') }}
             </button>
             <button
-              class="flex-1 h-12 rounded-full bg-[#12D18E] text-white text-base font-semibold hover:bg-[#0FBF80] transition-colors"
+              class="flex-1 h-12 rounded-[9999px] bg-wise-accent text-wise-accentForeground text-base font-semibold transition-all duration-200 ease-out hover:scale-[1.03] active:scale-[0.97]"
               @click="handleConfirm">
               {{ t(confirmTextKey) }}
             </button>

@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-[100vh] bg-gray-50 lg:bg-white">
+  <div class="min-h-[100vh] bg-wise-page text-wise-text [font-feature-settings:'calt']">
     <!-- Navigation Bar -->
     <Nav />
 
@@ -7,7 +7,7 @@
     <div class="flex flex-col lg:flex-row min-h-[calc(100vh-72px)]">
       <!-- Left content area (hidden on mobile) -->
       <div
-        class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden">
+        class="hidden lg:flex lg:w-1/2 relative overflow-hidden rounded-r-[40px] border-r border-wise-border bg-wise-text">
         <!-- Background pattern -->
         <div class="absolute inset-0 opacity-5">
           <div class="absolute inset-0" style="
@@ -21,26 +21,26 @@
 
       <!-- Right login form -->
       <div
-        class="w-full lg:w-1/2 flex flex-col justify-center px-4 sm:px-8 lg:px-20 py-8 sm:py-12 lg:py-0 bg-white min-h-[calc(100vh-72px)]">
-        <div class="max-w-md mx-auto w-full">
+        class="w-full lg:w-1/2 flex flex-col justify-center px-4 sm:px-8 lg:px-20 py-8 sm:py-12 lg:py-10 bg-wise-page min-h-[calc(100vh-72px)]">
+        <div class="max-w-md mx-auto w-full rounded-[32px] border border-wise-border bg-wise-surface px-6 py-8 shadow-[0_0_0_1px_var(--wise-border)] sm:px-8 sm:py-10">
           <!-- Login header -->
-          <div class="text-gray-600 text-xs sm:text-sm mb-2">
+          <div class="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-wise-accentForeground sm:text-sm">
             <span v-if="isLogin">{{ t('loginPage.loginForm.header') }}</span>
             <span v-else>{{ t('loginPage.registerForm.header') }}</span>
           </div>
-          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-light text-gray-900 mb-3 sm:mb-4">
+          <h1 class="mb-3 text-3xl font-black leading-[0.92] tracking-[-0.04em] text-wise-text sm:text-4xl lg:text-[42px]">
             {{
               isLogin ? t('loginPage.loginForm.title') : t('loginPage.registerForm.title')
             }}
           </h1>
-          <p class="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8" v-if="isLogin">
+          <p class="mb-6 text-sm leading-[1.6] text-wise-muted sm:mb-8 sm:text-base" v-if="isLogin">
             {{ t('loginPage.loginForm.subtitle') }}
           </p>
 
           <!-- Login form -->
           <form v-if="isLogin" @submit.prevent="handleLogin">
             <div class="mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
+              <label class="mb-2 block text-xs font-semibold text-wise-text sm:text-sm">{{
                 t('loginPage.loginForm.usernameLabel')
                 }}</label>
               <div class="flex gap-2">
@@ -51,7 +51,7 @@
                     :label="`+${country.dialCode}`">
                     <div class="flex items-center justify-between">
                       <span>{{ country.name }}</span>
-                      <span class="text-gray-500 ml-2">+{{ country.dialCode }}</span>
+                      <span class="ml-2 text-wise-muted">+{{ country.dialCode }}</span>
                     </div>
                   </a-option>
                 </a-select>
@@ -59,35 +59,35 @@
                 <!-- Username Input -->
                 <input v-model="loginForm.username" type="text"
                   :placeholder="t('loginPage.loginForm.usernamePlaceholder')"
-                  class="flex-1 px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                  class="flex-1 rounded-[16px] border border-wise-border bg-wise-surface px-4 py-2 text-sm text-wise-text placeholder:text-wise-muted focus:outline-none focus:border-wise-accent sm:py-2.5"
                   required />
               </div>
             </div>
 
             <div class="mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
+              <label class="mb-2 block text-xs font-semibold text-wise-text sm:text-sm">{{
                 t('loginPage.loginForm.passwordLabel')
                 }}</label>
               <input v-model="loginForm.password" type="password"
                 :placeholder="t('loginPage.loginForm.passwordPlaceholder')"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                class="w-full rounded-[16px] border border-wise-border bg-wise-surface px-4 py-2 text-sm text-wise-text placeholder:text-wise-muted focus:outline-none focus:border-wise-accent sm:py-2.5"
                 required />
             </div>
 
             <div class="mb-6 flex items-center justify-between gap-4">
               <div class="flex items-center">
                 <input type="checkbox" id="remember" class="mr-2 w-4 h-4" />
-                <label for="remember" class="text-gray-700 text-xs sm:text-sm">{{
+                <label for="remember" class="text-wise-text text-xs sm:text-sm">{{
                   t('loginPage.loginForm.rememberMe')
                   }}</label>
               </div>
-              <button type="button" class="text-gray-600 text-xs sm:text-sm hover:text-gray-800" @click="showForgotModal = true">
+              <button type="button" class="text-wise-muted text-xs sm:text-sm transition-colors hover:text-wise-accentForeground" @click="showForgotModal = true">
                 {{ t('loginPage.loginForm.forgotPassword') }}
               </button>
             </div>
 
             <button type="submit"
-              class="w-full bg-black text-white text-sm sm:text-base py-3 sm:py-4 lg:py-6 font-medium flex items-center justify-center hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              class="w-full rounded-[9999px] bg-wise-accent text-wise-accentForeground text-sm sm:text-base py-3 sm:py-4 font-semibold flex items-center justify-center transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
               :disabled="loading">
               <span v-if="!loading">{{ t('loginPage.loginForm.loginButton') }}</span>
               <span v-else class="flex items-center gap-2">
@@ -107,9 +107,9 @@
               </svg>
             </button>
 
-            <div class="mt-4 text-center text-xs sm:text-sm text-gray-600">
+            <div class="mt-4 text-center text-xs sm:text-sm text-wise-muted">
               {{ t('loginPage.loginForm.noAccount') }}
-              <button type="button" class="ml-1 underline underline-offset-2 hover:text-gray-800"
+              <button type="button" class="ml-1 underline underline-offset-2 transition-colors hover:text-wise-accentForeground"
                 @click="switchForm('register')">
                 {{ t('loginPage.loginForm.registerLink') }}
               </button>
@@ -119,7 +119,7 @@
           <!-- Register form -->
           <form v-else @submit.prevent="handleRegister">
             <div class="mb-3 sm:mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
+              <label class="mb-2 block text-xs font-semibold text-wise-text sm:text-sm">{{
                 t('loginPage.registerForm.countryLabel')
                 }}</label>
               <a-select v-model="registerForm.countryCode" :placeholder="t('loginPage.registerForm.countryPlaceholder')"
@@ -135,36 +135,36 @@
             </div>
 
             <div class="mb-3 sm:mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
+              <label class="mb-2 block text-xs font-semibold text-wise-text sm:text-sm">{{
                 t('loginPage.registerForm.fullNameLabel')
                 }}</label>
               <input v-model="registerForm.fullName" type="text"
                 :placeholder="t('loginPage.registerForm.fullNamePlaceholder')"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                class="w-full rounded-[16px] border border-wise-border bg-wise-surface px-4 py-2 text-sm text-wise-text placeholder:text-wise-muted focus:outline-none focus:border-wise-accent sm:py-2.5"
                 required />
             </div>
 
             <div class="mb-3 sm:mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
+              <label class="mb-2 block text-xs font-semibold text-wise-text sm:text-sm">{{
                 t('loginPage.registerForm.emailLabel')
                 }}</label>
               <input v-model="registerForm.email" type="email"
                 :placeholder="t('loginPage.registerForm.emailPlaceholder')"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                class="w-full rounded-[16px] border border-wise-border bg-wise-surface px-4 py-2 text-sm text-wise-text placeholder:text-wise-muted focus:outline-none focus:border-wise-accent sm:py-2.5"
                 required />
             </div>
 
             <div class="mb-3 sm:mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
+              <label class="mb-2 block text-xs font-semibold text-wise-text sm:text-sm">{{
                 t('loginPage.registerForm.codeLabel')
                 }}</label>
               <div class="flex gap-2">
                 <input v-model="registerForm.code" type="text"
                   :placeholder="t('loginPage.registerForm.codePlaceholder')"
-                  class="flex-1 px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                  class="flex-1 rounded-[16px] border border-wise-border bg-wise-surface px-4 py-2 text-sm text-wise-text placeholder:text-wise-muted focus:outline-none focus:border-wise-accent sm:py-2.5"
                   required />
                 <button type="button"
-                  class="px-4 py-2 sm:py-2.5 text-xs sm:text-sm whitespace-nowrap border border-gray-300 rounded text-gray-700 hover:border-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  class="px-4 rounded-[16px] border border-wise-border bg-wise-surface py-2 text-xs sm:text-sm whitespace-nowrap text-wise-text transition-all duration-200 ease-out hover:bg-wise-hover hover:text-wise-accentForeground disabled:opacity-50 disabled:cursor-not-allowed"
                   @click="handleSendCode" :disabled="sendCodeLoading || countdown > 0">
                   {{ countdown > 0 ? `${countdown}s` : t('loginPage.registerForm.sendCodeButton') }}
                 </button>
@@ -172,43 +172,43 @@
             </div>
 
             <div class="mb-3 sm:mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
+              <label class="mb-2 block text-xs font-semibold text-wise-text sm:text-sm">{{
                 t('loginPage.registerForm.phoneLabel')
                 }}</label>
               <div class="flex gap-2">
                 <div
-                  class="px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded bg-gray-50 text-gray-600 min-w-[100px] text-center">
+                  class="px-4 rounded-[16px] border border-wise-border bg-wise-soft py-2 text-sm text-wise-muted min-w-[100px] text-center sm:py-2.5">
                   +{{ selectedRegisterCountry?.dialCode || '--' }}
                 </div>
                 <input v-model="registerForm.phone" type="tel"
                   :placeholder="t('loginPage.registerForm.phonePlaceholder')"
-                  class="flex-1 px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                  class="flex-1 rounded-[16px] border border-wise-border bg-wise-surface px-4 py-2 text-sm text-wise-text placeholder:text-wise-muted focus:outline-none focus:border-wise-accent sm:py-2.5"
                   required />
               </div>
             </div>
 
             <div class="mb-3 sm:mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
+              <label class="mb-2 block text-xs font-semibold text-wise-text sm:text-sm">{{
                 t('loginPage.registerForm.passwordLabel')
                 }}</label>
               <input v-model="registerForm.password" type="password"
                 :placeholder="t('loginPage.registerForm.passwordPlaceholder')"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                class="w-full rounded-[16px] border border-wise-border bg-wise-surface px-4 py-2 text-sm text-wise-text placeholder:text-wise-muted focus:outline-none focus:border-wise-accent sm:py-2.5"
                 required minlength="8" />
             </div>
 
             <div class="mb-4 sm:mb-6">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
+              <label class="mb-2 block text-xs font-semibold text-wise-text sm:text-sm">{{
                 t('loginPage.registerForm.inviteCodeLabel')
                 }}</label>
               <input v-model="registerForm.inviteCode" type="text"
                 :placeholder="t('loginPage.registerForm.inviteCodePlaceholder')"
-                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                class="w-full rounded-[16px] border border-wise-border bg-wise-surface px-4 py-2 text-sm text-wise-text placeholder:text-wise-muted focus:outline-none focus:border-wise-accent sm:py-2.5"
                 required />
             </div>
 
             <button type="submit"
-              class="w-full bg-black text-white text-sm sm:text-base py-3 sm:py-4 lg:py-6 font-medium flex items-center justify-center hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              class="w-full rounded-[9999px] bg-wise-accent text-wise-accentForeground text-sm sm:text-base py-3 sm:py-4 font-semibold flex items-center justify-center transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
               :disabled="loading">
               <span v-if="!loading">{{ t('loginPage.registerForm.registerButton') }}</span>
               <span v-else>{{ t('loginPage.registerForm.registering') }}</span>
@@ -219,9 +219,9 @@
               </svg>
             </button>
 
-            <div class="mt-4 text-center text-xs sm:text-sm text-gray-600">
+            <div class="mt-4 text-center text-xs sm:text-sm text-wise-muted">
               {{ t('loginPage.registerForm.hasAccount') }}
-              <button type="button" class="ml-1 underline underline-offset-2 hover:text-gray-800"
+              <button type="button" class="ml-1 underline underline-offset-2 transition-colors hover:text-wise-accentForeground"
                 @click="switchForm('login')">
                 {{ t('loginPage.registerForm.loginLink') }}
               </button>

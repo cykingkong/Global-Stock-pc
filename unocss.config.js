@@ -19,7 +19,19 @@ export default defineConfig({
       trend: {
         up: '#58BD7D',   // 涨绿色
         down: '#FF6838', // 跌橙色
-      }
+      },
+      wise: {
+        page: 'var(--wise-page)',
+        surface: 'var(--wise-surface)',
+        soft: 'var(--wise-soft)',
+        text: 'var(--wise-text)',
+        muted: 'var(--wise-muted)',
+        accent: 'var(--wise-accent)',
+        accentForeground: 'var(--wise-accent-foreground)',
+        border: 'var(--wise-border)',
+        borderSoft: 'var(--wise-border-soft)',
+        hover: 'var(--wise-hover)',
+      },
     }
   }
 })

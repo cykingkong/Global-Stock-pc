@@ -1,25 +1,25 @@
 <template>
-  <div class="bg-[#EDEDF0] font-family-[Inter,system-ui,sans-serif]">
+  <div class="bg-wise-page font-family-[Inter,system-ui,sans-serif] text-wise-text [font-feature-settings:'calt']">
     <!-- ==================== Section 2: Trade anywhere ==================== -->
-    <section class="bg-white w-full">
+    <section class="w-full rounded-[40px] border border-wise-border bg-wise-surface shadow-[0_0_0_1px_var(--wise-border)]">
       <div
         class="max-w-[1200px] mx-auto flex items-center justify-between min-h-[700px] px-8 py-20"
       >
         <!-- Left Content -->
         <div class="flex-1 max-w-[480px] pr-12">
           <h2
-            class="text-[#2B2B3A] font-extrabold text-[44px] leading-[1.1] tracking-[-0.02em] mb-5"
+            class="mb-5 text-[44px] font-black leading-[0.92] tracking-[-0.04em] text-wise-text"
           >
             Trade anywhere
           </h2>
-          <p class="text-[#9499AB] text-[15px] font-normal mb-12 leading-relaxed">
+          <p class="mb-12 text-[18px] leading-[1.6] text-wise-muted">
             Anytime, anywhere. Trade crypto on your terms.
           </p>
 
           <!-- Appstore -->
-          <div class="flex items-center gap-5 py-6 border-b border-[#E8E9EC]">
+          <div class="flex items-center gap-5 py-6 border-b border-wise-border">
             <div
-              class="w-[52px] h-[52px] rounded-full bg-[#2B2B3A] flex items-center justify-center flex-shrink-0"
+              class="w-[52px] h-[52px] rounded-full bg-wise-text flex items-center justify-center flex-shrink-0"
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                 <path
@@ -29,20 +29,20 @@
               </svg>
             </div>
             <div>
-              <p class="text-[#9499AB] text-[13px] font-normal mb-0.5">Download from</p>
-              <p class="text-[#2B2B3A] text-[20px] font-bold leading-tight">Appstore</p>
+              <p class="text-wise-muted text-[13px] font-normal mb-0.5">Download from</p>
+              <p class="text-wise-text text-[20px] font-semibold leading-tight">Appstore</p>
             </div>
           </div>
 
           <!-- Google Play -->
-          <div class="flex items-center gap-5 py-6 border-b border-[#E8E9EC]">
+          <div class="flex items-center gap-5 py-6 border-b border-wise-border">
             <div
-              class="w-[52px] h-[52px] rounded-full bg-[#4B68F6] flex items-center justify-center flex-shrink-0"
+              class="w-[52px] h-[52px] rounded-full bg-wise-accent text-wise-accentForeground flex items-center justify-center flex-shrink-0"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M5 12H19M19 12L13 6M19 12L13 18"
-                  stroke="white"
+                  stroke="currentColor"
                   stroke-width="2.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -50,8 +50,8 @@
               </svg>
             </div>
             <div>
-              <p class="text-[#9499AB] text-[13px] font-normal mb-0.5">Download from</p>
-              <p class="text-[#2B2B3A] text-[20px] font-bold leading-tight">Google Play</p>
+              <p class="text-wise-muted text-[13px] font-normal mb-0.5">Download from</p>
+              <p class="text-wise-text text-[20px] font-semibold leading-tight">Google Play</p>
             </div>
           </div>
         </div>

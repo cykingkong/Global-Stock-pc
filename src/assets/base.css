@@ -33,6 +33,17 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
+  --wise-page: #f8faf2;
+  --wise-surface: #ffffff;
+  --wise-soft: #e2f6d5;
+  --wise-text: #0e0f0c;
+  --wise-muted: #454745;
+  --wise-accent: #9fe870;
+  --wise-accent-foreground: #163300;
+  --wise-border: rgba(14, 15, 12, 0.12);
+  --wise-border-soft: rgba(14, 15, 12, 0.08);
+  --wise-hover: rgba(211, 242, 192, 0.4);
+
   --section-gap: 160px;
 }
 

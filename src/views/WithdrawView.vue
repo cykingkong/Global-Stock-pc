@@ -231,10 +231,11 @@ onMounted(() => {
 
 <style scoped>
 .wallet-page {
-  background: linear-gradient(180deg, #f4f7fb 0%, #eef3f9 100%);
+  background: var(--wise-page);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  color: var(--wise-text);
 }
 .wallet-page .container { flex: 1; }
 
@@ -246,10 +247,10 @@ onMounted(() => {
 
 .hero-card,
 .content-card {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+  background: var(--wise-surface);
+  border: 1px solid var(--wise-border);
+  border-radius: 40px;
+  box-shadow: 0 0 0 1px var(--wise-border);
 }
 
 .hero-card {
@@ -262,15 +263,17 @@ onMounted(() => {
 }
 
 .page-title {
-  font-size: 32px;
-  font-weight: 700;
-  color: #0f172a;
+  font-size: 56px;
+  line-height: 0.9;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: var(--wise-text);
   margin-bottom: 10px;
 }
 
 .breadcrumb {
   font-size: 12px;
-  color: #64748b;
+  color: var(--wise-muted);
   text-transform: uppercase;
   letter-spacing: .08em;
   margin-bottom: 12px;
@@ -280,7 +283,7 @@ onMounted(() => {
   max-width: 720px;
   font-size: 15px;
   line-height: 1.7;
-  color: #475569;
+  color: var(--wise-muted);
 }
 
 .content-card {
@@ -292,24 +295,26 @@ onMounted(() => {
 }
 
 .section-head h2 {
-  font-size: 24px;
-  font-weight: 700;
-  color: #0f172a;
+  font-size: 32px;
+  line-height: 0.95;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--wise-text);
   margin-bottom: 10px;
 }
 
 .section-head p {
   font-size: 14px;
   line-height: 1.7;
-  color: #64748b;
+  color: var(--wise-muted);
 }
 
 .bank-card,
 .amount-card {
-  border: 1px solid #dbe2ea;
-  border-radius: 18px;
+  border: 1px solid var(--wise-border);
+  border-radius: 30px;
   padding: 20px 24px;
-  background: #f8fafc;
+  background: var(--wise-page);
   margin-bottom: 20px;
 }
 
@@ -327,29 +332,30 @@ onMounted(() => {
 
 .bank-title {
   font-size: 18px;
-  font-weight: 700;
-  color: #0f172a;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--wise-text);
 }
 
 .bank-subtitle,
 .bank-account {
   font-size: 13px;
-  color: #64748b;
+  color: var(--wise-muted);
   margin-top: 4px;
 }
 
 .text-link {
   border: none;
   background: transparent;
-  color: #2563eb;
+  color: var(--wise-accent-foreground);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
 }
 
 .amount-label {
   font-size: 13px;
-  color: #64748b;
+  color: var(--wise-muted);
   margin-bottom: 12px;
 }
 
@@ -361,8 +367,8 @@ onMounted(() => {
 
 .amount-prefix {
   font-size: 32px;
-  font-weight: 700;
-  color: #0f172a;
+  font-weight: 900;
+  color: var(--wise-text);
 }
 
 .amount-input {
@@ -371,15 +377,16 @@ onMounted(() => {
   border: none;
   background: transparent;
   font-size: 36px;
-  font-weight: 700;
-  color: #0f172a;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--wise-text);
   outline: none;
 }
 
 .amount-input::placeholder {
-  color: #94a3b8;
+  color: var(--wise-muted);
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .summary-list {
@@ -392,14 +399,15 @@ onMounted(() => {
   align-items: center;
   justify-content: space-between;
   padding: 16px 18px;
-  border-radius: 14px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  color: #475569;
+  border-radius: 20px;
+  background: var(--wise-page);
+  border: 1px solid var(--wise-border);
+  color: var(--wise-muted);
 }
 
 .summary-item strong {
-  color: #0f172a;
+  color: var(--wise-text);
+  font-weight: 900;
 }
 
 .action-row {
@@ -413,21 +421,21 @@ onMounted(() => {
 .secondary-btn,
 .ghost-btn {
   border: 0;
-  border-radius: 12px;
+  border-radius: 9999px;
   padding: 12px 20px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   transition: .2s;
   cursor: pointer;
 }
 
 .primary-btn {
-  background: #2563eb;
-  color: #fff;
+  background: var(--wise-accent);
+  color: var(--wise-accent-foreground);
 }
 
 .primary-btn:hover:not(:disabled) {
-  background: #1d4ed8;
+  transform: scale(1.05);
 }
 
 .primary-btn:disabled {
@@ -437,13 +445,13 @@ onMounted(() => {
 
 .secondary-btn,
 .ghost-btn {
-  background: #e2e8f0;
-  color: #334155;
+  background: rgba(22, 51, 0, 0.08);
+  color: var(--wise-text);
 }
 
 .secondary-btn:hover,
 .ghost-btn:hover {
-  background: #cbd5e1;
+  background: var(--wise-hover);
 }
 
 .bank-list {
@@ -454,16 +462,16 @@ onMounted(() => {
 .bank-list-item {
   width: 100%;
   text-align: left;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
+  border: 1px solid var(--wise-border);
+  border-radius: 20px;
   padding: 16px;
-  background: #fff;
+  background: var(--wise-surface);
   cursor: pointer;
 }
 
 .bank-list-item.active {
-  border-color: #2563eb;
-  background: #eff6ff;
+  border-color: var(--wise-accent);
+  background: var(--wise-soft);
 }
 
 @media (max-width: 768px) {
@@ -495,6 +503,10 @@ onMounted(() => {
   .secondary-btn,
   .ghost-btn {
     width: 100%;
+  }
+
+  .page-title {
+    font-size: 40px;
   }
 }
 </style>

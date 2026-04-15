@@ -1,17 +1,17 @@
 <template>
-  <section class="w-full bg-[#f8f9fb] py-20 px-4">
+  <section class="w-full bg-wise-page py-20 px-4 text-wise-text [font-feature-settings:'calt']">
     <!-- Header -->
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <h2 class="text-[48px] font-extrabold text-[#23262f] leading-tight mb-6 tracking-tight">
+      <h2 class="mb-6 text-[48px] font-black leading-[0.92] tracking-[-0.04em] text-wise-text">
         How it work
       </h2>
-      <p class="text-[16px] leading-7 text-[#777e91] max-w-[480px] mx-auto">
+      <p class="text-[18px] leading-[1.6] text-wise-muted max-w-[520px] mx-auto">
         Stacks is a production-ready library of stackable content blocks built in React Native.
       </p>
     </div>
 
     <!-- Steps -->
-    <div class="max-w-[1200px] mx-auto flex items-start justify-between relative">
+    <div class="max-w-[1200px] mx-auto flex items-start justify-between relative rounded-[40px] border border-wise-border bg-wise-surface px-10 py-14 shadow-[0_0_0_1px_var(--wise-border)]">
       <!-- Step items -->
       <div
         v-for="(step, index) in steps"
@@ -24,22 +24,22 @@
         </div>
 
         <!-- Step label -->
-        <span class="text-[14px] font-medium text-[#777e91] mb-3"> Step {{ step.id }} </span>
+        <span class="text-[14px] font-medium text-wise-muted mb-3"> Step {{ step.id }} </span>
 
         <!-- Step title -->
-        <h3 class="text-[22px] font-bold text-[#23262f] mb-4 leading-tight">
+        <h3 class="text-[22px] font-black text-wise-text mb-4 leading-[0.98] tracking-[-0.03em]">
           {{ step.title }}
         </h3>
 
         <!-- Step description -->
-        <p class="text-[14px] leading-6 text-[#777e91] px-2">
+        <p class="text-[14px] leading-6 text-wise-muted px-2">
           {{ step.description }}
         </p>
       </div>
 
       <!-- Dashed connectors -->
       <svg
-        class="absolute top-[60px] left-0 w-full h-[20px] z-0 pointer-events-none"
+        class="absolute top-[60px] left-0 w-full h-[20px] z-0 pointer-events-none text-wise-muted"
         preserveAspectRatio="none"
       >
         <!-- Connector 1: between step 1 and step 2 -->
@@ -48,7 +48,7 @@
           y1="10"
           :x2="connectorPositions[0].x2"
           y2="10"
-          stroke="#d1d5db"
+          stroke="currentColor"
           stroke-width="2"
           stroke-dasharray="8 6"
         />
@@ -56,16 +56,16 @@
           :cx="connectorPositions[0].x1"
           cy="10"
           r="5"
-          fill="#fff"
-          stroke="#d1d5db"
+          fill="var(--wise-surface)"
+          stroke="currentColor"
           stroke-width="2"
         />
         <circle
           :cx="connectorPositions[0].x2"
           cy="10"
           r="5"
-          fill="#fff"
-          stroke="#d1d5db"
+          fill="var(--wise-surface)"
+          stroke="currentColor"
           stroke-width="2"
         />
         <!-- Connector 2: between step 2 and step 3 -->
@@ -74,7 +74,7 @@
           y1="10"
           :x2="connectorPositions[1].x2"
           y2="10"
-          stroke="#d1d5db"
+          stroke="currentColor"
           stroke-width="2"
           stroke-dasharray="8 6"
         />
@@ -82,16 +82,16 @@
           :cx="connectorPositions[1].x1"
           cy="10"
           r="5"
-          fill="#fff"
-          stroke="#d1d5db"
+          fill="var(--wise-surface)"
+          stroke="currentColor"
           stroke-width="2"
         />
         <circle
           :cx="connectorPositions[1].x2"
           cy="10"
           r="5"
-          fill="#fff"
-          stroke="#d1d5db"
+          fill="var(--wise-surface)"
+          stroke="currentColor"
           stroke-width="2"
         />
         <!-- Connector 3: between step 3 and step 4 -->
@@ -100,7 +100,7 @@
           y1="10"
           :x2="connectorPositions[2].x2"
           y2="10"
-          stroke="#d1d5db"
+          stroke="currentColor"
           stroke-width="2"
           stroke-dasharray="8 6"
         />
@@ -108,16 +108,16 @@
           :cx="connectorPositions[2].x1"
           cy="10"
           r="5"
-          fill="#fff"
-          stroke="#d1d5db"
+          fill="var(--wise-surface)"
+          stroke="currentColor"
           stroke-width="2"
         />
         <circle
           :cx="connectorPositions[2].x2"
           cy="10"
           r="5"
-          fill="#fff"
-          stroke="#d1d5db"
+          fill="var(--wise-surface)"
+          stroke="currentColor"
           stroke-width="2"
         />
       </svg>

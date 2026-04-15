@@ -214,44 +214,45 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.bank-page { background: linear-gradient(180deg, #f4f7fb 0%, #eef3f9 100%); min-height: 100vh; display: flex; flex-direction: column; }
+.bank-page { background: var(--wise-page); min-height: 100vh; display: flex; flex-direction: column; color: var(--wise-text); }
 .bank-page .container { flex: 1; }
 .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-.hero-card, .content-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 20px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04); }
+.hero-card, .content-card { background: var(--wise-surface); border: 1px solid var(--wise-border); border-radius: 40px; box-shadow: 0 0 0 1px var(--wise-border); }
 .hero-card { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding: 28px 32px; margin-bottom: 24px; }
-.page-title { font-size: 32px; font-weight: 700; color: #0f172a; margin-bottom: 10px; }
-.breadcrumb { font-size: 12px; color: #64748b; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
-.page-subtitle { max-width: 720px; font-size: 15px; line-height: 1.7; color: #475569; }
+.page-title { font-size: 56px; line-height: 0.9; font-weight: 900; letter-spacing: -0.05em; color: var(--wise-text); margin-bottom: 10px; }
+.breadcrumb { font-size: 12px; color: var(--wise-muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+.page-subtitle { max-width: 720px; font-size: 15px; line-height: 1.7; color: var(--wise-muted); }
 .content-card { padding: 32px; }
 .section-head { margin-bottom: 24px; }
-.section-head h2 { font-size: 24px; font-weight: 700; color: #0f172a; }
-.empty-state { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 60px 0; color: #94a3b8; font-size: 15px; }
+.section-head h2 { font-size: 32px; line-height: 0.95; font-weight: 900; letter-spacing: -0.04em; color: var(--wise-text); }
+.empty-state { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 60px 0; color: var(--wise-muted); font-size: 15px; }
 .card-list { display: grid; gap: 12px; }
-.bank-card-item { display: flex; align-items: center; gap: 16px; padding: 18px 20px; border: 1px solid #e2e8f0; border-radius: 14px; background: #f8fafc; transition: border-color .2s; }
-.bank-card-item:hover { border-color: #2563eb; }
-.bank-card-icon { width: 44px; height: 44px; border-radius: 50%; background: #16a34a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.bank-card-item { display: flex; align-items: center; gap: 16px; padding: 20px 24px; border: 1px solid var(--wise-border); border-radius: 30px; background: var(--wise-page); transition: border-color .2s, background .2s; }
+.bank-card-item:hover { border-color: var(--wise-accent); background: var(--wise-hover); }
+.bank-card-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--wise-accent); color: var(--wise-accent-foreground); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .bank-card-info { flex: 1; }
-.bank-card-name { font-size: 16px; font-weight: 700; color: #0f172a; }
-.bank-card-code { font-size: 13px; color: #64748b; margin-top: 2px; }
-.edit-btn { border: 1px solid #2563eb; background: transparent; color: #2563eb; font-size: 13px; font-weight: 600; padding: 6px 16px; border-radius: 8px; cursor: pointer; transition: .2s; }
-.edit-btn:hover { background: #eff6ff; }
+.bank-card-name { font-size: 18px; font-weight: 900; letter-spacing: -0.03em; color: var(--wise-text); }
+.bank-card-code { font-size: 13px; color: var(--wise-muted); margin-top: 2px; }
+.edit-btn { border: 1px solid var(--wise-border); background: var(--wise-surface); color: var(--wise-accent-foreground); font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 9999px; cursor: pointer; transition: .2s; }
+.edit-btn:hover { background: var(--wise-hover); transform: scale(1.05); }
 .action-row, .modal-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 28px; }
-.primary-btn, .secondary-btn, .ghost-btn { border: 0; border-radius: 12px; padding: 12px 20px; font-size: 14px; font-weight: 600; transition: .2s; cursor: pointer; }
-.primary-btn { background: #2563eb; color: #fff; }
-.primary-btn:hover:not(:disabled) { background: #1d4ed8; }
+.primary-btn, .secondary-btn, .ghost-btn { border: 0; border-radius: 9999px; padding: 12px 20px; font-size: 14px; font-weight: 700; transition: .2s; cursor: pointer; }
+.primary-btn { background: var(--wise-accent); color: var(--wise-accent-foreground); }
+.primary-btn:hover:not(:disabled) { transform: scale(1.05); }
 .primary-btn:disabled { opacity: .55; cursor: not-allowed; }
-.secondary-btn, .ghost-btn { background: #e2e8f0; color: #334155; }
-.secondary-btn:hover, .ghost-btn:hover { background: #cbd5e1; }
+.secondary-btn, .ghost-btn { background: rgba(22, 51, 0, 0.08); color: var(--wise-text); }
+.secondary-btn:hover, .ghost-btn:hover { background: var(--wise-hover); }
 .form-body { display: grid; gap: 18px; }
 .field-item { display: flex; flex-direction: column; gap: 8px; }
-.field-label { font-size: 14px; font-weight: 600; color: #0f172a; }
-.field-input { width: 100%; height: 48px; border-radius: 12px; border: 1px solid #dbe2ea; padding: 0 16px; font-size: 14px; color: #0f172a; background: #fff; }
-.field-input:focus { border-color: #3b82f6; outline: none; box-shadow: 0 0 0 3px rgba(59,130,246,.12); }
+.field-label { font-size: 14px; font-weight: 700; color: var(--wise-text); }
+.field-input { width: 100%; height: 52px; border-radius: 20px; border: 1px solid var(--wise-border); padding: 0 16px; font-size: 14px; color: var(--wise-text); background: var(--wise-surface); }
+.field-input:focus { border-color: var(--wise-accent); outline: none; box-shadow: 0 0 0 1px var(--wise-border); }
 @media (max-width: 768px) {
   .container { padding: 24px 16px; }
   .hero-card, .content-card { padding: 24px; }
   .hero-card { flex-direction: column; }
   .action-row, .modal-actions { flex-direction: column; }
   .primary-btn, .secondary-btn, .ghost-btn { width: 100%; }
+  .page-title { font-size: 40px; }
 }
 </style>

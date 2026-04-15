@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-[#F4F5F6] flex flex-col items-center px-4 py-16">
+  <div class="min-h-screen bg-wise-page flex flex-col items-center px-4 py-16 text-wise-text [font-feature-settings:'calt']">
     <!-- Hero Section -->
     <div class="flex flex-col items-center text-center mb-16">
       <!-- Logo -->
@@ -7,7 +7,7 @@
         <svg class="w-[32px] h-[32px]" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M13.2972 0.687536C14.9825 -0.229179 17.0176 -0.229179 18.7029 0.687536L28.4731 6.00205C30.2935 6.99226 31.4267 8.89867 31.4267 10.971V21.029C31.4267 23.1013 30.2935 25.0077 28.4731 25.998L18.7029 31.3125C17.0176 32.2292 14.9825 32.2292 13.2972 31.3125L3.52693 25.998C1.70651 25.0077 0.573303 23.1013 0.573303 21.029L0.573303 10.971C0.573303 8.89867 1.70651 6.99226 3.52692 6.00205L13.2972 0.687536Z"
-            fill="#3772FF" />
+            fill="var(--wise-accent)" />
           <g filter="url(#filter0_d_3153_89)">
             <path
               d="M18.8608 8.3335C22.5427 8.3335 25.5278 11.3186 25.5278 15.0005C25.5277 18.6822 22.5426 21.6665 18.8608 21.6665C18.6673 21.6665 18.4759 21.6563 18.2866 21.6401C18.189 21.6558 18.0901 21.6665 17.9897 21.6665H11.1548L10.9136 21.6606C8.43969 21.5353 6.47237 19.4898 6.47217 16.9849C6.47217 14.3989 8.56886 12.3022 11.1548 12.3022C11.6814 12.3023 12.1872 12.3909 12.6597 12.5513C13.6358 10.0813 16.0438 8.33363 18.8608 8.3335ZM14.5815 20.1724L14.6294 20.1509C14.6242 20.1466 14.6189 20.1425 14.6138 20.1382C14.6032 20.1498 14.5922 20.1609 14.5815 20.1724Z"
@@ -31,32 +31,32 @@
             <linearGradient id="paint0_linear_3153_89" x1="21.6875" y1="9.12498" x2="13.6253" y2="21.6667"
               gradientUnits="userSpaceOnUse">
               <stop stop-color="white" />
-              <stop offset="1" stop-color="#FCFCFD" stop-opacity="0.75" />
+              <stop offset="1" stop-color="var(--wise-soft)" stop-opacity="0.75" />
             </linearGradient>
             <linearGradient id="paint1_linear_3153_89" x1="16" y1="0" x2="16" y2="32" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#7EA4FF" stop-opacity="0.27" />
-              <stop offset="1" stop-color="#1448C4" stop-opacity="0.42" />
+              <stop stop-color="var(--wise-soft)" stop-opacity="0.45" />
+              <stop offset="1" stop-color="var(--wise-accent-foreground)" stop-opacity="0.35" />
             </linearGradient>
           </defs>
         </svg>
 
-        <span class="text-xl font-semibold text-[#23262F] tracking-tight">Bitcloud</span>
+        <span class="text-xl font-semibold text-wise-text tracking-tight">Bitcloud</span>
       </div>
 
       <!-- Heading -->
-      <h1 class="text-5xl md:text-6xl font-bold text-[#23262F] leading-tight max-w-xl mb-5 tracking-tight">
+      <h1 class="mb-5 max-w-xl text-5xl font-black leading-[0.92] tracking-[-0.04em] text-wise-text md:text-6xl">
         {{ t('index.slideShow.title') }}
       </h1>
 
       <!-- Subtitle -->
-      <p class="text-base text-[#777E90] font-normal">{{ t('index.slideShow.subtitle') }}</p>
+      <p class="text-base text-wise-muted font-normal">{{ t('index.slideShow.subtitle') }}</p>
     </div>
 
     <!-- Card Section with Arrows -->
     <div class="flex items-center w-full max-w-4xl gap-6 justify-between">
       <!-- Left Arrow -->
       <button
-        class="w-10 h-10 flex items-center justify-center text-[#777E90] hover:text-[#23262F] transition-colors shrink-0 cursor-pointer bg-transparent border-none"
+        class="w-10 h-10 flex items-center justify-center text-wise-muted hover:text-wise-accentForeground transition-colors shrink-0 cursor-pointer bg-transparent border-none"
         aria-label="Previous">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
           stroke-linecap="round" stroke-linejoin="round">
@@ -66,22 +66,22 @@
       </button>
 
       <!-- Card -->
-      <div class="flex-1 bg-white rounded-3xl shadow-lg shadow-black/5 overflow-hidden">
+      <div class="flex-1 overflow-hidden rounded-[40px] border border-wise-border bg-wise-surface shadow-[0_0_0_1px_var(--wise-border)]">
         <div class="flex flex-col md:flex-row items-stretch">
           <!-- Left Content -->
           <div class="flex flex-col justify-center p-10 md:p-12 md:w-1/2">
-            <span class="text-xs font-bold uppercase tracking-widest text-[#4C3F91] mb-4">
+            <span class="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-wise-accentForeground">
               {{ t('index.slideShow.cryptoNews') }}
             </span>
-            <h2 class="text-2xl md:text-3xl font-bold text-[#23262F] leading-snug mb-4">
+            <h2 class="mb-4 text-2xl font-black leading-[0.98] tracking-[-0.03em] text-wise-text md:text-3xl">
               {{ t('index.slideShow.communityTitle') }}
             </h2>
-            <p class="text-sm leading-relaxed text-[#777E90] mb-8 max-w-xs">
+            <p class="text-sm leading-relaxed text-wise-muted mb-8 max-w-xs">
               {{ t('index.slideShow.communityDesc') }}
             </p>
             <div>
               <button
-                class="px-5 py-2.5 border border-[#E6E8EC] border-solid rounded-full text-sm font-semibold text-[#23262F] bg-transparent cursor-pointer hover:bg-[#F4F5F6] transition-colors">
+                class="rounded-[9999px] border border-wise-border bg-wise-surface px-5 py-2.5 text-sm font-semibold text-wise-text cursor-pointer transition-all duration-200 ease-out hover:bg-wise-hover hover:text-wise-accentForeground hover:scale-[1.05]">
                 {{ t('index.slideShow.joinNow') }}
               </button>
             </div>
@@ -94,7 +94,7 @@
 
       <!-- Right Arrow -->
       <button
-        class="w-10 h-10 flex items-center justify-center text-[#777E90] hover:text-[#23262F] transition-colors shrink-0 cursor-pointer bg-transparent border-none"
+        class="w-10 h-10 flex items-center justify-center text-wise-muted hover:text-wise-accentForeground transition-colors shrink-0 cursor-pointer bg-transparent border-none"
         aria-label="Next">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
           stroke-linecap="round" stroke-linejoin="round">

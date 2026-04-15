@@ -73,7 +73,7 @@ onMounted(() => {
     <Nav />
 
     <div v-if="loading" class="container">
-      <div class="text-center text-[#94A3B8] py-20">{{ t('affund.loading') }}</div>
+      <div class="text-center text-wise-muted py-20">{{ t('affund.loading') }}</div>
     </div>
 
     <div v-else-if="ipoDetail" class="container">
@@ -241,8 +241,9 @@ onMounted(() => {
 
 <style scoped>
 .ipo-detail-page {
-  background: linear-gradient(180deg, #f4f7fb 0%, #eef3f9 100%);
+  background: var(--wise-page);
   min-height: 100vh;
+  color: var(--wise-text);
 }
 
 .container {
@@ -256,27 +257,34 @@ onMounted(() => {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
+  padding: 24px 28px;
+  border: 1px solid var(--wise-border);
+  border-radius: 40px;
+  background: var(--wise-surface);
+  box-shadow: 0 0 0 1px var(--wise-border);
 }
 
 .page-title {
-  font-size: 30px;
-  font-weight: bold;
-  color: #1f2937;
+  font-size: 56px;
+  line-height: 0.9;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: var(--wise-text);
   margin-bottom: 8px;
 }
 
 .breadcrumb {
   font-size: 12px;
-  color: #64748b;
+  color: var(--wise-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
 .status-tag {
-  padding: 6px 16px;
-  border-radius: 16px;
+  padding: 8px 18px;
+  border-radius: 9999px;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .content-grid {
@@ -295,10 +303,11 @@ onMounted(() => {
 .timeline-card,
 .desc-card,
 .action-card {
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  background: var(--wise-surface);
+  border: 1px solid var(--wise-border);
+  border-radius: 40px;
   padding: 24px;
+  box-shadow: 0 0 0 1px var(--wise-border);
 }
 
 .stats-row {
@@ -311,21 +320,23 @@ onMounted(() => {
 }
 
 .stat-value {
-  font-size: 28px;
-  font-weight: bold;
-  color: #0f172a;
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--wise-text);
   margin-bottom: 8px;
 }
 
 .stat-label {
   font-size: 13px;
-  color: #64748b;
+  color: var(--wise-muted);
 }
 
 .card-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #0f172a;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--wise-text);
   margin-bottom: 20px;
 }
 
@@ -342,8 +353,8 @@ onMounted(() => {
 }
 
 .timeline-icon {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -351,33 +362,33 @@ onMounted(() => {
 }
 
 .timeline-icon.green {
-  background: #e8faf3;
+  background: var(--wise-soft);
 }
 
 .timeline-icon.orange {
-  background: #fef3e8;
+  background: rgba(255, 209, 26, 0.14);
 }
 
 .timeline-icon.red {
-  background: #fee8e8;
+  background: rgba(208, 50, 56, 0.1);
 }
 
 .timeline-label {
   font-size: 14px;
-  font-weight: 600;
-  color: #0f172a;
+  font-weight: 700;
+  color: var(--wise-text);
   margin-bottom: 4px;
 }
 
 .timeline-date {
   font-size: 13px;
-  color: #64748b;
+  color: var(--wise-muted);
 }
 
 .desc-text {
   font-size: 15px;
   line-height: 1.7;
-  color: #64748b;
+  color: var(--wise-muted);
 }
 
 .price-info {
@@ -385,7 +396,7 @@ onMounted(() => {
   flex-direction: column;
   gap: 16px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--wise-border);
   margin-bottom: 20px;
 }
 
@@ -393,17 +404,19 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
 }
 
 .price-label {
   font-size: 13px;
-  color: #64748b;
+  color: var(--wise-muted);
 }
 
 .price-value {
   font-size: 16px;
-  font-weight: bold;
-  color: #0f172a;
+  font-weight: 900;
+  color: var(--wise-text);
+  letter-spacing: -0.02em;
 }
 
 .balance-info {
@@ -414,30 +427,31 @@ onMounted(() => {
 
 .balance-label {
   font-size: 13px;
-  color: #64748b;
+  color: var(--wise-muted);
 }
 
 .balance-value {
   font-size: 18px;
-  font-weight: bold;
-  color: #0f172a;
+  font-weight: 900;
+  color: var(--wise-text);
+  letter-spacing: -0.02em;
 }
 
 .subscribe-btn {
   width: 100%;
   height: 48px;
-  background: #12d18e;
-  color: white;
+  background: var(--wise-accent);
+  color: var(--wise-accent-foreground);
   border: none;
-  border-radius: 8px;
+  border-radius: 9999px;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 900;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: transform 0.2s, opacity 0.2s;
 }
 
 .subscribe-btn:hover {
-  background: #10b97d;
+  transform: scale(1.05);
 }
 
 .modal-content {
@@ -451,22 +465,51 @@ onMounted(() => {
 .form-item label {
   display: block;
   font-size: 14px;
-  color: #64748b;
+  color: var(--wise-muted);
   margin-bottom: 8px;
 }
 
 .input-field {
   width: 100%;
-  height: 40px;
-  padding: 0 12px;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
+  height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--wise-border);
+  border-radius: 20px;
   font-size: 14px;
+  color: var(--wise-text);
+  background: var(--wise-surface);
 }
 
 .balance-display {
   font-size: 16px;
-  font-weight: bold;
-  color: #0f172a;
+  font-weight: 900;
+  color: var(--wise-text);
+}
+
+@media (max-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-title {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .stats-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .page-title {
+    font-size: 36px;
+  }
 }
 </style>

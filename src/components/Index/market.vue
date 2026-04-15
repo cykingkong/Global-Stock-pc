@@ -134,13 +134,13 @@ const columns = computed(() => [
 </script>
 
 <template>
-  <div class="min-h-screen bg-white font-sans">
+  <div class="min-h-screen bg-wise-page font-sans text-wise-text [font-feature-settings:'calt']">
     <div class="max-w-[1180px] mx-auto px-8 py-12">
       <!-- Header -->
-      <div class="flex items-center justify-between mb-9">
-        <h1 class="text-[34px] font-semibold tracking-[-0.5px] text-zinc-950">{{ t('index.market.title') }}</h1>
+      <div class="mb-9 flex items-center justify-between rounded-[30px] border border-wise-border bg-wise-surface px-8 py-7 shadow-[0_0_0_1px_var(--wise-border)]">
+        <h1 class="text-[34px] font-black leading-[0.92] tracking-[-0.04em] text-wise-text">{{ t('index.market.title') }}</h1>
         <button
-          class="px-7 py-2.5 text-sm font-medium border border-zinc-200 hover:border-zinc-300 rounded-full transition-colors"
+          class="rounded-[9999px] border border-wise-border bg-wise-surface px-7 py-2.5 text-sm font-semibold text-wise-text transition-all duration-200 ease-out hover:bg-wise-hover hover:text-wise-accentForeground hover:scale-[1.05]"
           @click="router.push('/market')">
           {{ t('index.market.viewMore') }}
         </button>
@@ -148,24 +148,24 @@ const columns = computed(() => [
 
       <!-- Arco Table -->
       <Table :data="stocks" :columns="columns" :bordered="false" :pagination="false" :loading="loading"
-        :row-class="() => 'hover:bg-zinc-50/70 transition-colors'" class="market-table" />
+        :row-class="() => 'hover:bg-wise-hover transition-colors'" class="market-table rounded-[30px] border border-wise-border bg-wise-surface p-4 shadow-[0_0_0_1px_var(--wise-border)]" />
     </div>
   </div>
 </template>
 
 <style>
 .market-table .arco-table-th {
-  color: #64748b;
-  font-weight: 500;
+  color: var(--wise-muted);
+  font-weight: 600;
   font-size: 13px;
   padding-bottom: 18px !important;
-  background: #fff !important;
-  border-bottom: 1px solid #e6e8ec !important;
+  background: var(--wise-surface) !important;
+  border-bottom: 1px solid var(--wise-border) !important;
 }
 
 .market-table .arco-table-td {
   padding: 22px 12px !important;
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid var(--wise-border-soft);
 }
 
 .market-table .arco-table-tr:last-child .arco-table-td {

@@ -1,12 +1,14 @@
 <template>
-  <div class="IndexView min-h-screen bg-[#FCFCFD]">
+  <div class="IndexView min-h-screen bg-wise-page text-wise-text">
     <Nav></Nav>
-    <IndexHeader></IndexHeader>
-    <IndexMarket></IndexMarket>
-    <IndexContactUs></IndexContactUs>
-    <IndexAppDownload />
-    <IndexSlideShow />
-    <IndexHowItWork />
+    <main class="space-y-10 pb-10 md:space-y-14 md:pb-14">
+      <IndexHeader></IndexHeader>
+      <IndexMarket></IndexMarket>
+      <IndexContactUs></IndexContactUs>
+      <IndexAppDownload />
+      <IndexSlideShow />
+      <IndexHowItWork />
+    </main>
     <IndexFooter />
   </div>
 </template>

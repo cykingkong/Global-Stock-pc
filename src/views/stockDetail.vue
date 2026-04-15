@@ -1,12 +1,12 @@
 <template>
-  <div class="detail w-full min-h-screen bg-[#F1F2F4]">
+  <div class="detail w-full min-h-screen bg-wise-page text-wise-text [font-feature-settings:'calt']">
     <Nav />
     <deal2>
-      <div class="order w-full bg-white rounded-lg p-4 lg:p-6">
+      <div class="order w-full rounded-[30px] border border-wise-border bg-wise-surface p-4 shadow-[0_0_0_1px_var(--wise-border)] lg:p-6">
         <!-- Tab Selection -->
         <div class="flex items-center gap-8 mb-6">
           <button
-            class="text-[13px] font-medium transition-all text-[#23262F] font-semibold"
+            class="rounded-[9999px] bg-wise-hover px-4 py-2 text-[13px] font-semibold text-wise-text transition-all"
           >
             {{ t('stockDetail.holdingsTitle') }}
           </button>

@@ -133,17 +133,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="eqd-page min-h-screen">
+  <div class="eqd-page min-h-screen bg-wise-page text-wise-text [font-feature-settings:'calt']">
     <Nav />
     <div class="eqd-shell max-w-[1320px] mx-auto px-6 py-8">
       <!-- 面包屑 -->
       <div class="eqd-breadcrumb mb-6">
         <button class="eqd-back-btn" @click="goBack">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11.25 13.5L6.75 9L11.25 4.5" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11.25 13.5L6.75 9L11.25 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           {{ t('Equity Investment') }}
         </button>
-        <span class="text-[#9CA3AF] mx-2">/</span>
-        <span class="text-[#111827] font-semibold">{{ navTitle }}</span>
+        <span class="text-wise-muted mx-2">/</span>
+        <span class="text-wise-text font-semibold">{{ navTitle }}</span>
       </div>
 
       <div class="grid grid-cols-12 gap-8">
@@ -152,15 +152,15 @@ onMounted(() => {
           <div class="eqd-card">
             <div class="eqd-card-header">
               <div class="eqd-title-wrap">
-                <h2 class="text-[24px] font-bold text-[#0f172a]">{{ navTitle }}</h2>
+                <h2 class="text-[24px] font-black text-wise-text tracking-[-0.03em]">{{ navTitle }}</h2>
                 <span class="eqd-title-tag">EQUITY</span>
               </div>
             </div>
             <div class="eqd-card-body">
               <!-- 周期选择 -->
               <div class="mb-8">
-                <div class="text-[13px] text-[#64748b] font-semibold mb-3 uppercase tracking-[0.08em]">{{ t('Select Period') }}</div>
-                <div v-if="periodOptions.length === 0" class="text-[13px] text-[#94A3B8]">Loading...</div>
+                <div class="text-[13px] text-wise-muted font-semibold mb-3 uppercase tracking-[0.08em]">{{ t('Select Period') }}</div>
+                <div v-if="periodOptions.length === 0" class="text-[13px] text-wise-muted">Loading...</div>
                 <div v-else class="eqd-period-grid">
                   <div v-for="(option, index) in periodOptions" :key="index" class="eqd-period-option" :class="{ 'is-active': selectedPeriod === index }" @click="selectPeriod(index)">
                     <div class="eqd-period-rate">{{ option.annualRateText }}</div>
@@ -170,7 +170,7 @@ onMounted(() => {
               </div>
               <!-- 金额输入 -->
               <div class="mb-6">
-                <div class="text-[13px] text-[#64748b] font-semibold mb-3 uppercase tracking-[0.08em]">{{ t('Investment Amount') }}</div>
+                <div class="text-[13px] text-wise-muted font-semibold mb-3 uppercase tracking-[0.08em]">{{ t('Investment Amount') }}</div>
                 <div class="eqd-amount-wrap">
                   <span class="eqd-amount-prefix">$</span>
                   <input v-model="displayAmount" type="text" inputmode="decimal" :placeholder="amountPlaceholder" class="eqd-amount-input" />
@@ -178,10 +178,10 @@ onMounted(() => {
               </div>
               <!-- 余额 -->
               <div class="flex items-center justify-end gap-2 mb-8">
-                <span class="text-[13px] text-[#64748B]">{{ t('My balance') }}: ${{ addCommasToNumber(userBalance) }}</span>
-                <svg class="cursor-pointer" width="16" height="16" viewBox="0 0 18 18" fill="none" @click="handleRefreshBalance">
-                  <path d="M15.75 9C15.75 12.7279 12.7279 15.75 9 15.75C5.27208 15.75 2.25 12.7279 2.25 9C2.25 5.27208 5.27208 2.25 9 2.25C10.8639 2.25 12.5515 3.03188 13.773 4.275" stroke="#12D18E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M12.375 3.9375H15.75V0.5625" stroke="#12D18E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <span class="text-[13px] text-wise-muted">{{ t('My balance') }}: ${{ addCommasToNumber(userBalance) }}</span>
+                <svg class="cursor-pointer text-wise-accent" width="16" height="16" viewBox="0 0 18 18" fill="none" @click="handleRefreshBalance">
+                  <path d="M15.75 9C15.75 12.7279 12.7279 15.75 9 15.75C5.27208 15.75 2.25 12.7279 2.25 9C2.25 5.27208 5.27208 2.25 9 2.25C10.8639 2.25 12.5515 3.03188 13.773 4.275" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M12.375 3.9375H15.75V0.5625" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </div>
               <!-- 信息列表 -->
@@ -200,17 +200,17 @@ onMounted(() => {
         <!-- 右侧摘要 -->
         <div class="col-span-12 xl:col-span-4">
           <div class="eqd-side sticky top-[90px]">
-            <div class="text-xs font-semibold tracking-[0.14em] text-[#12D18E] mb-3">EQUITY INVESTMENT</div>
-            <div class="text-[22px] font-bold text-[#0F172A] mb-2">{{ t('Order Summary') }}</div>
-            <div class="text-[13px] text-[#64748B] mb-5">{{ productInfo.name }} · {{ periodOptions[selectedPeriod]?.rateTypeText || '' }}</div>
+            <div class="text-xs font-semibold tracking-[0.14em] text-wise-accentForeground mb-3">{{ t('Equity Investment') }}</div>
+            <div class="text-[22px] font-black text-wise-text mb-2 tracking-[-0.03em]">{{ t('Order Summary') }}</div>
+            <div class="text-[13px] text-wise-muted mb-5">{{ productInfo.name }} · {{ periodOptions[selectedPeriod]?.rateTypeText || '' }}</div>
             <div class="eqd-summary">
-              <div class="eqd-summary-row"><span>{{ t('Investment Amount') }}</span><span class="font-bold text-[#0F172A]">${{ investAmount ? addCommasToNumber(Number(investAmount)) : '0.00' }}</span></div>
-              <div class="eqd-summary-row"><span>{{ t('Return Rate') }}</span><span class="font-bold text-[#12D18E]">{{ periodOptions[selectedPeriod]?.annualRateText || '--' }}</span></div>
-              <div class="eqd-summary-row"><span>{{ t('Expected Weekly Profit') }}</span><span class="font-bold text-[#0F172A]">${{ addCommasToNumber(expectedProfit) }}</span></div>
-              <div class="eqd-summary-row"><span>{{ t('Maturity Date') }}</span><span class="font-semibold text-[#0F172A]">{{ maturityDate }}</span></div>
+              <div class="eqd-summary-row"><span>{{ t('Investment Amount') }}</span><span class="font-bold text-wise-text">${{ investAmount ? addCommasToNumber(Number(investAmount)) : '0.00' }}</span></div>
+              <div class="eqd-summary-row"><span>{{ t('Return Rate') }}</span><span class="font-bold text-wise-accentForeground">{{ periodOptions[selectedPeriod]?.annualRateText || '--' }}</span></div>
+              <div class="eqd-summary-row"><span>{{ t('Expected Weekly Profit') }}</span><span class="font-bold text-wise-text">${{ addCommasToNumber(expectedProfit) }}</span></div>
+              <div class="eqd-summary-row"><span>{{ t('Maturity Date') }}</span><span class="font-semibold text-wise-text">{{ maturityDate }}</span></div>
             </div>
             <button class="eqd-confirm-btn" :disabled="submitLoading || !investAmount || Number(investAmount) <= 0" @click="handleConfirmOrder">
-              {{ submitLoading ? 'Loading...' : t('Confirm Order') }}
+              {{ submitLoading ? t('Loading') : t('Confirm Order') }}
             </button>
           </div>
         </div>
@@ -221,44 +221,44 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.eqd-page { --eq-green: #12d18e; --eq-green-gradient: linear-gradient(286.17deg, #12d18e 0%, #71e3bb 100%); background: linear-gradient(180deg, #f4f7fb 0%, #eef3f9 100%); display: flex; flex-direction: column; min-height: 100vh; }
+.eqd-page { --eq-green: var(--wise-accent); --eq-green-gradient: linear-gradient(286.17deg, var(--wise-accent) 0%, #71e3bb 100%); background: var(--wise-page); display: flex; flex-direction: column; min-height: 100vh; }
 .eqd-shell { flex: 1 0 auto; width: 100%; }
-.eqd-breadcrumb { display: flex; align-items: center; font-size: 14px; color: #6b7280; }
-.eqd-back-btn { display: inline-flex; align-items: center; gap: 4px; background: none; border: none; color: #6b7280; font-size: 14px; cursor: pointer; padding: 0; transition: color 0.2s; }
-.eqd-back-btn:hover { color: var(--eq-green); }
-.eqd-card { background: linear-gradient(180deg, #ffffff, #fafdff); border: 1px solid #dbe4f1; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08); }
-.eqd-card-header { padding: 20px 28px; border-bottom: 1px solid #e7edf6; }
+.eqd-breadcrumb { display: flex; align-items: center; font-size: 14px; color: var(--wise-muted); }
+.eqd-back-btn { display: inline-flex; align-items: center; gap: 4px; background: none; border: none; color: var(--wise-muted); font-size: 14px; cursor: pointer; padding: 0; transition: color 0.2s; }
+.eqd-back-btn:hover { color: var(--wise-accent-foreground); }
+.eqd-card { background: var(--wise-surface); border: 1px solid var(--wise-border); border-radius: 30px; overflow: hidden; box-shadow: 0 0 0 1px var(--wise-border); }
+.eqd-card-header { padding: 24px 28px; border-bottom: 1px solid var(--wise-border); }
 .eqd-title-wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.eqd-title-tag { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; background: #e9fbf4; color: #10b981; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+.eqd-title-tag { display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 999px; background: var(--wise-soft); color: var(--wise-accent-foreground); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
 .eqd-card-body { padding: 28px; }
 .eqd-period-grid { display: flex; gap: 14px; }
-.eqd-period-option { flex: 1; height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 12px; background: #f8fbff; border: 1px solid #dbe4f1; cursor: pointer; transition: all 0.2s; }
-.eqd-period-option:hover { border-color: #70e3bb; background: #f0fdf7; }
-.eqd-period-option.is-active { background: linear-gradient(140deg, #12d18e, #5fe0b7); border-color: #58ddb2; color: #fff; box-shadow: 0 12px 22px rgba(18, 209, 142, 0.3); }
+.eqd-period-option { flex: 1; height: 96px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 20px; background: var(--wise-page); border: 1px solid var(--wise-border); cursor: pointer; transition: all 0.2s; }
+.eqd-period-option:hover { border-color: var(--wise-accent); background: var(--wise-hover); }
+.eqd-period-option.is-active { background: linear-gradient(140deg, var(--wise-accent), #5fe0b7); border-color: var(--wise-accent); color: var(--wise-accent-foreground); box-shadow: 0 0 0 1px var(--wise-border); }
 .eqd-period-rate { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
 .eqd-period-days { font-size: 13px; }
-.eqd-period-option:not(.is-active) .eqd-period-rate { color: #0f172a; }
-.eqd-period-option:not(.is-active) .eqd-period-days { color: #64748b; }
-.eqd-amount-wrap { display: flex; align-items: center; border: 1px solid #dbe4f1; background: #ffffff; border-radius: 10px; height: 52px; padding: 0 14px; transition: border-color 0.2s, box-shadow 0.2s; }
-.eqd-amount-wrap:focus-within { border-color: var(--eq-green); box-shadow: 0 0 0 3px rgba(18, 209, 142, 0.15); }
-.eqd-amount-prefix { font-size: 18px; font-weight: 600; color: #0f172a; margin-right: 8px; }
-.eqd-amount-input { flex: 1; border: none; outline: none; font-size: 16px; color: #0f172a; background: transparent; }
-.eqd-amount-input::placeholder { color: #94a3b8; }
-.eqd-info-list { border: 1px solid #dbe4f1; border-radius: 10px; overflow: hidden; background: #f8fbff; }
-.eqd-info-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid #e8eef7; }
+.eqd-period-option:not(.is-active) .eqd-period-rate { color: var(--wise-text); }
+.eqd-period-option:not(.is-active) .eqd-period-days { color: var(--wise-muted); }
+.eqd-amount-wrap { display: flex; align-items: center; border: 1px solid var(--wise-border); background: var(--wise-surface); border-radius: 20px; height: 56px; padding: 0 16px; transition: border-color 0.2s, box-shadow 0.2s; }
+.eqd-amount-wrap:focus-within { border-color: var(--eq-green); box-shadow: 0 0 0 1px var(--wise-border); }
+.eqd-amount-prefix { font-size: 18px; font-weight: 600; color: var(--wise-text); margin-right: 8px; }
+.eqd-amount-input { flex: 1; border: none; outline: none; font-size: 16px; color: var(--wise-text); background: transparent; }
+.eqd-amount-input::placeholder { color: var(--wise-muted); }
+.eqd-info-list { border: 1px solid var(--wise-border); border-radius: 20px; overflow: hidden; background: var(--wise-page); }
+.eqd-info-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--wise-border-soft); }
 .eqd-info-row:last-child { border-bottom: none; }
-.eqd-info-label { font-size: 14px; color: #64748b; }
-.eqd-info-value { font-size: 14px; font-weight: 600; color: #0f172a; }
-.eqd-side { border-radius: 14px; border: 1px solid #dbe4f1; background: linear-gradient(180deg, #ffffff, #fafdff); padding: 24px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08); }
-.eqd-summary { border: 1px solid #dbe4f1; border-radius: 10px; background: #f8fbff; padding: 4px 0; margin-bottom: 20px; }
-.eqd-summary-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; font-size: 13px; color: #64748b; }
-.eqd-confirm-btn { width: 100%; height: 44px; border: none; border-radius: 8px; background: var(--eq-green-gradient); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity 0.2s, filter 0.2s; }
-.eqd-confirm-btn:hover { filter: brightness(0.98); }
+.eqd-info-label { font-size: 14px; color: var(--wise-muted); }
+.eqd-info-value { font-size: 14px; font-weight: 600; color: var(--wise-text); }
+.eqd-side { border-radius: 30px; border: 1px solid var(--wise-border); background: var(--wise-surface); padding: 24px; box-shadow: 0 0 0 1px var(--wise-border); }
+.eqd-summary { border: 1px solid var(--wise-border); border-radius: 20px; background: var(--wise-page); padding: 4px 0; margin-bottom: 20px; }
+.eqd-summary-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; font-size: 13px; color: var(--wise-muted); }
+.eqd-confirm-btn { width: 100%; height: 48px; border: none; border-radius: 9999px; background: var(--eq-green-gradient); color: var(--wise-accent-foreground); font-size: 15px; font-weight: 700; cursor: pointer; transition: transform 0.2s, opacity 0.2s; box-shadow: 0 0 0 1px var(--wise-border); }
+.eqd-confirm-btn:hover { transform: scale(1.02); }
 .eqd-confirm-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .eqd-switch { position: relative; display: inline-block; width: 40px; height: 22px; }
 .eqd-switch input { opacity: 0; width: 0; height: 0; }
-.eqd-switch-slider { position: absolute; cursor: pointer; inset: 0; background: #cbd5e1; border-radius: 22px; transition: 0.3s; }
-.eqd-switch-slider::before { content: ''; position: absolute; height: 18px; width: 18px; left: 2px; bottom: 2px; background: white; border-radius: 50%; transition: 0.3s; }
+.eqd-switch-slider { position: absolute; cursor: pointer; inset: 0; background: var(--wise-border); border-radius: 22px; transition: 0.3s; }
+.eqd-switch-slider::before { content: ''; position: absolute; height: 18px; width: 18px; left: 2px; bottom: 2px; background: var(--wise-surface); border-radius: 50%; transition: 0.3s; }
 .eqd-switch input:checked + .eqd-switch-slider { background: var(--eq-green); }
 .eqd-switch input:checked + .eqd-switch-slider::before { transform: translateX(18px); }
 @media (max-width: 1279px) { .eqd-period-grid { flex-wrap: wrap; } .eqd-period-option { min-width: 100px; } }

@@ -99,7 +99,7 @@ const columns = computed(() => [
     width: 60,
     align: 'center' as const,
     render: ({ record }: any) =>
-      h('span', { class: 'text-zinc-400 font-medium text-base' }, record.rank),
+      h('span', { class: 'text-wise-muted font-medium text-base' }, record.rank),
   },
   {
     title: t('index.market.name'),
@@ -108,10 +108,10 @@ const columns = computed(() => [
       h('div', { class: 'flex items-center gap-3.5' }, [
         record.logoUrl
           ? h('img', { src: record.logoUrl, class: 'w-9 h-9 rounded-full flex-shrink-0' })
-          : h('div', { class: 'w-9 h-9 rounded-full bg-zinc-200 flex items-center justify-center text-sm font-bold text-zinc-500 flex-shrink-0' }, record.symbol?.charAt(0)),
+          : h('div', { class: 'w-9 h-9 rounded-full bg-wise-soft flex items-center justify-center text-sm font-bold text-wise-accentForeground flex-shrink-0' }, record.symbol?.charAt(0)),
         h('div', {}, [
-          h('div', { class: 'font-semibold text-zinc-950 text-[15px] leading-none' }, record.fullName),
-          h('div', { class: 'text-xs text-zinc-500 tracking-[0.6px] font-mono mt-0.5' }, record.symbol),
+          h('div', { class: 'font-semibold text-wise-text text-[15px] leading-none' }, record.fullName),
+          h('div', { class: 'text-xs text-wise-muted tracking-[0.6px] font-mono mt-0.5' }, record.symbol),
         ]),
       ]),
   },
@@ -121,7 +121,7 @@ const columns = computed(() => [
     width: 150,
     align: 'right' as const,
     render: ({ record }: any) =>
-      h('div', { class: 'font-semibold text-zinc-950 tabular-nums text-[15px]' },
+      h('div', { class: 'font-semibold text-wise-text tabular-nums text-[15px]' },
         `$${Number(record.close).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
       ),
   },
@@ -133,7 +133,7 @@ const columns = computed(() => [
     render: ({ record }: any) => {
       const isUp = record.changeValue >= 0
       return h('span', {
-        class: `font-medium text-sm tabular-nums ${isUp ? 'text-emerald-500' : 'text-red-500'}`,
+        class: `font-medium text-sm tabular-nums ${isUp ? 'text-trend-up' : 'text-trend-down'}`,
       }, record.increase)
     },
   },
@@ -158,7 +158,7 @@ const columns = computed(() => [
       h(Button, {
         type: 'outline',
         size: 'small',
-        class: '!rounded-full !px-7 !h-8 text-sm font-medium border-zinc-300 hover:border-zinc-400 hover:bg-zinc-50',
+        class: '!rounded-[9999px] !px-7 !h-9 text-sm font-semibold border-wise-border bg-wise-surface text-wise-text hover:!border-wise-accent hover:!bg-wise-hover hover:!text-wise-accentForeground',
         onClick: () => handleTrade(record),
       }, () => t('index.market.trade')),
   },
@@ -174,21 +174,21 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="market-list-page min-h-screen bg-[#FCFCFD] flex flex-col">
+  <div class="market-list-page min-h-screen bg-wise-page text-wise-text flex flex-col [font-feature-settings:'calt']">
     <Nav />
     <div class="flex-1">
-      <div class="max-w-[1180px] mx-auto px-8 py-12">
+      <div class="max-w-[1180px] mx-auto w-full px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
         <!-- Header -->
         <div class="market-header mb-9">
           <div>
-            <h1 class="text-[34px] font-semibold tracking-[-0.5px] text-zinc-950">{{ t('index.market.title') }}</h1>
-            <p class="text-sm text-zinc-500 mt-2">{{ t('index.market.viewMore') }}</p>
+            <h1 class="text-[34px] font-black leading-[0.92] tracking-[-0.04em] text-wise-text">{{ t('index.market.title') }}</h1>
+            <p class="mt-2 text-sm text-wise-muted">{{ t('index.market.viewMore') }}</p>
           </div>
         </div>
 
         <!-- Table -->
         <Table :data="stocks" :columns="columns" :bordered="false" :pagination="false" :loading="loading"
-          :row-class="() => 'hover:bg-zinc-50/70 transition-colors'" class="market-table" style="min-height: 520px;" />
+          :row-class="() => 'hover:bg-wise-hover transition-colors'" class="market-table" style="min-height: 520px;" />
 
         <!-- Pagination -->
         <div class="flex justify-center mt-8" v-if="total > pageSize">
@@ -202,31 +202,44 @@ onUnmounted(() => {
 </template>
 
 <style>
+.market-table .arco-table {
+  border-radius: 30px;
+  border: 1px solid var(--wise-border);
+  background: var(--wise-surface);
+  box-shadow: 0 0 0 1px var(--wise-border);
+  overflow: hidden;
+}
+
 .market-table .arco-table-th {
-  color: #64748b;
-  font-weight: 500;
+  color: var(--wise-muted);
+  font-weight: 600;
   font-size: 13px;
   padding-bottom: 18px !important;
-  background: #fff !important;
-  border-bottom: 1px solid #e6e8ec !important;
+  background: var(--wise-surface) !important;
+  border-bottom: 1px solid var(--wise-border) !important;
 }
 
 .market-table .arco-table-td {
   padding: 22px 12px !important;
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid var(--wise-border-soft);
 }
 
 .market-table .arco-table-tr:last-child .arco-table-td {
   border-bottom: none;
 }
 
+.market-table .arco-table-container {
+  border-radius: 30px;
+}
+
 .market-header {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  padding: 24px 28px;
-  border: 1px solid #e6e8ec;
-  border-radius: 16px;
-  background: linear-gradient(130deg, #ffffff, #f9fafb);
+  padding: 28px 32px;
+  border: 1px solid var(--wise-border);
+  border-radius: 30px;
+  background: var(--wise-surface);
+  box-shadow: 0 0 0 1px var(--wise-border);
 }
 </style>

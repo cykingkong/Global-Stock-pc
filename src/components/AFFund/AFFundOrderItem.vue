@@ -34,25 +34,25 @@ const showActionButtons = computed(() => props.rawStatus === 2)
 </script>
 
 <template>
-  <div class="bg-[#F8FAFC] rounded-xl p-5 hover:shadow-md transition-shadow">
+  <div class="rounded-[24px] border border-wise-border bg-wise-page p-5 shadow-[0_0_0_1px_var(--wise-border)] transition-all duration-200 hover:translate-y-[-1px]">
     <div class="flex items-center justify-between mb-3">
-      <span class="text-sm text-[#64748B]">{{ t('affund.orderId') }}</span>
-      <span class="text-sm text-[#0F172A] font-bold">{{ orderId }}</span>
+      <span class="text-sm text-wise-muted">{{ t('affund.orderId') }}</span>
+      <span class="text-sm text-wise-text font-bold">{{ orderId }}</span>
     </div>
     <div class="flex items-center justify-between mb-3">
-      <span class="text-sm text-[#64748B]">{{ t('affund.investmentAmount') }}</span>
-      <span class="text-sm text-[#0F172A] font-semibold">${{ addCommas(investAmount) }}</span>
+      <span class="text-sm text-wise-muted">{{ t('affund.investmentAmount') }}</span>
+      <span class="text-sm text-wise-text font-semibold">${{ addCommas(investAmount) }}</span>
     </div>
     <div class="flex items-center justify-between mb-3">
-      <span class="text-sm text-[#64748B]">{{ t('affund.expectedReturnRate') }}</span>
-      <span class="text-sm text-[#0F172A] font-semibold">{{ expectedReturn }}%</span>
+      <span class="text-sm text-wise-muted">{{ t('affund.expectedReturnRate') }}</span>
+      <span class="text-sm text-wise-text font-semibold">{{ expectedReturn }}%</span>
     </div>
     <div class="flex items-center justify-between mb-4">
-      <span class="text-sm text-[#64748B]">{{ t('affund.expectedProfit') }}</span>
-      <span class="text-lg text-[#0F172A] font-bold">${{ addCommas(expectedProfit) }}</span>
+      <span class="text-sm text-wise-muted">{{ t('affund.expectedProfit') }}</span>
+      <span class="text-lg text-wise-text font-black">${{ addCommas(expectedProfit) }}</span>
     </div>
     <div class="flex items-center justify-between">
-      <span class="text-sm text-[#64748B]">{{ t('affund.status') }}</span>
+      <span class="text-sm text-wise-muted">{{ t('affund.status') }}</span>
       <span class="text-xs font-medium px-3 py-1 rounded-lg"
         :style="{ backgroundColor: statusConfig.bgColor, color: statusConfig.color }">
         {{ statusConfig.text }}
@@ -60,12 +60,12 @@ const showActionButtons = computed(() => props.rawStatus === 2)
     </div>
     <div v-if="showActionButtons" class="mt-4 flex items-center gap-3">
       <button
-        class="flex-1 h-9 rounded-full bg-[#E7FAF4] text-[#12D18E] text-sm font-semibold hover:bg-[#D1F4E8] transition-colors"
+        class="flex-1 h-9 rounded-[9999px] border border-wise-border bg-wise-soft text-wise-accentForeground text-sm font-semibold transition-all duration-200 ease-out hover:bg-wise-hover"
         @click="emit('redeem', id)">
         {{ t('affund.redeemPrincipal') }}
       </button>
       <button
-        class="flex-1 h-9 rounded-full bg-[#12D18E] text-white text-sm font-semibold hover:bg-[#0FBF80] transition-colors"
+        class="flex-1 h-9 rounded-[9999px] bg-wise-accent text-wise-accentForeground text-sm font-semibold transition-all duration-200 ease-out hover:scale-[1.03] active:scale-[0.97]"
         @click="emit('addInvest', id)">
         {{ t('affund.addInvestment') }}
       </button>

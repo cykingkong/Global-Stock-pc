@@ -103,7 +103,7 @@ onMounted(() => {
     <div class="ipo-shell max-w-[1320px] mx-auto px-6 py-8">
       <div class="ipo-header mb-6">
         <div>
-          <h1 class="text-[30px] leading-tight font-bold text-[#1f2937]">{{ t('ipo.title') }}</h1>
+          <h1 class="text-[56px] leading-[0.9] font-black tracking-[-0.05em] text-wise-text">{{ t('ipo.title') }}</h1>
           <div class="ipo-subtitle mt-2">{{ t('ipo.products') }} / {{ t('ipo.orders') }}</div>
         </div>
         <div class="ipo-head-metrics">
@@ -125,27 +125,27 @@ onMounted(() => {
       </div>
 
       <div v-if="activeTab === 0">
-        <div v-if="productLoading" class="text-center text-[#94A3B8] py-20">{{ t('affund.loading') }}</div>
-        <div v-else-if="productList.length === 0" class="text-center text-[#94A3B8] py-20">{{ t('ipo.noProducts') }}</div>
+        <div v-if="productLoading" class="text-center text-wise-muted py-20">{{ t('affund.loading') }}</div>
+        <div v-else-if="productList.length === 0" class="text-center text-wise-muted py-20">{{ t('ipo.noProducts') }}</div>
         <div v-else class="ipo-product-grid">
           <div v-for="product in productList" :key="product.id" class="ipo-product-card" @click="handleProductClick(product)">
             <div class="ipo-product-header">
-              <h3 class="text-[16px] text-[#111827] font-bold">{{ product.name }}</h3>
+              <h3 class="text-[18px] text-wise-text font-black tracking-[-0.03em]">{{ product.name }}</h3>
               <span class="ipo-status-tag" :style="{ color: getStatusConfig(product.status).color, backgroundColor: getStatusConfig(product.status).bg }">
                 {{ getStatusConfig(product.status).text }}
               </span>
             </div>
-            <div class="h-[1px] bg-[#E2E8F0] mt-[18px] mb-[16px]" />
+            <div class="h-[1px] bg-[var(--wise-border)] mt-[18px] mb-[16px]" />
             <div class="ipo-price-info">
               <div class="ipo-price-item">
-                <div class="text-[16px] text-[#111827] font-bold mb-1">${{ addCommasToNumber(product.issue_price) }}</div>
-                <div class="text-[12px] text-[#64748B]">{{ t('ipo.issuePrice') }}</div>
+                <div class="text-[16px] text-wise-text font-black mb-1">${{ addCommasToNumber(product.issue_price) }}</div>
+                <div class="text-[12px] text-wise-muted">{{ t('ipo.issuePrice') }}</div>
               </div>
               <div class="ipo-price-item text-right">
-                <div class="text-[16px] text-[#111827] font-bold mb-1">
+                <div class="text-[16px] text-wise-text font-black mb-1">
                   ${{ product.listing_price_min }} ~ ${{ product.listing_price_max }}
                 </div>
-                <div class="text-[12px] text-[#64748B]">{{ t('ipo.listingPrice') }}</div>
+                <div class="text-[12px] text-wise-muted">{{ t('ipo.listingPrice') }}</div>
               </div>
             </div>
           </div>
@@ -153,8 +153,8 @@ onMounted(() => {
       </div>
 
       <div v-if="activeTab === 1">
-        <div v-if="orderLoading" class="text-center text-[#94A3B8] py-20">{{ t('affund.loading') }}</div>
-        <div v-else-if="orderList.length === 0" class="text-center text-[#94A3B8] py-20">{{ t('ipo.noOrders') }}</div>
+        <div v-if="orderLoading" class="text-center text-wise-muted py-20">{{ t('affund.loading') }}</div>
+        <div v-else-if="orderList.length === 0" class="text-center text-wise-muted py-20">{{ t('ipo.noOrders') }}</div>
         <div v-else class="ipo-order-panel">
           <div class="ipo-order-toolbar">
             <div class="ipo-order-title">{{ t('ipo.orders') }}</div>
@@ -176,7 +176,7 @@ onMounted(() => {
               <tbody>
                 <tr v-for="order in orderList" :key="order.id">
                   <td>
-                    <div class="text-[14px] text-[#0F172A] font-semibold">{{ order.project_name }}</div>
+                    <div class="text-[14px] text-wise-text font-semibold">{{ order.project_name }}</div>
                   </td>
                   <td class="ta-right tabular">${{ addCommasToNumber(order.issue_price) }}</td>
                   <td class="ta-right tabular">{{ order.allotted_qty || 0 }}</td>
@@ -192,7 +192,7 @@ onMounted(() => {
                   <td class="ta-right">
                     <button v-if="order.status === 3" class="ipo-order-btn primary" @click="handleOrderAction(order)">{{ t('ipo.sell') }}</button>
                     <button v-else-if="order.status === 4" class="ipo-order-btn primary" @click="handleOrderAction(order)">{{ t('ipo.applyRefund') }}</button>
-                    <span v-else class="text-[#9CA3AF]">--</span>
+                    <span v-else class="text-wise-muted">--</span>
                   </td>
                 </tr>
               </tbody>
@@ -206,35 +206,35 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.ipo-page { background: linear-gradient(180deg, #f4f7fb 0%, #eef3f9 100%); display: flex; flex-direction: column; min-height: 100vh; }
+.ipo-page { background: var(--wise-page); display: flex; flex-direction: column; min-height: 100vh; color: var(--wise-text); }
 .ipo-shell { flex: 1 0 auto; width: 100%; }
-.ipo-header { display: flex; align-items: flex-end; justify-content: space-between; padding: 20px 24px; border: 1px solid #dde5f2; border-radius: 16px; background: linear-gradient(130deg, #ffffff, #f7faff); }
-.ipo-subtitle { font-size: 12px; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase; }
+.ipo-header { display: flex; align-items: flex-end; justify-content: space-between; padding: 24px 28px; border: 1px solid var(--wise-border); border-radius: 40px; background: var(--wise-surface); box-shadow: 0 0 0 1px var(--wise-border); }
+.ipo-subtitle { font-size: 12px; letter-spacing: 0.08em; color: var(--wise-muted); text-transform: uppercase; }
 .ipo-head-metrics { display: flex; gap: 14px; }
-.ipo-metric-box { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; padding: 12px 18px; border-radius: 12px; background: rgba(255, 255, 255, 0.7); border: 1px solid #e8eef7; }
-.ipo-metric-label { font-size: 11px; color: #64748b; letter-spacing: 0.05em; text-transform: uppercase; }
-.ipo-metric-value { font-size: 20px; color: #0f172a; font-weight: 700; }
-.ipo-tabs { display: flex; gap: 8px; padding: 6px; background: #ffffff; border-radius: 12px; border: 1px solid #e2e8f0; }
-.ipo-tab-btn { flex: 1; padding: 10px 20px; font-size: 14px; font-weight: 600; color: #64748b; background: transparent; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
-.ipo-tab-btn:hover { color: #0f172a; background: #f8fafc; }
-.ipo-tab-btn.is-active { color: #12d18e; background: #e8faf3; }
+.ipo-metric-box { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; padding: 14px 18px; border-radius: 30px; background: var(--wise-page); border: 1px solid var(--wise-border); }
+.ipo-metric-label { font-size: 11px; color: var(--wise-muted); letter-spacing: 0.05em; text-transform: uppercase; }
+.ipo-metric-value { font-size: 24px; color: var(--wise-text); font-weight: 900; letter-spacing: -0.03em; }
+.ipo-tabs { display: flex; gap: 8px; padding: 6px; background: var(--wise-surface); border-radius: 9999px; border: 1px solid var(--wise-border); box-shadow: 0 0 0 1px var(--wise-border); }
+.ipo-tab-btn { flex: 1; padding: 12px 20px; font-size: 14px; font-weight: 700; color: var(--wise-muted); background: transparent; border: none; border-radius: 9999px; cursor: pointer; transition: all 0.2s; }
+.ipo-tab-btn:hover { color: var(--wise-text); background: var(--wise-hover); }
+.ipo-tab-btn.is-active { color: var(--wise-accent-foreground); background: var(--wise-soft); }
 .ipo-product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
-.ipo-product-card { padding: 20px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: all 0.2s; }
-.ipo-product-card:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); transform: translateY(-2px); }
-.ipo-product-header { display: flex; align-items: center; justify-content: space-between; }
-.ipo-status-tag { padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 500; }
-.ipo-price-info { display: flex; justify-content: space-between; }
-.ipo-order-panel { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
-.ipo-order-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #e2e8f0; }
-.ipo-order-title { font-size: 16px; font-weight: 700; color: #0f172a; }
-.ipo-order-count { font-size: 14px; color: #64748b; }
+.ipo-product-card { padding: 24px; background: var(--wise-surface); border: 1px solid var(--wise-border); border-radius: 30px; cursor: pointer; transition: all 0.2s; box-shadow: 0 0 0 1px var(--wise-border); }
+.ipo-product-card:hover { transform: translateY(-2px); border-color: var(--wise-accent); }
+.ipo-product-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ipo-status-tag { padding: 6px 14px; border-radius: 9999px; font-size: 12px; font-weight: 700; }
+.ipo-price-info { display: flex; justify-content: space-between; gap: 16px; }
+.ipo-order-panel { background: var(--wise-surface); border: 1px solid var(--wise-border); border-radius: 40px; overflow: hidden; box-shadow: 0 0 0 1px var(--wise-border); }
+.ipo-order-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid var(--wise-border); }
+.ipo-order-title { font-size: 22px; font-weight: 900; color: var(--wise-text); letter-spacing: -0.03em; }
+.ipo-order-count { font-size: 14px; color: var(--wise-muted); }
 .ipo-order-table-wrap { overflow-x: auto; }
 .ipo-order-table { width: 100%; border-collapse: collapse; }
-.ipo-order-table th { padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; color: #64748b; background: #f8fafc; border-bottom: 1px solid #e2e8f0; }
-.ipo-order-table td { padding: 16px; font-size: 13px; color: #0f172a; border-bottom: 1px solid #f1f5f9; }
+.ipo-order-table th { padding: 14px 16px; text-align: left; font-size: 12px; font-weight: 700; color: var(--wise-muted); background: var(--wise-page); border-bottom: 1px solid var(--wise-border); }
+.ipo-order-table td { padding: 16px; font-size: 13px; color: var(--wise-text); border-bottom: 1px solid var(--wise-border-soft); }
 .ipo-order-table .ta-right { text-align: right; }
 .ipo-order-table .tabular { font-variant-numeric: tabular-nums; }
-.ipo-order-btn { padding: 6px 16px; font-size: 13px; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
-.ipo-order-btn.primary { background: #12d18e; color: #ffffff; }
-.ipo-order-btn.primary:hover { background: #10b97d; }
+.ipo-order-btn { padding: 8px 18px; font-size: 13px; font-weight: 700; border: none; border-radius: 9999px; cursor: pointer; transition: transform 0.2s, opacity 0.2s; }
+.ipo-order-btn.primary { background: var(--wise-accent); color: var(--wise-accent-foreground); }
+.ipo-order-btn.primary:hover { transform: scale(1.05); }
 </style>

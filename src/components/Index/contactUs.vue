@@ -1,11 +1,11 @@
 <template>
-  <div class="min-h-screen bg-[#EDEEF1] flex flex-col items-center px-6 py-16">
+  <div class="min-h-screen bg-wise-page flex flex-col items-center px-6 py-16 text-wise-text [font-feature-settings:'calt']">
     <!-- Header Section -->
     <section class="text-center mb-14 mt-8">
-      <h1 class="text-[#2D2D3A] font-bold text-5xl leading-tight tracking-tight mb-5">
+      <h1 class="mb-5 text-5xl font-black leading-[0.92] tracking-[-0.04em] text-wise-text">
         Become a crypto<br />trader in seconds
       </h1>
-      <p class="text-[#9196A8] text-base font-normal">
+      <p class="text-[18px] leading-[1.6] text-wise-muted font-normal">
         We've got everything you need to start trading.
       </p>
     </section>
@@ -15,28 +15,28 @@
       <div
         v-for="card in cards"
         :key="card.title"
-        class="bg-[#E8E9ED] rounded-2xl flex flex-col items-center px-8 pt-10 pb-10 w-[340px] min-h-[420px] transition-shadow duration-200"
+        class="bg-wise-surface rounded-[30px] border border-wise-border shadow-[0_0_0_1px_var(--wise-border)] flex flex-col items-center px-8 pt-10 pb-10 w-[340px] min-h-[420px] transition-all duration-200"
       >
         <!-- Placeholder Image -->
         <div
-          class="w-[160px] h-[160px] rounded-xl mb-8 flex items-center justify-center overflow-hidden select-none"
+          class="w-[160px] h-[160px] rounded-[30px] bg-wise-soft mb-8 flex items-center justify-center overflow-hidden select-none"
         >
           <img :src="card.image" :alt="card.title" class="w-full h-full object-contain" />
         </div>
 
         <!-- Title -->
-        <h3 class="text-[#2D2D3A] font-bold text-lg mb-3 text-center">
+        <h3 class="mb-3 text-center text-lg font-semibold text-wise-text">
           {{ card.title }}
         </h3>
 
         <!-- Description -->
-        <p class="text-[#9196A8] text-sm leading-relaxed text-center mb-6 max-w-[260px]">
+        <p class="mb-6 max-w-[260px] text-center text-sm leading-relaxed text-wise-muted">
           {{ card.description }}
         </p>
 
         <!-- Button -->
         <button
-          class="mt-auto border border-[#C5C7CE] border-solid bg-transparent rounded-full px-6 py-2.5 text-[#2D2D3A] text-sm font-medium cursor-pointer hover:bg-[#d9dae0] transition-colors duration-200"
+          class="mt-auto rounded-[9999px] border border-wise-border bg-wise-surface px-6 py-2.5 text-sm font-semibold text-wise-text cursor-pointer transition-all duration-200 ease-out hover:bg-wise-hover hover:text-wise-accentForeground hover:scale-[1.05]"
         >
           {{ card.button }}
         </button>
@@ -46,7 +46,7 @@
     <!-- Contact Us Button -->
     <section class="mb-12">
       <button
-        class="bg-[#4D6BF8] hover:bg-[#3B5BE6] text-white font-semibold text-base rounded-full px-10 py-3.5 border-none cursor-pointer shadow-md shadow-[#4D6BF8/30] transition-all duration-200"
+        class="rounded-[9999px] bg-wise-accent px-10 py-3.5 text-base font-semibold text-wise-accentForeground border-none cursor-pointer shadow-[0_0_0_1px_var(--wise-border)] transition-all duration-200 ease-out hover:scale-[1.05] active:scale-[0.95]"
       >
         Contact Us
       </button>

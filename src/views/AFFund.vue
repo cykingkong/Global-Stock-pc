@@ -248,12 +248,12 @@ onUnmounted(() => {
 
 
 <template>
-  <div class="af-page min-h-screen">
+  <div class="af-page min-h-screen bg-wise-page text-wise-text [font-feature-settings:'calt']">
     <Nav />
 
     <div class="af-shell max-w-[1320px] mx-auto px-6 py-8">
-      <div class="af-header mb-5">
-        <h1 class="text-[30px] leading-tight font-bold text-[#1F2937]">{{ t('affund.title') }}</h1>
+      <div class="af-header mb-6">
+        <h1 class="text-[34px] leading-[0.92] font-black tracking-[-0.04em] text-wise-text">{{ t('affund.title') }}</h1>
       </div>
 
       <div class="af-board mb-6">
@@ -470,17 +470,17 @@ onUnmounted(() => {
 
         <div v-if="activeTab !== 1" class="col-span-12 xl:col-span-4">
           <div class="af-side sticky top-[90px]">
-            <div class="text-xs font-semibold tracking-[0.14em] text-[#16A34A] mb-3">
+            <div class="text-xs font-semibold tracking-[0.14em] text-wise-accentForeground mb-3">
               ANTI-FRAUD FUND
             </div>
-            <div class="text-2xl font-bold text-[#0F172A] mb-2">{{ t('affund.joinFund') }}</div>
-            <div class="text-sm text-[#64748B] mb-5">
+            <div class="text-2xl font-black text-wise-text mb-2">{{ t('affund.joinFund') }}</div>
+            <div class="text-sm text-wise-muted mb-5">
               {{ t('affund.joinDesc') }}
             </div>
 
             <div class="af-balance mb-5">
-              <div class="text-xs text-[#64748B] mb-2">{{ t('affund.myBalance') }}</div>
-              <div class="text-[28px] leading-none font-bold text-[#0F172A]">
+              <div class="text-xs text-wise-muted mb-2">{{ t('affund.myBalance') }}</div>
+              <div class="text-[28px] leading-none font-black text-wise-text">
                 {{ Number(userBalance).toLocaleString() }}
               </div>
             </div>
