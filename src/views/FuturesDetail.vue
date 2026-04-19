@@ -183,7 +183,7 @@ onMounted(() => {
                 <div v-if="periodOptions.length === 0" class="text-[13px] text-[#94A3B8]">Loading...</div>
                 <div v-else class="ftd-period-grid">
                   <div v-for="(option, index) in periodOptions" :key="index" class="ftd-period-option" :class="{ 'is-active': selectedPeriod === index }" @click="selectPeriod(index)">
-                    <div class="ftd-period-rate">{{ option.rate }}%</div>
+                    <div class="ftd-period-rate">{{ option.ratePct }}</div>
                     <div class="ftd-period-days">{{ option.label }}</div>
                   </div>
                 </div>

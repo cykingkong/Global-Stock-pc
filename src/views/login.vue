@@ -272,7 +272,7 @@ const filterCountry = (inputValue: string, option: any) => {
 }
 
 // Get route parameter
-const type = computed(() => (route.params.type as 'login' | 'register') || 'login')
+const type = computed(() => (route.query.type as 'login' | 'register') || (route.params.type as 'login' | 'register') || 'login')
 const isLogin = ref(type.value === 'login')
 
 // 加载状态
@@ -285,9 +285,10 @@ let countdownTimer: ReturnType<typeof setInterval> | null = null
 
 // 监听路由参数变化，自动切换表单
 watch(
-  () => route.params.type,
-  (newType) => {
-    isLogin.value = (newType as string) === 'login' || !newType
+  () => [route.params.type, route.query.type],
+  ([paramType, queryType]) => {
+    const nextType = (queryType as string) || (paramType as string)
+    isLogin.value = nextType === 'login' || !nextType
   },
 )
 

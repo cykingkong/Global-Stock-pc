@@ -63,7 +63,7 @@ const handleLogin = () => {
 }
 
 const handleRegister = () => {
-  router.push('/register')
+  router.push({ path: '/login', query: { type: 'register' } })
 }
 
 onMounted(() => {
