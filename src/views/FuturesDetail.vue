@@ -66,6 +66,11 @@ const expectedProfit = computed(() => {
   return (amount * period.rate) / 100
 })
 
+const expectedProfitLabel = computed(() => {
+  const period = periodOptions.value[selectedPeriod.value]
+  return period ? `${t('Expected Profit')} : ${period.label}` : t('Expected Profit')
+})
+
 const maturityDate = computed(() => {
   const period = periodOptions.value[selectedPeriod.value]
   if (!period) return ''
@@ -206,7 +211,7 @@ onMounted(() => {
               </div>
               <!-- 信息列表 -->
               <div class="ftd-info-list">
-                <div class="ftd-info-row"><span class="ftd-info-label">{{ t('Expected 7-Day Profit') }}</span><span class="ftd-info-value">${{ addCommasToNumber(expectedProfit) }}</span></div>
+                <div class="ftd-info-row"><span class="ftd-info-label">{{ expectedProfitLabel }}</span><span class="ftd-info-value">${{ addCommasToNumber(expectedProfit) }}</span></div>
                 <div class="ftd-info-row"><span class="ftd-info-label">{{ t('Maturity Date') }}</span><span class="ftd-info-value">{{ maturityDate }}</span></div>
                 <div class="ftd-info-row"><span class="ftd-info-label">{{ t('Deduction Cycle') }}</span><span class="ftd-info-value">{{ deductionCycle }}</span></div>
                 <div class="ftd-info-row">
@@ -225,8 +230,8 @@ onMounted(() => {
             <div class="text-[13px] text-[#64748B] mb-5">{{ productInfo.name }} · {{ periodOptions[selectedPeriod]?.label || '' }}</div>
             <div class="ftd-summary">
               <div class="ftd-summary-row"><span>{{ t('Investment Amount') }}</span><span class="font-bold text-[#0F172A]">${{ investAmount ? addCommasToNumber(Number(investAmount)) : '0.00' }}</span></div>
-              <div class="ftd-summary-row"><span>{{ t('Return Rate') }}</span><span class="font-bold text-[#12D18E]">{{ periodOptions[selectedPeriod]?.rate || 0 }}%</span></div>
-              <div class="ftd-summary-row"><span>{{ t('Expected 7-Day Profit') }}</span><span class="font-bold text-[#0F172A]">${{ addCommasToNumber(expectedProfit) }}</span></div>
+              <div class="ftd-summary-row"><span>{{ t('Return Rate') }}</span><span class="font-bold text-[#12D18E]">{{ periodOptions[selectedPeriod]?.ratePct || 0 }}%</span></div>
+              <div class="ftd-summary-row"><span>{{ expectedProfitLabel }}</span><span class="font-bold text-[#0F172A]">${{ addCommasToNumber(expectedProfit) }}</span></div>
               <div class="ftd-summary-row"><span>{{ t('Maturity Date') }}</span><span class="font-semibold text-[#0F172A]">{{ maturityDate }}</span></div>
             </div>
             <button class="ftd-confirm-btn" :disabled="submitLoading || !investAmount || Number(investAmount) <= 0" @click="handleConfirmOrder">

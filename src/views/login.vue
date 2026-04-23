@@ -39,12 +39,30 @@
 
           <!-- Login form -->
           <form v-if="isLogin" @submit.prevent="handleLogin">
-            <div class="mb-4">
+            <div class="mb-4 inline-flex rounded border border-gray-300 p-1 text-sm">
+              <button
+                type="button"
+                class="px-4 py-2 rounded transition-colors"
+                :class="loginType === 'phone' ? 'bg-black text-white' : 'text-gray-600 hover:text-gray-900'"
+                @click="changeLoginType('phone')"
+              >
+                {{ t('password.phone') }}
+              </button>
+              <button
+                type="button"
+                class="px-4 py-2 rounded transition-colors"
+                :class="loginType === 'email' ? 'bg-black text-white' : 'text-gray-600 hover:text-gray-900'"
+                @click="changeLoginType('email')"
+              >
+                {{ t('password.email') }}
+              </button>
+            </div>
+
+            <div v-if="loginType === 'phone'" class="mb-4">
               <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
                 t('loginPage.loginForm.usernameLabel')
                 }}</label>
               <div class="flex gap-2">
-                <!-- Country Select -->
                 <a-select v-model="loginForm.countryCode" :placeholder="t('loginPage.loginForm.countryPlaceholder')"
                   :filter-option="filterCountry" allow-search class="country-select" style="width: 140px">
                   <a-option v-for="country in countryList" :key="country.code" :value="country.dialCode"
@@ -56,12 +74,22 @@
                   </a-option>
                 </a-select>
 
-                <!-- Username Input -->
                 <input v-model="loginForm.username" type="text"
                   :placeholder="t('loginPage.loginForm.usernamePlaceholder')"
                   class="flex-1 px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
                   required />
               </div>
+            </div>
+
+            <div v-else class="mb-4">
+              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{ t('password.email') }}</label>
+              <input
+                v-model="loginForm.username"
+                type="email"
+                :placeholder="t('loginPage.registerForm.emailPlaceholder')"
+                class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                required
+              />
             </div>
 
             <div class="mb-4">
@@ -279,6 +307,7 @@ const isLogin = ref(type.value === 'login')
 const loading = ref(false)
 const sendCodeLoading = ref(false)
 const countdown = ref(0)
+const loginType = ref<'phone' | 'email'>('phone')
 let countdownTimer: ReturnType<typeof setInterval> | null = null
 
 // let loginVideoUrl = `https://image.oam007.icu/antifraudalliance/video/collection.mp4`
@@ -294,14 +323,14 @@ watch(
 
 // Login form data
 const loginForm = ref({
-  countryCode: '1', // 默认美国
+  countryCode: '55',
   username: '',
   password: '',
 })
 
 // Register form data
 const registerForm = ref({
-  countryCode: 'US',
+  countryCode: 'BR',
   fullName: '',
   email: '',
   code: '',
@@ -312,6 +341,11 @@ const registerForm = ref({
 
 const switchForm = (type: 'login' | 'register') => {
   isLogin.value = type === 'login'
+}
+
+const changeLoginType = (type: 'phone' | 'email') => {
+  loginType.value = type
+  loginForm.value.username = ''
 }
 
 const selectedRegisterCountry = computed(() =>
@@ -338,16 +372,18 @@ const handleLogin = async () => {
 
     // 构造参数
     const params = {
-      account: loginForm.value.countryCode + loginForm.value.username,
+      account: loginType.value === 'phone'
+        ? loginForm.value.countryCode + loginForm.value.username
+        : loginForm.value.username,
       password: loginForm.value.password,
-      type: 'phone',
+      type: loginType.value,
     }
 
     // 调用 store 登录
     await userStore.login(params)
 
     // 设置语言
-    localStorage.setItem('language', 'en')
+    localStorage.setItem('language', 'pt')
 
     // 获取房间列表
     // await userStore.getRoomList()

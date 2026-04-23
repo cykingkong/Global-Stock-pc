@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter, useRoute } from 'vue-router'
 import Nav from '@/components/Nav.vue'
@@ -7,6 +7,7 @@ import IndexFooter from '@/components/Index/footer.vue'
 import useUserStore from '@/stores/user'
 import { addCommasToNumber } from '@/utils/tool'
 import { getDcaProducts, getMyDcaPlans, payDcaDeduct } from '@/api/dca'
+import { subscribeQuotes, unsubscribeAllQuotes } from '@/utils/quoteSubscription'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -67,17 +68,29 @@ function buildPlans(item: any) {
 
 async function fetchProducts() {
   productLoading.value = true
+  unsubscribeAllQuotes()
   try {
     const { data, code } = await getDcaProducts(undefined, false)
     if (code === 200 && data) {
       productList.value = data.map((item: any) => ({
         id: item.id,
+        symbol: item.symbol,
         logo: item.logo_url || '',
         name: item.name,
         price: item.close,
         changeRate: Number.parseFloat(String(item.increase).replace('%', '')) || 0,
+        increase: item.increase,
         plans: buildPlans(item),
       }))
+      subscribeQuotes(productList.value, (symbol, quote) => {
+        const target = productList.value.find((product) => product.symbol === symbol)
+        if (!target) return
+        if (quote.close !== undefined) target.price = quote.close
+        if (quote.increase !== undefined) {
+          target.increase = quote.increase
+          target.changeRate = Number.parseFloat(String(quote.increase).replace('%', '')) || 0
+        }
+      })
     }
   } catch (e) {
     console.error('获取产品列表失败', e)
@@ -199,6 +212,10 @@ onMounted(() => {
     activeTab.value = 1
     fetchOrders()
   }
+})
+
+onUnmounted(() => {
+  unsubscribeAllQuotes()
 })
 </script>
 

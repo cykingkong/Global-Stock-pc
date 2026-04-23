@@ -94,11 +94,11 @@ const formattedAmount = computed(() => addCommas(props.totalAmount))
     <!-- 收益明细 -->
     <div>
       <div class="text-lg text-[#0F172A] font-bold mb-3">{{ t('affund.profitDetails') }}</div>
-      <div class="space-y-2">
+      <!-- <div class="space-y-2">
         <div v-for="(item, index) in profitDetails" :key="index" class="text-sm text-[#64748B]">
           {{ item.desc }} ${{ addCommas(item.amount) }}
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
