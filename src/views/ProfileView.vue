@@ -72,7 +72,7 @@ const userName = computed(() =>
   || userInfo.value?.phone
   || userInfo.value?.username
   || userInfo.value?.email
-  || '用户',
+  || '-',
 )
 
 // 侧边栏菜单项

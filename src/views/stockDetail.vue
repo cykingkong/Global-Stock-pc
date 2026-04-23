@@ -83,7 +83,7 @@
                   <!-- Direction -->
                   <span v-else-if="column.key === 'direction'"
                     class="inline-block px-2.5 py-1 rounded text-[12px] font-normal text-white"
-                    :class="row.direction === '买入' ? 'bg-[#FF3B30]' : 'bg-[#34C759]'">
+                    :class="row.direction === 'buy' ? 'bg-[#FF3B30]' : 'bg-[#34C759]'">
                     {{ row.direction }}
                   </span>
 

@@ -63,7 +63,7 @@ function handleProductClick(product: any) {
 }
 
 function handleOrderAction(order: any) {
-  Message.info(`操作: ${order.project_name}`)
+  // Message.info(`操作: ${order.project_name}`)
 }
 
 function getStatusConfig(status: number) {
