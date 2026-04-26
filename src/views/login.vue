@@ -29,9 +29,7 @@
             <span v-else>{{ t('loginPage.registerForm.header') }}</span>
           </div>
           <h1 class="text-2xl sm:text-3xl lg:text-4xl font-light text-gray-900 mb-3 sm:mb-4">
-            {{
-              isLogin ? t('loginPage.loginForm.title') : t('loginPage.registerForm.title')
-            }}
+            {{ pageTitle }}
           </h1>
           <p class="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8" v-if="isLogin">
             {{ t('loginPage.loginForm.subtitle') }}
@@ -145,7 +143,7 @@
           </form>
 
           <!-- Register form -->
-          <form v-else @submit.prevent="handleRegister">
+          <form v-else-if="!showKycForm" @submit.prevent="handleRegister">
             <div class="mb-3 sm:mb-4">
               <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
                 t('loginPage.registerForm.countryLabel')
@@ -201,22 +199,6 @@
 
             <div class="mb-3 sm:mb-4">
               <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
-                t('loginPage.registerForm.phoneLabel')
-                }}</label>
-              <div class="flex gap-2">
-                <div
-                  class="px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded bg-gray-50 text-gray-600 min-w-[100px] text-center">
-                  +{{ selectedRegisterCountry?.dialCode || '--' }}
-                </div>
-                <input v-model="registerForm.phone" type="tel"
-                  :placeholder="t('loginPage.registerForm.phonePlaceholder')"
-                  class="flex-1 px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500"
-                  required />
-              </div>
-            </div>
-
-            <div class="mb-3 sm:mb-4">
-              <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{
                 t('loginPage.registerForm.passwordLabel')
                 }}</label>
               <input v-model="registerForm.password" type="password"
@@ -255,8 +237,144 @@
               </button>
             </div>
           </form>
+
+          <form v-else @submit.prevent="handleSubmitKyc" class="space-y-6">
+            <div>
+              <p class="text-sm text-gray-600">{{ t('loginPage.kycForm.subtitle') }}</p>
+            </div>
+
+            <section>
+              <h2 class="text-sm font-semibold text-gray-900 mb-3">{{ t('loginPage.kycForm.identitySection') }}</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div>
+                  <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{ t('loginPage.kycForm.cpfLabel') }}</label>
+                  <input v-model="kycForm.cpf" type="text" :placeholder="t('loginPage.kycForm.cpfPlaceholder')"
+                    class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500" />
+                </div>
+                <div>
+                  <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{ t('loginPage.kycForm.birthLabel') }}</label>
+                  <input v-model="kycForm.birth" type="date"
+                    class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500" />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{ t('loginPage.kycForm.phoneLabel') }}</label>
+                  <div class="flex gap-2">
+                    <a-select v-model="kycForm.phoneCountryCode" :filter-option="filterCountry" allow-search class="country-select" style="width: 140px">
+                      <a-option v-for="country in countryList" :key="country.code" :value="country.dialCode" :label="`+${country.dialCode}`">
+                        <div class="flex items-center justify-between">
+                          <span>{{ country.name }}</span>
+                          <span class="text-gray-500 ml-2">+{{ country.dialCode }}</span>
+                        </div>
+                      </a-option>
+                    </a-select>
+                    <input v-model="kycForm.phone" type="tel" :placeholder="t('loginPage.kycForm.phonePlaceholder')"
+                      class="flex-1 px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500" />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h2 class="text-sm font-semibold text-gray-900 mb-3">{{ t('loginPage.kycForm.investmentSection') }}</h2>
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{ t('loginPage.kycForm.investmentGoalLabel') }}</label>
+                  <div class="grid grid-cols-1 gap-2">
+                    <label v-for="option in investmentGoalOptions" :key="option.value" class="flex items-center gap-2 text-sm text-gray-700 border border-gray-300 rounded px-3 py-2 cursor-pointer hover:border-gray-500">
+                      <input v-model="kycForm.investmentGoal" type="radio" :value="option.value" />
+                      <span>{{ option.label }}</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{ t('loginPage.kycForm.investmentExperienceLabel') }}</label>
+                    <div class="flex gap-3">
+                      <label v-for="option in yesNoOptions" :key="`experience-${option.value}`" class="flex items-center gap-2 text-sm text-gray-700">
+                        <input v-model="kycForm.investmentExperience" type="radio" :value="option.value" />
+                        <span>{{ option.label }}</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{ t('loginPage.kycForm.savingsLabel') }}</label>
+                    <div class="flex gap-3">
+                      <label v-for="option in yesNoOptions" :key="`savings-${option.value}`" class="flex items-center gap-2 text-sm text-gray-700">
+                        <input v-model="kycForm.investWithSavings" type="radio" :value="option.value" />
+                        <span>{{ option.label }}</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h2 class="text-sm font-semibold text-gray-900 mb-3">{{ t('loginPage.kycForm.workSection') }}</h2>
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{ t('loginPage.kycForm.employmentStatusLabel') }}</label>
+                  <select v-model="kycForm.employmentStatus"
+                    class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500 bg-white">
+                    <option v-for="option in employmentStatusOptions" :key="option.value" :value="option.value">
+                      {{ option.label }}
+                    </option>
+                  </select>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div>
+                    <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{ t('loginPage.kycForm.companyNameLabel') }}</label>
+                    <input v-model="kycForm.companyName" type="text" :placeholder="t('loginPage.kycForm.companyNamePlaceholder')"
+                      class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500" />
+                  </div>
+                  <div>
+                    <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{ t('loginPage.kycForm.occupationLabel') }}</label>
+                    <input v-model="kycForm.occupation" type="text" :placeholder="t('loginPage.kycForm.occupationPlaceholder')"
+                      class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500" />
+                  </div>
+                  <div class="sm:col-span-2">
+                    <label class="block text-gray-700 text-xs sm:text-sm mb-2">{{ t('loginPage.kycForm.monthlyIncomeLabel') }}</label>
+                    <input v-model="kycForm.monthlyIncome" type="text" :placeholder="t('loginPage.kycForm.monthlyIncomePlaceholder')"
+                      class="w-full px-3 py-2 sm:py-2.5 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-500" />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h2 class="text-sm font-semibold text-gray-900 mb-3">{{ t('loginPage.kycForm.termsSection') }}</h2>
+              <div class="space-y-2">
+                <label v-for="option in termsOptions" :key="option.value" class="flex items-start gap-2 text-xs sm:text-sm text-gray-700">
+                  <input v-model="kycForm.termsAgreements" type="checkbox" :value="option.value" class="mt-1" />
+                  <span>{{ option.label }}</span>
+                </label>
+              </div>
+            </section>
+
+            <button type="submit"
+              class="w-full bg-black text-white text-sm sm:text-base py-3 sm:py-4 lg:py-6 font-medium flex items-center justify-center hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              :disabled="kycLoading">
+              <span>{{ kycLoading ? t('loginPage.kycForm.submitting') : t('loginPage.kycForm.submitButton') }}</span>
+            </button>
+          </form>
         </div>
       </div>
+    </div>
+  </div>
+  <div v-if="showKycSuccess" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+    <div class="w-full max-w-sm rounded-lg bg-white p-6 text-center shadow-xl">
+      <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-green-600">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ t('loginPage.kycForm.successTitle') }}</h3>
+      <p class="text-sm text-gray-600 mb-6">{{ t('loginPage.kycForm.successMessage') }}</p>
+      <button type="button" class="w-full bg-black text-white py-3 text-sm font-medium hover:bg-gray-800 transition-colors"
+        @click="router.push({ name: 'home' })">
+        {{ t('loginPage.kycForm.successButton') }}
+      </button>
     </div>
   </div>
   <PasswordModal v-model:visible="showForgotModal" mode="forgot" />
@@ -266,7 +384,7 @@
 import { ref, computed, watch, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { register, sendCode } from '@/api/user'
+import { register, sendCode, kyc } from '@/api/user'
 import { useUserStore } from '@/stores/user'
 import countryData from '@/assets/json/area.json'
 import { setToken } from '@/utils/auth'
@@ -306,8 +424,11 @@ const isLogin = ref(type.value === 'login')
 // 加载状态
 const loading = ref(false)
 const sendCodeLoading = ref(false)
+const kycLoading = ref(false)
 const countdown = ref(0)
-const loginType = ref<'phone' | 'email'>('phone')
+const loginType = ref<'phone' | 'email'>('email')
+const showKycForm = ref(false)
+const showKycSuccess = ref(false)
 let countdownTimer: ReturnType<typeof setInterval> | null = null
 
 // let loginVideoUrl = `https://image.oam007.icu/antifraudalliance/video/collection.mp4`
@@ -318,6 +439,7 @@ watch(
   ([paramType, queryType]) => {
     const nextType = (queryType as string) || (paramType as string)
     isLogin.value = nextType === 'login' || !nextType
+    showKycForm.value = false
   },
 )
 
@@ -339,8 +461,58 @@ const registerForm = ref({
   inviteCode: '',
 })
 
+const kycForm = ref({
+  cpf: '',
+  birth: '',
+  phoneCountryCode: '55',
+  phone: '',
+  investmentGoal: 'grow',
+  investmentExperience: 'yes',
+  employmentStatus: 'employed',
+  investWithSavings: 'yes',
+  companyName: '',
+  occupation: '',
+  monthlyIncome: '',
+  termsAgreements: [] as string[],
+})
+
+const pageTitle = computed(() => {
+  if (isLogin.value) return t('loginPage.loginForm.title')
+  return showKycForm.value ? t('loginPage.kycForm.title') : t('loginPage.registerForm.title')
+})
+
+const investmentGoalOptions = computed(() => [
+  { value: 'grow', label: t('loginPage.kycForm.options.grow') },
+  { value: 'speculate', label: t('loginPage.kycForm.options.speculate') },
+  { value: 'hedge', label: t('loginPage.kycForm.options.hedge') },
+  { value: 'learn', label: t('loginPage.kycForm.options.learn') },
+  { value: 'unsure', label: t('loginPage.kycForm.options.unsure') },
+])
+
+const yesNoOptions = computed(() => [
+  { value: 'yes', label: t('loginPage.kycForm.options.yes') },
+  { value: 'no', label: t('loginPage.kycForm.options.no') },
+])
+
+const employmentStatusOptions = computed(() => [
+  { value: 'employed', label: t('loginPage.kycForm.options.employed') },
+  { value: 'professional', label: t('loginPage.kycForm.options.professional') },
+  { value: 'entrepreneur', label: t('loginPage.kycForm.options.entrepreneur') },
+  { value: 'freelancer', label: t('loginPage.kycForm.options.freelancer') },
+  { value: 'student', label: t('loginPage.kycForm.options.student') },
+  { value: 'homemaker', label: t('loginPage.kycForm.options.homemaker') },
+])
+
+const termsOptions = computed(() => [
+  { value: 'nationality', label: t('loginPage.kycForm.terms.nationality') },
+  { value: 'political', label: t('loginPage.kycForm.terms.political') },
+  { value: 'employment', label: t('loginPage.kycForm.terms.employment') },
+  { value: 'legal', label: t('loginPage.kycForm.terms.legal') },
+])
+
 const switchForm = (type: 'login' | 'register') => {
   isLogin.value = type === 'login'
+  showKycForm.value = false
 }
 
 const changeLoginType = (type: 'phone' | 'email') => {
@@ -350,6 +522,10 @@ const changeLoginType = (type: 'phone' | 'email') => {
 
 const selectedRegisterCountry = computed(() =>
   countryList.value.find((country) => country.code === registerForm.value.countryCode),
+)
+
+const selectedKycPhoneCountry = computed(() =>
+  countryList.value.find((country) => country.dialCode === kycForm.value.phoneCountryCode),
 )
 
 // 计算属性：当前直播列表
@@ -423,11 +599,6 @@ const handleRegister = async () => {
     return
   }
 
-  if (!registerForm.value.phone) {
-    alert(t('loginPage.validation.phoneRequired'))
-    return
-  }
-
   if (!registerForm.value.password) {
     alert(t('loginPage.validation.passwordRequired'))
     return
@@ -455,7 +626,6 @@ const handleRegister = async () => {
       full_name: registerForm.value.fullName,
       email: registerForm.value.email,
       code: registerForm.value.code,
-      phone: `${selectedRegisterCountry.value.dialCode}${registerForm.value.phone}`,
       password: registerForm.value.password,
       invite_code: registerForm.value.inviteCode,
     })
@@ -465,12 +635,60 @@ const handleRegister = async () => {
       await userStore.info()
     }
 
-    router.push({ name: 'home' })
+    showKycForm.value = true
   } catch (error) {
     console.error('注册失败:', error)
     alert(t('loginPage.validation.registerFailed'))
   } finally {
     loading.value = false
+  }
+}
+
+const validateKycForm = () => {
+  if (!kycForm.value.cpf.trim()) return t('loginPage.kycForm.validation.cpfRequired')
+  if (!kycForm.value.birth) return t('loginPage.kycForm.validation.birthRequired')
+  if (!kycForm.value.phone.trim()) return t('loginPage.kycForm.validation.phoneRequired')
+  if (!kycForm.value.investmentGoal) return t('loginPage.kycForm.validation.investmentGoalRequired')
+  if (!kycForm.value.investmentExperience) return t('loginPage.kycForm.validation.investmentExperienceRequired')
+  if (!kycForm.value.employmentStatus) return t('loginPage.kycForm.validation.employmentStatusRequired')
+  if (!kycForm.value.investWithSavings) return t('loginPage.kycForm.validation.savingsRequired')
+  if (!kycForm.value.companyName.trim()) return t('loginPage.kycForm.validation.companyNameRequired')
+  if (!kycForm.value.occupation.trim()) return t('loginPage.kycForm.validation.occupationRequired')
+  if (!kycForm.value.monthlyIncome.trim()) return t('loginPage.kycForm.validation.monthlyIncomeRequired')
+  if (kycForm.value.termsAgreements.length !== termsOptions.value.length) {
+    return t('loginPage.kycForm.validation.termsRequired')
+  }
+  return ''
+}
+
+const handleSubmitKyc = async () => {
+  const errorMessage = validateKycForm()
+  if (errorMessage) {
+    alert(errorMessage)
+    return
+  }
+
+  try {
+    kycLoading.value = true
+    const params = {
+      cpf: kycForm.value.cpf,
+      birth: kycForm.value.birth,
+      investment: investmentGoalOptions.value.find((option) => option.value === kycForm.value.investmentGoal)?.label || kycForm.value.investmentGoal,
+      experience: kycForm.value.investmentExperience,
+      careers: kycForm.value.occupation,
+      savings_investment: kycForm.value.investWithSavings,
+      phone: `${selectedKycPhoneCountry.value?.dialCode || ''}${kycForm.value.phone}`,
+      company_name: kycForm.value.companyName,
+      monthly_income: kycForm.value.monthlyIncome,
+    }
+
+    await kyc({ registration_info: params })
+    showKycSuccess.value = true
+  } catch (error) {
+    console.error('KYC 提交失败:', error)
+    alert(t('loginPage.kycForm.validation.submitFailed'))
+  } finally {
+    kycLoading.value = false
   }
 }
 
